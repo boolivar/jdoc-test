@@ -6,8 +6,6 @@ plugins {
     id "com.github.spotbugs"
 }
 
-group = "org.bool"
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(8)

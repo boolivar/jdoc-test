@@ -1,3 +1,5 @@
+rootProject.name = "jdoc-test"
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
