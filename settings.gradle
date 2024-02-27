@@ -1,11 +1,5 @@
 rootProject.name = "jdoc-test"
 
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-    }
-}
-
 rootDir.eachFileRecurse groovy.io.FileType.FILES, {
     if (it.name in ["build.gradle", "build.gradle.kts"]) {
         rootDir.relativePath(it.parentFile).tokenize("/").with { path ->
