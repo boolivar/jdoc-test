@@ -1,5 +1,11 @@
+name: release-please
+
 on:
-  push:
+  workflow_run:
+    workflows:
+      - Code Check
+    types:
+      - completed
     branches:
       - master
       - release/[0-9]+.[0-9]+.x
@@ -8,10 +14,9 @@ permissions:
   contents: write
   pull-requests: write
 
-name: release-please
-
 jobs:
   release-please:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v4
