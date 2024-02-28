@@ -39,7 +39,8 @@ public class CodeBlockParser {
             if (content.startsWith(OPEN_TAG, index)) {
                 ++opened;
             } else if (content.startsWith(CLOSE_TAG, index)) {
-                if (--opened == 0) {
+                --opened;
+                if (opened == 0) {
                     return content.substring(startIndex, index);
                 }
             }
