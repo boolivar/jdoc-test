@@ -16,6 +16,7 @@ dependencies {
     api "org.junit.platform:junit-platform-engine"
     implementation "com.github.javaparser:javaparser-core"
     implementation "org.apache.commons:commons-lang3"
+    implementation "org.jsoup:jsoup"
     implementation "org.spockframework:spock-core"
     runtimeOnly "net.bytebuddy:byte-buddy"
     runtimeOnly "org.objenesis:objenesis"

@@ -1,31 +1,59 @@
 package org.bool.jdoc.spock;
 
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.comments.Comment;
-import com.github.javaparser.utils.SourceRoot;
+import org.jsoup.select.Evaluator;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Paths;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CodeBlockParserTest {
 
-    private final CodeBlockParser parser = new CodeBlockParser();
+    private final CodeBlockParser parser = new CodeBlockParser(new Evaluator.Tag("code"));
 
     @Test
     void testParse() {
-        CompilationUnit unit = new SourceRoot(Paths.get("src/main/java/"))
-            .parse(CodeBlockParser.class.getPackageName(), CodeBlockParser.class.getSimpleName() + ".java");
-        Comment comment = unit.getAllComments().stream()
-            .filter(Comment::isJavadocComment).findFirst().orElseThrow();
-        assertThat(parser.parse(comment.getContent()))
-            .isEqualToNormalizingNewlines("""
-            \sdef "parse text and remove asterisks"() {
-               when:
-                 def result = $target.parse("<code> * some code with nested<code>blocks</code></code>")
-               then:
-                 result == " some code with nested<code>blocks</code>"
-            \s}""");
+        assertThat(parser.parse("""
+              <pre><code>
+                def "parse text and remove asterisks"() {
+                  given:
+                    def parser = new CodeBlockParser()
+                  when:
+                    def result = parser.parse("<code> * some code with nested<code>blocks</code></code>")
+                  then:
+                    result == [" some code with nested<code>blocks</code>"]
+                 }
+              </pre></code>
+               """))
+            .singleElement().asString()
+            .isEqualToIgnoringWhitespace("""
+                 def "parse text and remove asterisks"() {
+                   given:
+                     def parser = new CodeBlockParser()
+                   when:
+                     def result = parser.parse("<code> * some code with nested<code>blocks</code></code>")
+                   then:
+                     result == [" some code with nested<code>blocks</code>"]
+                 }
+                 """);
+    }
+
+    @ValueSource(strings = {"", " ", "sometext", "// comment", "/* comment */", "/** javadoc */"})
+    @ParameterizedTest
+    void testEmpty(String content) {
+        assertThat(parser.parse(content))
+            .isEmpty();
+    }
+
+    @Test
+    void testNested() {
+        assertThat(parser.parse("""
+                <pre>
+                    <code><code>one</code></code>
+                    <code>two</code>
+                </pre>
+                <code>three</code>
+                """))
+            .contains("<code>one</code>", "two", "three");
     }
 }
