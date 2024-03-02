@@ -16,7 +16,7 @@ java {
 }
 
 compileJava {
-    targetCompatibility = sourceCompatibility = "8"
+    options.release = 8
 }
 
 test {
