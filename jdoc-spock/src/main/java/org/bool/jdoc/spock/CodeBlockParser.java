@@ -8,6 +8,8 @@ import org.jsoup.nodes.Entities;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Evaluator;
 
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -42,29 +44,21 @@ public class CodeBlockParser {
      * }
      * </code></pre>
      */
-    @SneakyThrows
     public List<String> parse(String content) {
         return parser.apply(content).stream()
-            .filter(element -> element.is(codeTag) && !hasParent(element, codeTag))
+            .filter(element -> element.is(codeTag) && element.parents().stream().noneMatch(parent -> parent.is(codeTag)))
             .map(this::retrieveCodeBlock)
             .map(Entities::unescape)
-            .toList();
+            .collect(Collectors.toList());
     }
 
+    @SneakyThrows
     private String retrieveCodeBlock(Element codeElement) {
-        return codeElement.html().lines()
-            .map(line -> line.replaceFirst("^ *\\*", ""))
-            .collect(Collectors.joining("\n"));
-    }
-
-    private boolean hasParent(Element element, Evaluator evaluator) {
-        while (element.hasParent()) {
-            element = element.parent();
-            if (element.is(evaluator)) {
-                return true;
-            }
+        try (BufferedReader reader = new BufferedReader(new StringReader(codeElement.html()))) {
+            return reader.lines()
+                .map(line -> line.replaceFirst("^ *\\*", ""))
+                .collect(Collectors.joining("\n"));
         }
-        return false;
     }
 
     private static Evaluator and(Evaluator... evaluators) {

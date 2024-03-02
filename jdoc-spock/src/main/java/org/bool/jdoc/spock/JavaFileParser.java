@@ -6,13 +6,16 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.BlockComment;
+import com.github.javaparser.ast.comments.CommentsCollection;
 import com.github.javaparser.ast.comments.JavadocComment;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class JavaFileParser {
@@ -48,12 +51,15 @@ public class JavaFileParser {
         if (!result.isSuccessful()) {
             throw new SpockEngineException("Error parse file " + file + ": " + result.getProblems());
         }
-        List<String> code = result.getCommentsCollection().stream()
-                .flatMap(comments -> comments.getComments().stream())
-                .filter(comment -> JavadocComment.class.isInstance(comment) || BlockComment.class.isInstance(comment))
-                .flatMap(comment -> codeBlockParser.parse(comment.getContent()).stream())
-                .filter(StringUtils::isNotBlank)
-                .toList();
-        return new SpecSource(result.getResult().orElseThrow(), code);
+        return new SpecSource(result.getResult().get(),
+                result.getCommentsCollection().map(this::parseComments).orElse(Collections.emptyList()));
+    }
+
+    private List<String> parseComments(CommentsCollection comments) {
+        return comments.getComments().stream()
+            .filter(comment -> JavadocComment.class.isInstance(comment) || BlockComment.class.isInstance(comment))
+            .flatMap(comment -> codeBlockParser.parse(comment.getContent()).stream())
+            .filter(StringUtils::isNotBlank)
+            .collect(Collectors.toList());
     }
 }
