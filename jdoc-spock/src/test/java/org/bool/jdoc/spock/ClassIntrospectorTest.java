@@ -5,10 +5,11 @@ import org.bool.jdoc.spock.exception.SpockEngineException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.File;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -27,26 +28,32 @@ class ClassIntrospectorTest {
 
         private final Consumer<String> consumer;
 
-        @SuppressWarnings("RedundantModifier")
-        public AmbiguosClass(Consumer<String> consumer, Supplier<String> supplier) {
+        AmbiguosClass(Consumer<String> consumer, Supplier<String> supplier) {
             this(supplier, consumer);
         }
     }
 
-    @SuppressWarnings("PMD.LooseCoupling")
     @Test
     void testFindMockableConstructor() throws NoSuchMethodException {
-        assertThat(introspector.findMockConstructor(ArrayList.class))
-            .isEqualTo(ArrayList.class.getDeclaredConstructor(Collection.class));
+        assertThat(introspector.findMockConstructor(Exception.class))
+            .isEqualTo(Exception.class.getDeclaredConstructor(Throwable.class));
 
         assertThat(introspector.findMockConstructor(String.class))
             .isEqualTo(String.class.getDeclaredConstructor());
+    }
 
-        assertThatThrownBy(() -> introspector.findMockConstructor(LocalDate.class))
+    @ValueSource(classes = { LocalDate.class, File.class })
+    @ParameterizedTest
+    void testNonMockable(Class<?> cls) {
+        assertThatThrownBy(() -> introspector.findMockConstructor(File.class))
             .isInstanceOf(SpockEngineException.class)
             .hasMessageContaining("No mockable");
+    }
 
-        assertThatThrownBy(() -> introspector.findMockConstructor(AmbiguosClass.class))
+    @ValueSource(classes = AmbiguosClass.class)
+    @ParameterizedTest
+    void testAmbiguity(Class<?> cls) {
+        assertThatThrownBy(() -> introspector.findMockConstructor(cls))
             .isInstanceOf(SpockEngineException.class)
             .hasMessageContaining("ambiguity");
     }

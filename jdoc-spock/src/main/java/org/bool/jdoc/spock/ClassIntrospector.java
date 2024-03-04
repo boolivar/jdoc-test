@@ -43,12 +43,12 @@ public class ClassIntrospector {
      */
     @SneakyThrows
     public <T> Constructor<T> findMockConstructor(Class<T> targetClass) {
-        TreeMap<Integer, List<Constructor<?>>> ctors = Stream.of(targetClass.getConstructors())
+        TreeMap<Integer, List<Constructor<?>>> ctors = Stream.of(targetClass.getDeclaredConstructors())
             .filter(this::canBeMocked)
             .collect(groupingBy(Constructor::getParameterCount, TreeMap::new, toList()));
         for (List<Constructor<?>> mockable : ctors.descendingMap().values()) {
             if (mockable.size() == 1) {
-                return targetClass.getConstructor(mockable.get(0).getParameterTypes());
+                return targetClass.getDeclaredConstructor(mockable.get(0).getParameterTypes());
             }
             if (mockable.size() > 1) {
                 throw new SpockEngineException(targetClass + " mockable constructors ambiguity: " + mockable);
@@ -58,7 +58,7 @@ public class ClassIntrospector {
     }
 
     private boolean canBeMocked(Constructor<?> ctor) {
-        return Stream.of(ctor.getParameterTypes())
+        return !Modifier.isPrivate(ctor.getModifiers()) && Stream.of(ctor.getParameterTypes())
             .map(Class::getModifiers)
             .noneMatch(Modifier::isFinal);
     }
