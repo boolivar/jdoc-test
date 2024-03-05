@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 public class JavaFileSpecFactory {
@@ -29,21 +30,24 @@ public class JavaFileSpecFactory {
      *   when:
      *     def spec = factory.createSpec(file, getClass().getClassLoader())
      *   then:
-     *     spec.startsWith("package org.bool.jdoc.spock")
-     *     spec.contains("class SpockJavaFileSpecFactorySpec")
-     *     spec.contains("this line of test spec")
+     *     with(spec.get()) {
+     *       type == "spock"
+     *       name == "JavaFileSpecFactoryJdocSpockSpec"
+     *       script.startsWith("package org.bool.jdoc.spock")
+     *       script.contains("class SpockJavaFileSpecFactorySpec")
+     *       script.contains("this line of test spec")
+     *     }
      * }
      * </code></pre>
      */
-    @SneakyThrows
-    public String createSpec(Path file, ClassLoader classLoader) {
-        SpecSource specSource = javaFileParser.parse(file);
-        return specSource != null && !specSource.getCodeBlocks().isEmpty()
-            ? createSpec(specSource.getUnit(), specSource.getCodeBlocks(), classLoader)
-            : null;
+    public Optional<TestSpec> createSpec(Path file, ClassLoader classLoader) {
+        return Optional.of(javaFileParser.parse(file))
+            .filter(specSource -> !specSource.getCodeBlocks().isEmpty())
+            .map(specSource -> createSpec(specSource.getUnit(), specSource.getCodeBlocks(), classLoader));
     }
 
-    private String createSpec(CompilationUnit unit, List<String> codeBlocks, ClassLoader classLoader) throws ClassNotFoundException {
+    @SneakyThrows
+    private TestSpec createSpec(CompilationUnit unit, List<String> codeBlocks, ClassLoader classLoader) {
         Class<?> targetClass = classLoader.loadClass(unit.getPrimaryType().get().getFullyQualifiedName().get());
         return spockSpecGenerator.generateSpec(unit, codeBlocks, targetClass);
     }

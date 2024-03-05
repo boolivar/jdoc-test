@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +29,7 @@ class JavaFileSpecFactoryTest {
 
     @Test
     void testCreateSpec(@Mock CompilationUnit unit, @Mock TypeDeclaration<?> typeDeclaration) {
-        Path file = Paths.get("test");
+        var file = Paths.get("test");
         given(javaFileParser.parse(file))
             .willReturn(new SpecSource(unit, List.of("test code")));
 
@@ -39,10 +38,11 @@ class JavaFileSpecFactoryTest {
         given(typeDeclaration.getFullyQualifiedName())
             .willReturn(Optional.of(JavaFileSpecFactoryTest.class.getName()));
 
+        var spec = new TestSpec("test", "spec", "script");
         given(spockSpecGenerator.generateSpec(unit, List.of("test code"), JavaFileSpecFactoryTest.class))
-            .willReturn("Generated Spec");
+            .willReturn(spec);
 
         assertThat(factory.createSpec(file, ClassLoader.getSystemClassLoader()))
-            .isEqualTo("Generated Spec");
+            .containsSame(spec);
     }
 }

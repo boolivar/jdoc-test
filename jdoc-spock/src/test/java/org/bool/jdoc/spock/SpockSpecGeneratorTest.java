@@ -32,7 +32,10 @@ class SpockSpecGeneratorTest {
             .willReturn(ctor);
 
         assertThat(generator.generateSpec(new CompilationUnit("org.bool.jdoc"), List.of("def 'test'() {}"), SpockSpecGenerator.class))
-            .contains(expectedDef);
+            .returns("spock", TestSpec::getType)
+            .returns("SpockSpecGeneratorJdocSpockSpec", TestSpec::getName)
+            .extracting(TestSpec::getScript).asString()
+                .contains(expectedDef);
     }
 
     static Stream<Arguments> testSpec() throws NoSuchMethodException {

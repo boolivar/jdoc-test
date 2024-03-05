@@ -32,23 +32,32 @@ public class SpockSpecGenerator {
      *   when:
      *     def spec = $target.generateSpec(new CompilationUnit("org.bool.jdoc"), ['def "test method"() { }'], SpockSpecGenerator.class)
      *   then:
-     *     spec.startsWith("package org.bool.jdoc")
-     *     spec.contains("class SpockSpecGeneratorJdocSpockSpec extends Specification")
-     *     spec.contains("def classIntrospector = Mock(ClassIntrospector)")
-     *     spec.contains('def $target = new SpockSpecGenerator(classIntrospector)')
-     *     spec.contains('def "test method"() { }')
+     *     with (spec) {
+     *       type == "spock"
+     *       name == "SpockSpecGeneratorJdocSpockSpec"
+     *       script.startsWith("package org.bool.jdoc")
+     *       script.contains("class $name extends Specification")
+     *       script.contains("def classIntrospector = Mock(ClassIntrospector)")
+     *       script.contains('def $target = new SpockSpecGenerator(classIntrospector)')
+     *       script.contains('def "test method"() { }')
+     *     }
      * }
      * </code></pre>
      */
-    public String generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass) {
+    public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass) {
         return generateSpec(unit, codeBlocks, targetClass, classIntrospector.findMockConstructor(targetClass));
     }
 
-    public String generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass, Constructor<?> ctor) {
+    public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass, Constructor<?> ctor) {
+        String name = String.format("%sJdocSpockSpec", targetClass.getSimpleName());
+        return new TestSpec("spock", name, generateSpec(name, unit, codeBlocks, ctor));
+    }
+
+    private String generateSpec(String name, CompilationUnit unit, List<String> codeBlocks, Constructor<?> ctor) {
         Builder<String> spec = Stream.builder();
         unit.getPackageDeclaration().map(Object::toString).ifPresent(spec);
         unit.getImports().stream().map(Object::toString).forEach(spec);
-        spec.add(String.format("class %sJdocSpockSpec extends Specification {", targetClass.getSimpleName()));
+        spec.add(String.format("class %s extends Specification {", name));
         defMockFields(ctor).forEach(spec);
         defTargetField(ctor).ifPresent(spec);
         codeBlocks.forEach(spec);
