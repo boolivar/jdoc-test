@@ -1,0 +1,37 @@
+package org.bool.jdoc.spock;
+
+import groovy.lang.GroovyClassLoader;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.engine.UniqueId;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.then;
+
+@ExtendWith(MockitoExtension.class)
+class JdocSpockEngineDescriptorTest {
+
+    @Test
+    void testCloseWithoutClassLoader() throws IOException {
+        try (var descriptor = JdocSpockEngineDescriptor.builder()
+                .displayName("DisplayName").uniqueId(UniqueId.forEngine("UniqueId")).build()) {
+            assertThat(descriptor)
+                   .returns("DisplayName", JdocSpockEngineDescriptor::getDisplayName)
+                   .returns("UniqueId", d -> d.getUniqueId().getEngineId().orElseThrow());
+        }
+    }
+
+    @Test
+    void testCloseClassLoader(@Mock GroovyClassLoader classLoader) throws IOException {
+        try (var descriptor = JdocSpockEngineDescriptor.builder()
+                .displayName("Name").uniqueId(UniqueId.forEngine("Id")).classLoader(classLoader).build()) {
+            assertThat(descriptor.getChildren())
+                .isEmpty();
+        }
+        then(classLoader).should().close();
+    }
+}
