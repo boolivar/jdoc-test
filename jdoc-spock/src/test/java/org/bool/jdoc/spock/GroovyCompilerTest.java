@@ -62,14 +62,16 @@ class GroovyCompilerTest {
 
     @Test
     void testCompileString() {
-        compiler.compile("In", "Script");
+        assertThat(compiler.compile("In", "Script"))
+            .isEmpty();
         then(unit).should().addSource("In", "Script");
     }
 
     @Test
     void testCompileInputStream() {
         var in = new ByteArrayInputStream("Script".getBytes());
-        compiler.compile("In", in);
+        assertThat(compiler.compile("In", in))
+            .isEmpty();
         then(unit).should().addSource("In", in);
     }
 
