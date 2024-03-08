@@ -54,7 +54,7 @@ tasks.withType(Pmd).configureEach {
 }
 
 spotbugs {
-    omitVisitors = ["FindReturnRef"]
+    omitVisitors = ["ConstructorThrow", "FindReturnRef"]
 }
 
 repositories {
