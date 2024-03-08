@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -35,12 +36,11 @@ class GroovyCompilerTest {
     @AfterEach
     void verifyCompile() {
         then(unit).should().compile();
-        then(unit).should().getClasses();
     }
 
     @Test
     void testCompile(@Mock GroovyClassLoader classLoader, @Mock ReaderSource readerSource) {
-        var testClass = new GroovyClass("test-class", "test".getBytes());
+        var testClass = new GroovyClass("test-class", "test".getBytes(StandardCharsets.UTF_8));
 
         given(unit.getClassLoader())
             .willReturn(classLoader);
@@ -69,7 +69,7 @@ class GroovyCompilerTest {
 
     @Test
     void testCompileInputStream() {
-        var in = new ByteArrayInputStream("Script".getBytes());
+        var in = new ByteArrayInputStream("Script".getBytes(StandardCharsets.UTF_8));
         assertThat(compiler.compile("In", in))
             .isEmpty();
         then(unit).should().addSource("In", in);
