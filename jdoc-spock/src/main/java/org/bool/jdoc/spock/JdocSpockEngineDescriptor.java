@@ -1,28 +1,24 @@
 package org.bool.jdoc.spock;
 
-import groovy.lang.GroovyClassLoader;
 import lombok.Builder;
 import lombok.NonNull;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
 
-import java.io.Closeable;
-import java.io.IOException;
+public class JdocSpockEngineDescriptor extends EngineDescriptor implements AutoCloseable {
 
-public class JdocSpockEngineDescriptor extends EngineDescriptor implements Closeable {
-
-    private final GroovyClassLoader classLoader;
+    private final AutoCloseable resource;
 
     @Builder
-    public JdocSpockEngineDescriptor(@NonNull UniqueId uniqueId, @NonNull String displayName, GroovyClassLoader classLoader) {
+    public JdocSpockEngineDescriptor(@NonNull UniqueId uniqueId, @NonNull String displayName, AutoCloseable resource) {
         super(uniqueId, displayName);
-        this.classLoader = classLoader;
+        this.resource = resource;
     }
 
     @Override
-    public void close() throws IOException {
-        if (classLoader != null) {
-            classLoader.close();
+    public void close() throws Exception {
+        if (resource != null) {
+            resource.close();
         }
     }
 }

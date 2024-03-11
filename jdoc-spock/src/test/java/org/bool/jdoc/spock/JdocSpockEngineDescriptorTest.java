@@ -7,8 +7,6 @@ import org.junit.platform.engine.UniqueId;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.IOException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.then;
 
@@ -16,7 +14,7 @@ import static org.mockito.BDDMockito.then;
 class JdocSpockEngineDescriptorTest {
 
     @Test
-    void testCloseWithoutClassLoader() throws IOException {
+    void testCloseWithoutClassLoader() throws Exception {
         try (var descriptor = JdocSpockEngineDescriptor.builder()
                 .displayName("DisplayName").uniqueId(UniqueId.forEngine("UniqueId")).build()) {
             assertThat(descriptor)
@@ -26,9 +24,9 @@ class JdocSpockEngineDescriptorTest {
     }
 
     @Test
-    void testCloseClassLoader(@Mock GroovyClassLoader classLoader) throws IOException {
+    void testCloseClassLoader(@Mock GroovyClassLoader classLoader) throws Exception {
         try (var descriptor = JdocSpockEngineDescriptor.builder()
-                .displayName("Name").uniqueId(UniqueId.forEngine("Id")).classLoader(classLoader).build()) {
+                .displayName("Name").uniqueId(UniqueId.forEngine("Id")).resource(classLoader).build()) {
             assertThat(descriptor.getChildren())
                 .isEmpty();
         }
