@@ -36,7 +36,7 @@ public class SpockEngineService {
      * </code></pre>
      */
     public JdocSpockEngineDescriptor discover(SpockEngine spockEngine, EngineDiscoveryRequest request, UniqueId uniqueId) {
-        SpecClassMapper mapper = specClassMapperFactory.create(request.getConfigurationParameters());
+        SpecClassMapper mapper = specClassMapperFactory.createMapper(request.getConfigurationParameters());
         EngineDiscoveryRequest discoveryRequest = requestMapper.toSpockDiscoveryRequest(request, mapper);
         TestDescriptor testDescriptor = spockEngine.discover(discoveryRequest, UniqueId.forEngine(spockEngine.getId()));
         return createEngineDescriptor(uniqueId, testDescriptor);

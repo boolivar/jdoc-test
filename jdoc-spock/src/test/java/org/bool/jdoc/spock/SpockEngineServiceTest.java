@@ -36,7 +36,7 @@ class SpockEngineServiceTest {
 
         given(spockEngine.getId())
             .willReturn("spock-engine");
-        given(specClassMapperFactory.create(params))
+        given(specClassMapperFactory.createMapper(params))
             .willReturn(specClassMapper);
         given(requestMapper.toSpockDiscoveryRequest(jdocDiscoveryRequest, specClassMapper))
             .willReturn(spockDiscoveryRequest);
