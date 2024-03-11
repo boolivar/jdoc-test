@@ -1,0 +1,32 @@
+package org.bool.jdoc.spock;
+
+import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
+import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.ImportCustomizer;
+import org.junit.platform.engine.ConfigurationParameters;
+
+import java.nio.file.Files;
+
+import static org.bool.jdoc.spock.ConfigParams.*;
+
+@AllArgsConstructor
+public class CompilerConfigurationFactory {
+
+    private static final String SPOCK_PACKAGE_IMPORT = "spock.lang";
+
+    public CompilerConfiguration createCompilerConfig(ConfigurationParameters params) {
+        ImportCustomizer importCustomizer = new ImportCustomizer();
+        importCustomizer.addStarImports(SPOCK_PACKAGE_IMPORT);
+        CompilerConfiguration config = new CompilerConfiguration();
+        config.addCompilationCustomizers(importCustomizer);
+        config.setClasspathList(CLASSPATH.get(params));
+        config.setTargetDirectory(GENERATED_CLASSES_DIR.maybeGet(params).orElseGet(this::tempDir));
+        return config;
+    }
+
+    @SneakyThrows
+    private String tempDir() {
+        return Files.createTempDirectory("jdoc-spock-").toString();
+    }
+}
