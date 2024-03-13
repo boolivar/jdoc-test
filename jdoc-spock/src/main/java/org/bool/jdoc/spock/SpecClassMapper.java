@@ -30,7 +30,7 @@ public class SpecClassMapper {
      *   then:
      *     results == [getClass()]
      * }
-     * </code><pre>
+     * </code></pre>
      */
     public List<Class<?>> toTestSpecClasses(Path file) {
         return specFactory.createSpec(file, classLoader)
