@@ -3,12 +3,14 @@ package org.bool.jdoc.spock;
 import groovy.lang.GroovyClassLoader;
 import lombok.AllArgsConstructor;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
 @AllArgsConstructor
-public class SpecClassMapper {
+public class SpecClassMapper implements Closeable {
 
     private final JavaFileSpecFactory specFactory;
 
@@ -35,5 +37,10 @@ public class SpecClassMapper {
     public List<Class<?>> toTestSpecClasses(Path file) {
         return specFactory.createSpec(file, classLoader)
                 .map(spec -> compiler.compile(spec.getName(), spec.getScript())).orElse(Collections.emptyList());
+    }
+
+    @Override
+    public void close() throws IOException {
+        classLoader.close();
     }
 }

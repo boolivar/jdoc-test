@@ -1,6 +1,7 @@
 package org.bool.jdoc.spock;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.UniqueId;
@@ -35,11 +36,13 @@ public class SpockEngineService {
      * }
      * </code></pre>
      */
+    @SneakyThrows
     public JdocSpockEngineDescriptor discover(SpockEngine spockEngine, EngineDiscoveryRequest request, UniqueId uniqueId) {
-        SpecClassMapper mapper = specClassMapperFactory.createMapper(request.getConfigurationParameters());
-        EngineDiscoveryRequest discoveryRequest = requestMapper.toSpockDiscoveryRequest(request, mapper);
-        TestDescriptor testDescriptor = spockEngine.discover(discoveryRequest, UniqueId.forEngine(spockEngine.getId()));
-        return createEngineDescriptor(uniqueId, testDescriptor);
+        try (SpecClassMapper mapper = specClassMapperFactory.createMapper(request.getConfigurationParameters())) {
+            EngineDiscoveryRequest discoveryRequest = requestMapper.toSpockDiscoveryRequest(request, mapper);
+            TestDescriptor testDescriptor = spockEngine.discover(discoveryRequest, UniqueId.forEngine(spockEngine.getId()));
+            return createEngineDescriptor(uniqueId, testDescriptor);
+        }
     }
 
     private JdocSpockEngineDescriptor createEngineDescriptor(UniqueId uniqueId, TestDescriptor testDescriptor) {

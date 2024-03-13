@@ -7,12 +7,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 class SpecClassMapperTest {
@@ -39,5 +42,11 @@ class SpecClassMapperTest {
                 .willReturn(List.of(getClass()));
         assertThat(mapper.toTestSpecClasses(file))
                 .containsOnly(getClass());
+    }
+
+    @Test
+    void testCloseClassLoader() throws IOException {
+        assertThatNoException().isThrownBy(() -> mapper.close());
+        then(classLoader).should().close();
     }
 }
