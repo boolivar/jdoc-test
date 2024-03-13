@@ -35,7 +35,9 @@
         <!--<module name="AnnotationLocation"/>-->
         <!--<module name="AnnotationOnSameLine">-->
         <!--<module name="AnnotationUseStyle"/>-->
-        <module name="MissingDeprecated"/>
+        <module name="MissingDeprecated">
+            <property name="severity" value="warning"/>
+        </module>
         <!--<module name="MissingOverride"/>-->
         <module name="PackageAnnotation"/>
         <module name="SuppressWarningsHolder"/>
