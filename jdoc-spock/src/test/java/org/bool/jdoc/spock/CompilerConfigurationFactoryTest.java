@@ -24,11 +24,11 @@ class CompilerConfigurationFactoryTest {
         given(params.get(ConfigParams.CLASSPATH.getKey()))
                 .willReturn(Optional.of("/usr/lib/jdoc-spock.jar,api.jar"));
         given(params.get(ConfigParams.GENERATED_CLASSES_DIR.getKey()))
-                .willReturn(Optional.of("/home/temp"));
+                .willReturn(Optional.of("./temp"));
 
         assertThat(factory.createCompilerConfig(params))
                 .returns(List.of("/usr/lib/jdoc-spock.jar", "api.jar"), CompilerConfiguration::getClasspath)
-                .returns(new File("/home/temp"), CompilerConfiguration::getTargetDirectory)
+                .returns(new File("./temp"), CompilerConfiguration::getTargetDirectory)
                 ;
     }
 }

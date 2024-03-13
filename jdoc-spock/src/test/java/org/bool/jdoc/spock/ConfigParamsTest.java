@@ -36,10 +36,10 @@ class ConfigParamsTest {
 
     @Test
     void testStringListConfigParam() {
-        given(params.get("config.param"))
+        given(params.get("list.config.param"))
                 .willReturn(Optional.of("a,b"));
 
-        var param = new ConfigParams.StringListConfigParam("config.param");
+        var param = new ConfigParams.StringListConfigParam("list.config.param");
 
         assertThat(param.maybeGet(params))
                 .hasValue(List.of("a", "b"));
