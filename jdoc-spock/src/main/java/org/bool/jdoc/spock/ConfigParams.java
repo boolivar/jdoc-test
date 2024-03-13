@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.platform.engine.ConfigurationParameters;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,10 @@ public class ConfigParams {
     public static final StringListConfigParam CLASSPATH = new StringListConfigParam(PREFIX + "classpath");
 
     public static final StringConfigParam GENERATED_CLASSES_DIR = new StringConfigParam(PREFIX + "generated-classes-dir");
+
+    public static final StringListConfigParam TEST_DIRS = new StringListConfigParam(PREFIX + "test-dirs");
+
+    public static final StringListConfigParam TEST_FILES = new StringListConfigParam(PREFIX + "test-files");
 
     protected final String key;
 
@@ -41,7 +46,7 @@ public class ConfigParams {
         }
 
         public List<String> get(ConfigurationParameters config) {
-            return maybeGet(config).orElse(List.of());
+            return maybeGet(config).orElse(Collections.emptyList());
         }
 
         public Optional<List<String>> maybeGet(ConfigurationParameters config) {
