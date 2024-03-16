@@ -3,7 +3,7 @@ name: release-please
 on:
   workflow_run:
     workflows:
-      - Code Check
+      - CI
     types:
       - completed
     branches:
