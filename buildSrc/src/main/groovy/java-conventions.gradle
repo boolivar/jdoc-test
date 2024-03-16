@@ -19,6 +19,10 @@ compileJava {
     options.release = 8
 }
 
+javadoc {
+    options.addBooleanOption("Xdoclint:none", true)
+}
+
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
