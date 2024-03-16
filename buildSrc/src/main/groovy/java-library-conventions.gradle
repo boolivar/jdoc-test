@@ -1,4 +1,13 @@
 plugins {
     id "java-conventions"
     id "java-library"
+    id "publishing-conventions"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
