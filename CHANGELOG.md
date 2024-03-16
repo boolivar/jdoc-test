@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/boolivar/jdoc-test/compare/0.1.0...0.2.0) (2024-03-16)
+
+
+### Features
+
+* internal platform in order to not publish platform bom ([4c309ee](https://github.com/boolivar/jdoc-test/commit/4c309eed3edf89872af01750d639b1c70e8df704))
+
+
+### Bug Fixes
+
+* release-please CI workflow dependency ([a343a19](https://github.com/boolivar/jdoc-test/commit/a343a19495d6b70995a74df2a555d71c4ffb25b4))
+
 ## 0.1.0 (2024-03-15)
 
 
