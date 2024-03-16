@@ -24,6 +24,12 @@ test {
     finalizedBy jacocoTestReport
 }
 
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
 jacocoTestCoverageVerification {
     dependsOn test
     violationRules {
