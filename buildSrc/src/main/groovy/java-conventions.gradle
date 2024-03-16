@@ -61,8 +61,17 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    internalPlatform {
+        visible = false
+    }
+    [compileClasspath, runtimeClasspath, testCompileClasspath, testRuntimeClasspath].each {
+        it.extendsFrom internalPlatform
+    }
+}
+
 dependencies {
-    implementation platform(project(":jdoc-platform"))
+    internalPlatform platform(project(":jdoc-platform"))
 
     testImplementation "org.assertj:assertj-core"
     testImplementation "org.junit.jupiter:junit-jupiter"
