@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/boolivar/jdoc-test/compare/0.2.0...0.3.0) (2024-03-19)
+
+
+### Features
+
+* no $target and mocks if no mockable constructor found ([34fe03d](https://github.com/boolivar/jdoc-test/commit/34fe03d2bee2e83837f5ed0350da68e2b148ada7))
+
 ## [0.2.0](https://github.com/boolivar/jdoc-test/compare/0.1.0...0.2.0) (2024-03-16)
 
 
