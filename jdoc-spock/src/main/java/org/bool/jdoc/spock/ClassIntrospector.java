@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
@@ -21,14 +22,14 @@ public class ClassIntrospector {
      * <pre><code lang="spock">
      * def "mockable constructor"() {
      *   when:
-     *     def ctor = $target.findMockConstructor(ArrayList)
+     *     def ctor = $target.findMockConstructor(ArrayList).get()
      *   then:
      *     ctor.parameterTypes == [Collection]
      * }
      * 
      * def "default constructor"() {
      *   when:
-     *     def ctor = $target.findMockConstructor(String)
+     *     def ctor = $target.findMockConstructor(String).get()
      *   then:
      *     ctor.parameterTypes == []
      * }
@@ -37,24 +38,24 @@ public class ClassIntrospector {
      *   when:
      *     def ctor = $target.findMockConstructor(java.time.LocalTime)
      *   then:
-     *     thrown(SpockEngineException)
+     *     !ctor.isPresent()
      * }
      * </code></pre>
      */
     @SneakyThrows
-    public <T> Constructor<T> findMockConstructor(Class<T> targetClass) {
+    public <T> Optional<Constructor<T>> findMockConstructor(Class<T> targetClass) {
         TreeMap<Integer, List<Constructor<?>>> ctors = Stream.of(targetClass.getDeclaredConstructors())
             .filter(this::canBeMocked)
             .collect(groupingBy(Constructor::getParameterCount, TreeMap::new, toList()));
         for (List<Constructor<?>> mockable : ctors.descendingMap().values()) {
             if (mockable.size() == 1) {
-                return targetClass.getDeclaredConstructor(mockable.get(0).getParameterTypes());
+                return Optional.of(targetClass.getDeclaredConstructor(mockable.get(0).getParameterTypes()));
             }
             if (mockable.size() > 1) {
                 throw new SpockEngineException(targetClass + " mockable constructors ambiguity: " + mockable);
             }
         }
-        throw new SpockEngineException("No mockable constructors found for " + targetClass);
+        return Optional.empty();
     }
 
     private boolean canBeMocked(Constructor<?> ctor) {

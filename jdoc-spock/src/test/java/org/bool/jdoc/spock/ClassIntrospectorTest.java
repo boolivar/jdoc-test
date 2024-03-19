@@ -36,18 +36,17 @@ class ClassIntrospectorTest {
     @Test
     void testFindMockableConstructor() throws NoSuchMethodException {
         assertThat(introspector.findMockConstructor(Exception.class))
-            .isEqualTo(Exception.class.getDeclaredConstructor(Throwable.class));
+            .hasValue(Exception.class.getDeclaredConstructor(Throwable.class));
 
         assertThat(introspector.findMockConstructor(String.class))
-            .isEqualTo(String.class.getDeclaredConstructor());
+            .hasValue(String.class.getDeclaredConstructor());
     }
 
     @ValueSource(classes = { LocalDate.class, File.class })
     @ParameterizedTest
     void testNonMockable(Class<?> cls) {
-        assertThatThrownBy(() -> introspector.findMockConstructor(File.class))
-            .isInstanceOf(SpockEngineException.class)
-            .hasMessageContaining("No mockable");
+        assertThat(introspector.findMockConstructor(File.class))
+            .isEmpty();
     }
 
     @ValueSource(classes = AmbiguosClass.class)

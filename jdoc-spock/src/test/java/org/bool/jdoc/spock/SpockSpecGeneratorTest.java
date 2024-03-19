@@ -1,6 +1,7 @@
 package org.bool.jdoc.spock;
 
 import com.github.javaparser.ast.CompilationUnit;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,13 +31,27 @@ class SpockSpecGeneratorTest {
     @ParameterizedTest
     void testSpec(Constructor<SpockSpecGenerator> ctor, String expectedDef) {
         given(classIntrospector.findMockConstructor(SpockSpecGenerator.class))
-            .willReturn(ctor);
+            .willReturn(Optional.of(ctor));
 
         assertThat(generator.generateSpec(new CompilationUnit("org.bool.jdoc"), List.of("def 'test'() {}"), SpockSpecGenerator.class))
             .returns("spock", TestSpec::getType)
             .returns("SpockSpecGeneratorJdocSpockSpec", TestSpec::getName)
             .extracting(TestSpec::getScript).asString()
                 .contains(expectedDef);
+    }
+
+    @Test
+    void testNoMockableConstructor() {
+        given(classIntrospector.findMockConstructor(SpockSpecGenerator.class))
+            .willReturn(Optional.empty());
+
+        assertThat(generator.generateSpec(new CompilationUnit("org.bool.jdoc"), List.of("def 'test'() {}"), SpockSpecGenerator.class))
+            .returns("spock", TestSpec::getType)
+            .returns("SpockSpecGeneratorJdocSpockSpec", TestSpec::getName)
+            .extracting(TestSpec::getScript).asString()
+                .doesNotContain("$target")
+                .doesNotContain("classIntrospector")
+                ;
     }
 
     static Stream<Arguments> testSpec() throws NoSuchMethodException {

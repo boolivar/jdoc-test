@@ -28,7 +28,7 @@ public class SpockSpecGenerator {
      * <pre><code lang="spock">
      * def "Spec generated for targetClass"() {
      *   given:
-     *     classIntrospector.findMockConstructor(SpockSpecGenerator.class) >> SpockSpecGenerator.class.getConstructor(ClassIntrospector.class)
+     *     classIntrospector.findMockConstructor(SpockSpecGenerator.class) >> Optional.of(SpockSpecGenerator.class.getConstructor(ClassIntrospector.class))
      *   when:
      *     def spec = $target.generateSpec(new CompilationUnit("org.bool.jdoc"), ['def "test method"() { }'], SpockSpecGenerator.class)
      *   then:
@@ -45,7 +45,7 @@ public class SpockSpecGenerator {
      * </code></pre>
      */
     public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass) {
-        return generateSpec(unit, codeBlocks, targetClass, classIntrospector.findMockConstructor(targetClass));
+        return generateSpec(unit, codeBlocks, targetClass, classIntrospector.findMockConstructor(targetClass).orElse(null));
     }
 
     public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass, Constructor<?> ctor) {
@@ -65,12 +65,14 @@ public class SpockSpecGenerator {
     }
 
     private Stream<String> defMockFields(Constructor<?> ctor) {
-        return IntStream.range(0, ctor.getParameterCount())
+        return IntStream.range(0, ctor != null ? ctor.getParameterCount() : 0)
             .mapToObj(index -> String.format("def %s = Mock(%s)", ctor.getParameters()[index].getName(), ctor.getParameterTypes()[index].getSimpleName()));
     }
 
-    private Optional<String> defTargetField(Constructor<?> ctor) {
-        return Optional.of(String.format("def $target = new %s(%s)", ctor.getDeclaringClass().getSimpleName(),
-                Stream.of(ctor.getParameters()).map(Parameter::getName).collect(joining(", "))));
+    private Optional<String> defTargetField(Constructor<?> constructor) {
+        return Optional.ofNullable(constructor)
+                .map(ctor -> String.format("def $target = new %s(%s)",
+                        ctor.getDeclaringClass().getSimpleName(),
+                        Stream.of(ctor.getParameters()).map(Parameter::getName).collect(joining(", "))));
     }
 }
