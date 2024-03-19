@@ -3,6 +3,7 @@
 [![CI](https://github.com/boolivar/jdoc-test/workflows/CI/badge.svg)](https://github.com/boolivar/jdoc-test/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/boolivar/jdoc-test/graph/badge.svg?token=PCV1VTNFYT)](https://codecov.io/gh/boolivar/jdoc-test)
 [![release](https://img.shields.io/github/v/release/boolivar/jdoc-test)](https://github.com/boolivar/jdoc-test/releases/latest)
+[![](https://jitpack.io/v/boolivar/jdoc-test.svg)](https://jitpack.io/#boolivar/jdoc-test)
 
 Write BDD tests in javadocs.
 
