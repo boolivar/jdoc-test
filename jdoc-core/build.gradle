@@ -1,14 +1,5 @@
 plugins {
-    id "java-library-conventions"
-}
-
-afterEvaluate {
-    test {
-        systemProperties = [
-            //"jdoc.spock.test-dirs" : sourceSets.main.java.srcDirs.join(","),
-            "jdoc.spock.classpath" : configurations.testCompileClasspath.files.join(",")
-        ]
-    }
+    id "java-library-jdoc-spock-conventions"
 }
 
 dependencies {
@@ -18,5 +9,5 @@ dependencies {
     implementation "org.apache.commons:commons-lang3"
     implementation "org.jsoup:jsoup"
 
-    //testRuntimeOnly "com.github.boolivar:jdoc-test"
+    testRuntimeOnly "com.github.boolivar:jdoc-test"
 }

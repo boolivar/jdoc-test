@@ -1,18 +1,5 @@
 plugins {
-    id "java-library-conventions"
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-parameters"
-}
-
-afterEvaluate {
-    test {
-        systemProperties = [
-            "jdoc.spock.test-dirs" : sourceSets.main.java.srcDirs.join(","),
-            "jdoc.spock.classpath" : configurations.testCompileClasspath.files.join(",")
-        ]
-    }
+    id "java-library-jdoc-spock-conventions"
 }
 
 dependencies {
