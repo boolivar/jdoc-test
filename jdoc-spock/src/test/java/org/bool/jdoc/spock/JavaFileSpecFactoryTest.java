@@ -1,5 +1,8 @@
 package org.bool.jdoc.spock;
 
+import org.bool.jdoc.core.JavaFileParser;
+import org.bool.jdoc.core.SpecSource;
+
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import org.junit.jupiter.api.Test;

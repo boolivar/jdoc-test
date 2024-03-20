@@ -2,30 +2,21 @@ plugins {
     id "java-library-conventions"
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-parameters"
-}
-
 afterEvaluate {
     test {
         systemProperties = [
-            "jdoc.spock.test-dirs" : sourceSets.main.java.srcDirs.join(","),
+            //"jdoc.spock.test-dirs" : sourceSets.main.java.srcDirs.join(","),
             "jdoc.spock.classpath" : configurations.testCompileClasspath.files.join(",")
         ]
     }
 }
 
 dependencies {
-    api project(":jdoc-core")
     api "org.junit.platform:junit-platform-engine"
 
     implementation "com.github.javaparser:javaparser-core"
     implementation "org.apache.commons:commons-lang3"
     implementation "org.jsoup:jsoup"
-    implementation "org.spockframework:spock-core"
 
-    runtimeOnly "net.bytebuddy:byte-buddy"
-    runtimeOnly "org.objenesis:objenesis"
-
-    testImplementation "org.junit.platform:junit-platform-launcher"
+    //testRuntimeOnly "com.github.boolivar:jdoc-test"
 }

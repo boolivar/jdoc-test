@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import com.github.javaparser.ast.CompilationUnit;
 import lombok.AllArgsConstructor;

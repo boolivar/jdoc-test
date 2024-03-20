@@ -69,6 +69,7 @@ spotbugs {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 configurations {
@@ -85,5 +86,6 @@ dependencies {
 
     testImplementation "org.assertj:assertj-core"
     testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "org.junit.platform:junit-platform-suite"
     testImplementation "org.mockito:mockito-junit-jupiter"
 }

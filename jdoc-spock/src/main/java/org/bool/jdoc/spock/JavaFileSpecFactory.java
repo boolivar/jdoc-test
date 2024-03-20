@@ -1,5 +1,7 @@
 package org.bool.jdoc.spock;
 
+import org.bool.jdoc.core.JavaFileParser;
+
 import com.github.javaparser.ast.CompilationUnit;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -16,7 +18,7 @@ public class JavaFileSpecFactory {
     private final SpockSpecGenerator spockSpecGenerator;
 
     public JavaFileSpecFactory() {
-        this(new JavaFileParser(), new SpockSpecGenerator());
+        this(new JavaFileParser("spock"), new SpockSpecGenerator());
     }
 
     /**
