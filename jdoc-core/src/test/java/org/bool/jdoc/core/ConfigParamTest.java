@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ConfigParamsTest {
+class ConfigParamTest {
 
     @Mock
     private ConfigurationParameters params;
@@ -26,7 +26,7 @@ class ConfigParamsTest {
         given(params.get("config.param"))
                 .willReturn(Optional.of("test"));
 
-        var param = new ConfigParams.StringConfigParam("config.param");
+        var param = new ConfigParam.StringConfigParam("config.param");
 
         assertThat(param.maybeGet(params))
                 .hasValue("test");
@@ -39,7 +39,7 @@ class ConfigParamsTest {
         given(params.get("list.config.param"))
                 .willReturn(Optional.of("a,b"));
 
-        var param = new ConfigParams.StringListConfigParam("list.config.param");
+        var param = new ConfigParam.StringListConfigParam("list.config.param");
 
         assertThat(param.maybeGet(params))
                 .hasValue(List.of("a", "b"));
