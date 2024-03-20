@@ -1,5 +1,7 @@
 package org.bool.jdoc.spock;
 
+import org.bool.jdoc.core.DiscoveryRequest;
+
 import lombok.SneakyThrows;
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.EngineDiscoveryRequest;

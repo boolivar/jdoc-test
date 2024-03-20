@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
