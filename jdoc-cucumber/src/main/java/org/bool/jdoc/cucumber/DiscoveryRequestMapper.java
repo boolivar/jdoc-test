@@ -24,7 +24,7 @@ public class DiscoveryRequestMapper {
         List<Path> features = featureLoader.loadFeatures(discoveryRequest);
         return DiscoveryRequest.builder()
                 .selectors(features.stream().map(Path::toFile).map(DiscoverySelectors::selectFile).collect(Collectors.toList()))
-                .filters(List.copyOf(discoveryRequest.getFiltersByType(DiscoveryFilter.class)))
+                .filters(discoveryRequest.getFiltersByType(DiscoveryFilter.class))
                 .params(discoveryRequest.getConfigurationParameters())
                 .listener(discoveryRequest.getDiscoveryListener())
                 .build();

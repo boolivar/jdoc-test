@@ -10,7 +10,6 @@ import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.EngineDiscoveryListener;
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.discovery.DiscoverySelectors;
-import org.junit.platform.engine.discovery.FileSelector;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
