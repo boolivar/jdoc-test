@@ -8,12 +8,12 @@ import org.junit.platform.engine.ConfigurationParameters;
 @AllArgsConstructor
 public class SpecClassMapperFactory {
 
-    private final JavaFileSpecFactory specFactory;
+    private final TestSpecFactory specFactory;
 
     private final CompilerConfigurationFactory compilerConfigurationFactory;
 
     public SpecClassMapperFactory() {
-        this(new JavaFileSpecFactory(), new CompilerConfigurationFactory());
+        this(new TestSpecFactory(), new CompilerConfigurationFactory());
     }
 
     @SuppressWarnings("PMD.CloseResource")

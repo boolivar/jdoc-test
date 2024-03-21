@@ -1,5 +1,7 @@
 package org.bool.jdoc.spock;
 
+import org.bool.jdoc.core.SpecSource;
+
 import groovy.lang.GroovyClassLoader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +23,7 @@ import static org.mockito.BDDMockito.then;
 class SpecClassMapperTest {
 
     @Mock
-    private JavaFileSpecFactory specFactory;
+    private TestSpecFactory specFactory;
 
     @Mock
     private GroovyCompiler compiler;
@@ -34,13 +36,13 @@ class SpecClassMapperTest {
 
     @Test
     void testMapping() {
-        var file = Paths.get("File.java");
+        var specSource = new SpecSource();
 
-        given(specFactory.createSpec(file, classLoader))
+        given(specFactory.createTestSpec(specSource, classLoader))
                 .willReturn(Optional.of(new TestSpec("spock", "spec", "{ code }")));
         given(compiler.compile("spec", "{ code }"))
                 .willReturn(List.of(getClass()));
-        assertThat(mapper.toTestSpecClasses(file))
+        assertThat(mapper.toTestSpecClasses(specSource))
                 .containsOnly(getClass());
     }
 

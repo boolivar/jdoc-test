@@ -15,7 +15,7 @@ import static org.mockito.BDDMockito.given;
 class SpecClassMapperFactoryTest {
 
     @Mock
-    private JavaFileSpecFactory specFactory;
+    private TestSpecFactory specFactory;
 
     @Mock
     private CompilerConfigurationFactory compilerConfigurationFactory;
