@@ -12,7 +12,9 @@ import java.util.stream.IntStream;
 
 public class FeatureWriter {
 
+    @SneakyThrows
     public List<Path> writeFeatures(Path dir, String name, List<String> specs, Instant sourceTimestamp) {
+        Files.createDirectories(dir);
         return IntStream.range(0, specs.size())
                 .mapToObj(index -> write(dir.resolve(name + (index + 1) + ".feature"), specs.get(index), sourceTimestamp))
                 .collect(Collectors.toList());

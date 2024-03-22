@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class FeatureWriterTest {
 
     @TempDir
-    private static Path outDir;
+    private static Path tempDir;
 
     @InjectMocks
     private FeatureWriter writer;
@@ -25,6 +25,7 @@ class FeatureWriterTest {
     @Test
     void testWriteFeatures() {
         var past = Instant.parse("2007-12-03T10:15:30Z");
+        var outDir = tempDir.resolve("org/bool");
 
         var files = writer.writeFeatures(outDir, "TestSpec", List.of("test text"), past);
 
