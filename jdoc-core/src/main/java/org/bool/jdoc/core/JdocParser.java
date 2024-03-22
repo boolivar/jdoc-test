@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -16,17 +16,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
-public class CodeBlockParser {
+public class JdocParser {
 
     private final Evaluator codeTag;
 
     private final Function<String, Document> parser;
 
-    public CodeBlockParser() {
-        this(and(new Evaluator.Tag("code"), new Evaluator.AttributeWithValue("lang", "spock")));
+    public JdocParser(String lang) {
+        this(and(new Evaluator.Tag("code"), new Evaluator.AttributeWithValue("lang", lang)));
     }
 
-    public CodeBlockParser(Evaluator codeTag) {
+    public JdocParser(Evaluator codeTag) {
         this(codeTag, content -> Parser.xmlParser().parseInput(content, ""));
     }
 
@@ -36,7 +36,7 @@ public class CodeBlockParser {
      * <pre><code lang="spock">
      * def "parse text and remove asterisks"() {
      *   given:
-     *     def parser = new CodeBlockParser()
+     *     def parser = new JdocParser("spock")
      *   when:
      *     def result = parser.parse('<code lang="spock"> * some code</code>')
      *   then:

@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class DiscoveryRequest implements EngineDiscoveryRequest {
 
     @NonNull
     @Builder.Default
-    private final List<DiscoveryFilter<?>> filters = Collections.emptyList();
+    private final List<? super DiscoveryFilter<?>> filters = Collections.emptyList();
 
     @NonNull
     @Builder.Default

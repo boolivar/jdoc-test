@@ -1,0 +1,11 @@
+plugins {
+    id "java-library-conventions"
+}
+
+dependencies {
+    implementation project(":jdoc-core")
+    implementation "io.cucumber:cucumber-junit-platform-engine"
+    implementation "org.apache.commons:commons-lang3"
+
+    testImplementation "io.cucumber:cucumber-java"
+}

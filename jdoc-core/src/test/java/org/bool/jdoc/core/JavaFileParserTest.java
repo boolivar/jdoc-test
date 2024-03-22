@@ -1,6 +1,6 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
-import org.bool.jdoc.spock.exception.SpockEngineException;
+import org.bool.jdoc.core.exception.JdocException;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
@@ -31,9 +31,9 @@ class JavaFileParserTest {
 
     @Mock
     private JavaParser javaParser;
-    
+
     @Mock
-    private CodeBlockParser codeBlockParser;
+    private JdocParser jdocParser;
 
     @InjectMocks
     private JavaFileParser parser;
@@ -51,7 +51,7 @@ class JavaFileParserTest {
         comments.addComment(comment);
         given(javaParser.parse(path))
             .willReturn(new ParseResult<CompilationUnit>(unit, List.of(), comments));
-        given(codeBlockParser.parse(comment.getContent()))
+        given(jdocParser.parse(comment.getContent()))
             .willReturn(List.of("code", "out"));
 
         assertThat(parser.parse(path))
@@ -66,6 +66,6 @@ class JavaFileParserTest {
         given(javaParser.parse(path))
             .willReturn(new ParseResult<CompilationUnit>(null, List.of(), new CommentsCollection()));
         assertThatThrownBy(() -> parser.parse(path))
-            .isInstanceOf(SpockEngineException.class);
+            .isInstanceOf(JdocException.class);
     }
 }

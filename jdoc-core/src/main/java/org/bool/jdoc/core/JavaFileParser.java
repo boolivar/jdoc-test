@@ -1,6 +1,6 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
-import org.bool.jdoc.spock.exception.SpockEngineException;
+import org.bool.jdoc.core.exception.JdocException;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
@@ -22,10 +22,10 @@ public class JavaFileParser {
 
     private final JavaParser javaParser;
 
-    private final CodeBlockParser codeBlockParser;
+    private final JdocParser jdocParser;
 
-    public JavaFileParser() {
-        this(new JavaParser(), new CodeBlockParser());
+    public JavaFileParser(String lang) {
+        this(new JavaParser(), new JdocParser(lang));
     }
 
     /**
@@ -34,13 +34,13 @@ public class JavaFileParser {
      * <pre><code lang="spock">
      * def "Parsing result has code from <code></code> blocks"() {
      *   given:
-     *     def parser = new JavaFileParser()
+     *     def parser = new JavaFileParser("spock")
      *   when:
-     *     def result = parser.parse(java.nio.file.Paths.get("src/main/java/org/bool/jdoc/spock/JavaFileParser.java"))
+     *     def result = parser.parse(java.nio.file.Paths.get("src/main/java/org/bool/jdoc/core/JavaFileParser.java"))
      *   then:
      *     result.codeBlocks.size() == 1
      *     result.codeBlocks[0].startsWith('\n def "Parsing result has code from <code></code> blocks"() {')
-     *     result.codeBlocks[0].contains('parser.parse(java.nio.file.Paths.get("src/main/java/org/bool/jdoc/spock/JavaFileParser.java"))')
+     *     result.codeBlocks[0].contains('parser.parse(java.nio.file.Paths.get("src/main/java/org/bool/jdoc/core/JavaFileParser.java"))')
      *     result.codeBlocks[0].contains('infinite recursion ]8D')
      * }
      * </code></pre>
@@ -49,7 +49,7 @@ public class JavaFileParser {
     public SpecSource parse(Path file) {
         ParseResult<CompilationUnit> result = javaParser.parse(file);
         if (!result.isSuccessful()) {
-            throw new SpockEngineException("Error parse file " + file + ": " + result.getProblems());
+            throw new JdocException("Error parse file " + file + ": " + result.getProblems());
         }
         return new SpecSource(result.getResult().get(),
                 result.getCommentsCollection().map(this::parseComments).orElse(Collections.emptyList()));
@@ -58,7 +58,7 @@ public class JavaFileParser {
     private List<String> parseComments(CommentsCollection comments) {
         return comments.getComments().stream()
             .filter(comment -> JavadocComment.class.isInstance(comment) || BlockComment.class.isInstance(comment))
-            .flatMap(comment -> codeBlockParser.parse(comment.getContent()).stream())
+            .flatMap(comment -> jdocParser.parse(comment.getContent()).stream())
             .filter(StringUtils::isNotBlank)
             .collect(Collectors.toList());
     }

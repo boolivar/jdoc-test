@@ -1,6 +1,8 @@
 package org.bool.jdoc.spock.exception;
 
-public class SpockEngineException extends RuntimeException {
+import org.bool.jdoc.core.exception.JdocException;
+
+public class SpockEngineException extends JdocException {
 
     private static final long serialVersionUID = 1L;
 

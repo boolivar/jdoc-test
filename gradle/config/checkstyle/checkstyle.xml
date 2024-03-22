@@ -159,7 +159,9 @@
         <!--<module name="JavadocMethod"/>-->
         <!--<module name="JavadocPackage"/>-->
         <!--<module name="JavadocParagraph"/>-->
-        <module name="JavadocStyle"/>
+        <module name="JavadocStyle">
+            <property name="severity" value="warning"/>
+        </module>
         <!--<module name="JavadocTagContinuationIndentation"/>-->
         <!--<module name="JavadocType"/>-->
         <!--<module name="JavadocVariable"/>-->

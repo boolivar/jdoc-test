@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import org.jsoup.select.Evaluator;
 import org.junit.jupiter.api.Test;
@@ -7,9 +7,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CodeBlockParserTest {
+class JdocParserTest {
 
-    private final CodeBlockParser parser = new CodeBlockParser(new Evaluator.Tag("code"));
+    private final JdocParser parser = new JdocParser(new Evaluator.Tag("code"));
 
     @Test
     void testParse() {

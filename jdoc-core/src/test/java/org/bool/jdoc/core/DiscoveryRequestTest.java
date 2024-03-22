@@ -1,4 +1,4 @@
-package org.bool.jdoc.spock;
+package org.bool.jdoc.core;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

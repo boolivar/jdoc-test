@@ -1,0 +1,13 @@
+plugins {
+    id "java-library-jdoc-spock-conventions"
+}
+
+dependencies {
+    api "org.junit.platform:junit-platform-engine"
+    api "com.github.javaparser:javaparser-core"
+
+    implementation "org.apache.commons:commons-lang3"
+    implementation "org.jsoup:jsoup"
+
+    testRuntimeOnly "com.github.boolivar:jdoc-test"
+}
