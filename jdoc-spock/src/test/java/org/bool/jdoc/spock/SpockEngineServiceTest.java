@@ -35,6 +35,7 @@ class SpockEngineServiceTest {
             @Mock TestDescriptor spockTestDescriptor) {
         var jdocDiscoveryRequest = DiscoveryRequest.builder().params(params).selectors(List.of()).build();
         var spockDiscoveryRequest = DiscoveryRequest.builder().params(params).selectors(List.of()).build();
+        var uniqueId = UniqueId.forEngine("jdoc-spock");
 
         given(spockEngine.getId())
             .willReturn("spock-engine");
@@ -42,10 +43,10 @@ class SpockEngineServiceTest {
             .willReturn(specClassMapper);
         given(requestMapper.toSpockDiscoveryRequest(jdocDiscoveryRequest, specClassMapper))
             .willReturn(spockDiscoveryRequest);
-        given(spockEngine.discover(spockDiscoveryRequest, UniqueId.forEngine("spock-engine")))
+        given(spockEngine.discover(spockDiscoveryRequest, uniqueId.appendEngine("spock-engine")))
             .willReturn(spockTestDescriptor);
 
-        assertThat(service.discover(spockEngine, jdocDiscoveryRequest, UniqueId.forEngine("jdoc-spock")))
+        assertThat(service.discover(spockEngine, jdocDiscoveryRequest, uniqueId))
                 .extracting(JdocSpockEngineDescriptor::getChildren).asInstanceOf(InstanceOfAssertFactories.COLLECTION)
                 .containsOnly(spockTestDescriptor)
                 ;
