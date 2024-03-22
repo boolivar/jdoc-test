@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/boolivar/jdoc-test/compare/0.3.0...0.4.0) (2024-03-22)
+
+
+### Features
+
+* jdoc-cucumber ([#9](https://github.com/boolivar/jdoc-test/issues/9)) ([47f7ebe](https://github.com/boolivar/jdoc-test/commit/47f7ebe053c62853fcd86eca558655f3de5c2cda))
+
+
+### Bug Fixes
+
+* subengine id to call spock engine ([aea9da3](https://github.com/boolivar/jdoc-test/commit/aea9da3dfebcff67f7fcc6c676228ce109ae96c6))
+
 ## [0.3.0](https://github.com/boolivar/jdoc-test/compare/0.2.0...0.3.0) (2024-03-19)
 
 
