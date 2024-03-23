@@ -9,7 +9,6 @@ tasks.withType(JavaCompile) {
 afterEvaluate {
     test {
         systemProperties = [
-            "jdoc.spock.test-dirs" : sourceSets.main.java.srcDirs.join(","),
             "jdoc.spock.classpath" : configurations.testCompileClasspath.files.join(",")
         ]
     }

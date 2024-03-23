@@ -9,5 +9,5 @@ dependencies {
     implementation "org.apache.commons:commons-lang3"
     implementation "org.jsoup:jsoup"
 
-    testRuntimeOnly "com.github.boolivar:jdoc-test"
+    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock"
 }
