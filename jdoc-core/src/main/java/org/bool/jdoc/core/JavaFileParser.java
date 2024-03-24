@@ -25,7 +25,7 @@ public class JavaFileParser {
     private final JdocParser jdocParser;
 
     public JavaFileParser(String lang) {
-        this(new JavaParser(), new JsoupParser(lang));
+        this(new JavaParser(), new RegexParser(lang));
     }
 
     /**

@@ -57,15 +57,31 @@ public class RegexParser implements JdocParser {
         this(CODE_TAGS, tagFilter);
     }
 
+    /**
+     * Extract {@literal <}code{@literal >}{@literal </}code{@literal >}
+     * blocks from javadocs.
+     *
+     * <pre><code lang="spock">
+     * def "parse javadoc and remove leading asterisks"() {
+     *   given:
+     *     def parser = new JdocParser("spock")
+     *   when:
+     *     def result = parser.parse('<code lang="spock"> * some code</code>')
+     *   then:
+     *     result == [" some code"]
+     * }
+     * </code></pre>
+     */
     @Override
     public List<String> parse(String content) {
         return topLevelElements(regex.matcher(content)).stream()
                 .filter(e -> filter.test(e.openTag.content, e.closeTag.content))
                 .map(e -> content.substring(e.openTag.end, e.closeTag.start))
-                .map(this::removeLeadingAsterisks)
+                .map(this::removeAsterisks)
                 .collect(Collectors.toList());
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private List<Element> topLevelElements(Matcher matcher) {
         ArrayList<Element> elements = new ArrayList<>();
         ArrayDeque<Tag> tags = new ArrayDeque<>();
@@ -84,7 +100,7 @@ public class RegexParser implements JdocParser {
     }
 
     @SneakyThrows
-    private String removeLeadingAsterisks(String content) {
+    private String removeAsterisks(String content) {
         try (BufferedReader reader = new BufferedReader(new StringReader(content))) {
             return reader.lines()
                 .map(line -> line.replaceFirst("^ *\\*", ""))
