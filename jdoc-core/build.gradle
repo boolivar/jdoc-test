@@ -7,7 +7,6 @@ dependencies {
     api "com.github.javaparser:javaparser-core"
 
     implementation "org.apache.commons:commons-lang3"
-    implementation "org.jsoup:jsoup"
 
     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock"
 }
