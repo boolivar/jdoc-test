@@ -4,6 +4,13 @@ plugins {
     id "publishing-conventions"
 }
 
+jar {
+    manifest {
+        attributes("Implementation-Title": project.name,
+                   "Implementation-Version": version)
+    }
+}
+
 publishing {
     publications {
         maven(MavenPublication) {

@@ -8,6 +8,8 @@ import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestEngine;
 import org.junit.platform.engine.UniqueId;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 public class JdocCucumberEngine implements TestEngine {
 
@@ -22,6 +24,11 @@ public class JdocCucumberEngine implements TestEngine {
     @Override
     public String getId() {
         return "jdoc-cucumber";
+    }
+
+    @Override
+    public Optional<String> getGroupId() {
+        return Optional.of("org.bool.jdoc");
     }
 
     @Override
