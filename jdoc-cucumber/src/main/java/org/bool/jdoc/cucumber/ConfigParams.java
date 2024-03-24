@@ -39,7 +39,7 @@ import static org.bool.jdoc.core.ConfigParam.*;
  *       | TEST_FILES |
  * </code></pre>
  */
-public class ConfigParams {
+public final class ConfigParams {
 
     private static final String PREFIX = "jdoc.cucumber.";
 
@@ -49,4 +49,6 @@ public class ConfigParams {
 
     public static final StringConfigParam OUTPUT_DIR = new StringConfigParam(PREFIX + "output-dir");
 
+    private ConfigParams() {
+    }
 }

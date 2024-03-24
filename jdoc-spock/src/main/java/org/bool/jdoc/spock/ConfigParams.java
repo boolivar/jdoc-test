@@ -2,7 +2,7 @@ package org.bool.jdoc.spock;
 
 import static org.bool.jdoc.core.ConfigParam.*;
 
-public class ConfigParams {
+public final class ConfigParams {
 
     private static final String PREFIX = "jdoc.spock.";
 
@@ -14,4 +14,6 @@ public class ConfigParams {
 
     public static final StringListConfigParam TEST_FILES = new StringListConfigParam(PREFIX + "test-files");
 
+    private ConfigParams() {
+    }
 }
