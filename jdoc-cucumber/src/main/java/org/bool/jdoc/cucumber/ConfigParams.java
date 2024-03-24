@@ -14,7 +14,7 @@ import static org.bool.jdoc.core.ConfigParam.*;
  *     Given "<key>" property set to "value"
  *     When configuration properties requested with <param> config param
  *     Then value should be "value"
- *     Examples: #</param></key>
+ *     Examples:
  *       | param      | key                      |
  *       | OUTPUT_DIR | jdoc.cucumber.output-dir |
  *
@@ -24,7 +24,7 @@ import static org.bool.jdoc.core.ConfigParam.*;
  *     Then value should be list of:
  *       | src/main/java   |
  *       | build/generated |
- *     Examples: #</param></key>
+ *     Examples:
  *       | param      | key                      |
  *       | TEST_DIRS  | jdoc.cucumber.test-dirs  |
  *       | TEST_FILES | jdoc.cucumber.test-files |
@@ -32,7 +32,7 @@ import static org.bool.jdoc.core.ConfigParam.*;
  *   Scenario Outline: empty values
  *     When configuration properties requested with <param> config param
  *     Then value should be empty
- *     Examples: #</param>
+ *     Examples:
  *       | param      |
  *       | OUTPUT_DIR |
  *       | TEST_DIRS  |
