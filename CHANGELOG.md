@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/boolivar/jdoc-test/compare/0.4.0...0.5.0) (2024-03-24)
+
+
+### Features
+
+* Regex parser ([#11](https://github.com/boolivar/jdoc-test/issues/11)) ([7ecf325](https://github.com/boolivar/jdoc-test/commit/7ecf32568f4dfb43212334894354ab2109a3ae92))
+
+
+### Bug Fixes
+
+* jdoc-cucumber engine group + version/artifactId for all engines using manifest ([a8d9d23](https://github.com/boolivar/jdoc-test/commit/a8d9d23fdb0d20c80d825b68e7ec30a13785c305))
+
 ## [0.4.0](https://github.com/boolivar/jdoc-test/compare/0.3.0...0.4.0) (2024-03-22)
 
 
