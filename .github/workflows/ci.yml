@@ -1,7 +1,8 @@
 name: CI
 on: push
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +17,7 @@ jobs:
       uses: gradle/gradle-build-action@v3.1.0
     - name: Run Gradle checks
       run: ./gradlew check
-    - name: Upload failed test reports
+    - name: Upload test reports
       if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4.3.1
       with:
@@ -27,4 +28,10 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: boolivar/jdoc-test
-
+    - name: release-please
+      if: ${{ github.ref_name == 'master' || startsWith(github.ref_name, 'release/') }}
+      uses: google-github-actions/release-please-action@v4.1.0
+      with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          target-branch: ${{ github.ref_name }}
+          release-type: simple
