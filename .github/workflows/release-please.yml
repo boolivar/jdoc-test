@@ -24,3 +24,4 @@ jobs:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: simple
           include-v-in-tag: false
+          target-branch: ${{ github.ref_name }}
