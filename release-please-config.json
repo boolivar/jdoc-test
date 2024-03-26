@@ -1,8 +1,0 @@
-{
-    "release-type": "java",
-    "include-v-in-tag": false,
-    "packages": {
-        ".": {
-        }
-    }
-}
