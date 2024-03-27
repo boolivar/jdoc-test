@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.1](https://github.com/boolivar/jdoc-test/compare/0.5.0...v0.5.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* release-please in ci workflow ([e0ad268](https://github.com/boolivar/jdoc-test/commit/e0ad268fb63bfbf6b1587172075b908851343fdb))
+* target-branch, release-please v4.1.0 ([fb0cfbe](https://github.com/boolivar/jdoc-test/commit/fb0cfbe0180f10576fa728c66213b3f3dc5f08f3))
+
 ## [0.5.0](https://github.com/boolivar/jdoc-test/compare/0.4.0...0.5.0) (2024-03-24)
 
 
