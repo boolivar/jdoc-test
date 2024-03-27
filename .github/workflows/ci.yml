@@ -33,4 +33,5 @@ jobs:
       uses: google-github-actions/release-please-action@v4.1.0
       with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          target-branch: ${{ github.ref_name }}
           release-type: simple
