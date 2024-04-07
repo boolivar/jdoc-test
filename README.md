@@ -94,7 +94,23 @@ def delegate = Mock(Bar)
 def $target = new Foo(delegate)
 ```
 
-4. Provide comma-separated paths to java sources using either `jdoc.spock.test-dirs` or `jdoc.spock.test-files` junit platform [Configuration Parameters](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params).
+4. Configure paths to java sources using test suite `@SelectDirectories` or `@SelectFile`:
+
+```java
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.SelectDirectories;
+import org.junit.platform.suite.api.Suite;
+
+@Suite
+@IncludeEngines("jdoc-spock")
+@SelectDirectories("src/main/java")
+public class JdocSpockTestSuite {
+}
+```
+
+jdoc-spock supports platform engine `DiscoverySelector` and `FileSelector`.
+
+Optionally comma-separated paths to java sources can be provided using either `jdoc.spock.test-dirs` or `jdoc.spock.test-files` junit platform [Configuration Parameters](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params).
 
 `build.gradle` example:
 ```gradle
