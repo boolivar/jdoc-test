@@ -10,6 +10,7 @@ dependencies {
     api platform("io.cucumber:cucumber-bom:7.15.0")
     api platform("org.junit:junit-bom:5.10.2")
     constraints {
+        api "commons-io:commons-io:2.16.1"
         api "com.github.javaparser:javaparser-core:3.25.8"
         api "org.apache.commons:commons-lang3:3.14.0"
         api "org.spockframework:spock-core:2.3-groovy-4.0"
