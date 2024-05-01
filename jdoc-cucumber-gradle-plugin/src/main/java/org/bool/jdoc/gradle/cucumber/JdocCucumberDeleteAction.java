@@ -1,7 +1,7 @@
 package org.bool.jdoc.gradle.cucumber;
 
-import org.gradle.internal.impldep.org.apache.commons.io.file.Counters;
-import org.gradle.internal.impldep.org.apache.commons.io.file.DeletingPathVisitor;
+import org.apache.commons.io.file.Counters;
+import org.apache.commons.io.file.DeletingPathVisitor;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
