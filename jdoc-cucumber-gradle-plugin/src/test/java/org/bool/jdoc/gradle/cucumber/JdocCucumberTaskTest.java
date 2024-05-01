@@ -8,7 +8,11 @@ import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.internal.project.taskfactory.TaskIdentityFactory;
 import org.gradle.api.provider.Property;
+import org.gradle.api.provider.Provider;
+import org.gradle.internal.execution.history.changes.DefaultFileChange;
+import org.gradle.internal.file.FileType;
 import org.gradle.internal.id.ConfigurationCacheableIdFactory;
+import org.gradle.work.FileChange;
 import org.gradle.work.InputChanges;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.BDDMockito.*;
@@ -48,6 +53,7 @@ class JdocCucumberTaskTest {
     @Test
     void testGenerateFeatures(@Mock SourceDirectorySet sourceSet, @Mock Directory dir, @Mock InputChanges changes) {
         var file = new File("some.file");
+        var fileChanges = List.<FileChange>of(DefaultFileChange.added("/", "test", FileType.RegularFile, "/"));
 
         given(sources.get())
             .willReturn(sourceSet);
@@ -55,12 +61,14 @@ class JdocCucumberTaskTest {
             .willReturn("test-lang");
         given(outputDir.get())
             .willReturn(dir);
+        given(changes.getFileChanges((Provider) sources))
+            .willReturn(fileChanges);
         given(dir.getAsFile())
             .willReturn(file);
 
         assertThatNoException()
             .isThrownBy(() -> task.generateFeatures(changes));
 
-        then(generateAction).should().generateFeatures(same(sourceSet), same(changes), isA(JavaFileParser.class), eq(file.toPath()));
+        then(generateAction).should().generateFeatures(same(fileChanges), same(sourceSet), isA(JavaFileParser.class), eq(file.toPath()));
     }
 }

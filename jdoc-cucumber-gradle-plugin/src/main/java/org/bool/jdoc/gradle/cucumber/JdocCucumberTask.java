@@ -7,10 +7,12 @@ import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
+import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
+import org.gradle.work.FileChange;
 import org.gradle.work.Incremental;
 import org.gradle.work.InputChanges;
 
@@ -60,6 +62,7 @@ public class JdocCucumberTask extends DefaultTask {
     public void generateFeatures(InputChanges changes) {
         JavaFileParser parser = new JavaFileParser(langTag.get());
         Path outputPath = outputDir.get().getAsFile().toPath();
-        generateAction.generateFeatures(sources.get(), changes, parser, outputPath);
+        Iterable<FileChange> fileChanges = changes.getFileChanges((Provider) sources);
+        generateAction.generateFeatures(fileChanges, sources.get(), parser, outputPath);
     }
 }
