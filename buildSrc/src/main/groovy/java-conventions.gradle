@@ -67,6 +67,10 @@ spotbugs {
     omitVisitors = ["ConstructorThrow", "DoInsideDoPrivileged", "FindReturnRef"]
 }
 
+spotbugsTest {
+    omitVisitors.addAll(["DumbMethodInvocations"])
+}
+
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
