@@ -1,13 +1,18 @@
 plugins {
    id "java-conventions"
-   id "dev.gradleplugins.java-gradle-plugin" version "1.2"
+   id "com.gradle.plugin-publish" version "1.2.1"
 }
 
 gradlePlugin {
+    website = "https://github.com/boolivar/jdoc-test"
+    vcsUrl = "https://github.com/boolivar/jdoc-test.git"
     plugins {
         jdocCucumber {
             id = "com.github.boolivar.jdoc-cucumber"
             implementationClass = "org.bool.jdoc.gradle.cucumber.JdocCucumberPlugin"
+            displayName = "Gradle plugin for jdoc-cucumber"
+            description = "Plugin that runs cucumber tests for features written in javadocs"
+            tags.addAll("testing", "bdd", "cucumber", "jdoc-test")
         }
     }
 }
@@ -15,4 +20,6 @@ gradlePlugin {
 dependencies {
     implementation project(":jdoc-core")
     implementation "commons-io:commons-io"
+
+    testImplementation gradleTestKit()
 }
