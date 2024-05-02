@@ -28,10 +28,14 @@ public class GroovyCompiler {
      * Compile groovy script.
      * 
      * <pre><code lang="spock">
+     * @TempDir
+     * def tmp
      * def "Compile the script"() {
      *   given:
      *     def classLoader = new GroovyClassLoader()
-     *     def compiler = new GroovyCompiler(new CompilerConfiguration(), classLoader)
+     *     def config = new CompilerConfiguration()
+     *     config.setTargetDirectory(tmp.toString())
+     *     def compiler = new GroovyCompiler(config, classLoader)
      *   when:
      *     def results = compiler.compile("Hello World", "class Hello { def print() { 'World' } }")
      *     classLoader.close()
