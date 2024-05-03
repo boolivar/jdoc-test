@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0](https://github.com/boolivar/jdoc-test/compare/0.5.0...0.6.0) (2024-05-03)
+
+
+### Features
+
+* cucumber gradle plugin ([#18](https://github.com/boolivar/jdoc-test/issues/18)) ([beda224](https://github.com/boolivar/jdoc-test/commit/beda224a93c8b1fed607c584ac3c9870464b2376))
+
+
+### Bug Fixes
+
+* dir config for GroovyCompiler spock test to avoid storing generated Hello class in the working copy ([fc424dc](https://github.com/boolivar/jdoc-test/commit/fc424dcec1e68f5d2cf2386d3dee968d9457fdd4))
+* RegexParser lazy matcher to handle multiple tags on single line ([2d17147](https://github.com/boolivar/jdoc-test/commit/2d17147b51a0fbf6bd225ebc210f6324a026a06c))
+* target-branch, release-please v4.1.0 ([fb0cfbe](https://github.com/boolivar/jdoc-test/commit/fb0cfbe0180f10576fa728c66213b3f3dc5f08f3))
+
 ## [0.5.0](https://github.com/boolivar/jdoc-test/compare/0.4.0...0.5.0) (2024-03-24)
 
 
