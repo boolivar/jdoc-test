@@ -14,6 +14,6 @@ scmVersion {
 }
 
 allprojects {
-    group = "org.bool.jdoctest"
+    group = "com.github.boolivar"
     version = scmVersion.version
 }
