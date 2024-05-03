@@ -6,20 +6,14 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestInstance(Lifecycle.PER_CLASS)
-class JdocParserTest {
+class RegexParserTest {
 
-    private final RegexParser anyLangParser = new RegexParser((open, close) -> true);
+    private final RegexParser anyLangParser = new RegexParser();
 
     private final RegexParser testLangParser = new RegexParser("test");
-
-    List<JdocParser> allParsers() {
-        return List.of(anyLangParser, testLangParser);
-    }
 
     @Test
     void testParse() {
@@ -113,5 +107,13 @@ class JdocParserTest {
                     <code>abc<key><value><code>de</code></code>
                 </pre>
                 """)).contains("abc<key><value><code>de</code>");
+    }
+
+    @Test
+    void testSingleLine() {
+        assertThat(anyLangParser.parse("<pre><code>TEST</code></pre>"))
+            .singleElement().isEqualTo("TEST");
+        assertThat(anyLangParser.parse("<pre><code lang=\"test\">TEST</code></pre>"))
+            .singleElement().isEqualTo("TEST");
     }
 }

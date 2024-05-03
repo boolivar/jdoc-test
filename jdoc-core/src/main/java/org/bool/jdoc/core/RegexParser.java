@@ -8,7 +8,6 @@ import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,22 +38,22 @@ public class RegexParser implements JdocParser {
         final Tag closeTag;
     }
 
-    private static final Pattern CODE_TAGS = Pattern.compile("<code(?: .*)?>|<\\/code>");
+    private static final Pattern CODE_TAGS = Pattern.compile("<code(?: .*?)?>|<\\/code>");
 
     private final Pattern regex;
 
-    private final BiPredicate<String, String> filter;
+    private final Predicate<String> filter;
+
+    public RegexParser() {
+        this(openTag -> true);
+    }
 
     public RegexParser(String lang) {
         this(Pattern.compile(String.format(" lang *= *\"%s\"", lang)).asPredicate());
     }
 
-    public RegexParser(Predicate<String> openTagFilter) {
-        this((openTag, closeTag) -> openTagFilter.test(openTag));
-    }
-
-    public RegexParser(BiPredicate<String, String> tagFilter) {
-        this(CODE_TAGS, tagFilter);
+    public RegexParser(Predicate<String> filter) {
+        this(CODE_TAGS, filter);
     }
 
     /**
@@ -64,7 +63,7 @@ public class RegexParser implements JdocParser {
      * <pre><code lang="spock">
      * def "parse javadoc and remove leading asterisks"() {
      *   given:
-     *     def parser = new JdocParser("spock")
+     *     def parser = new RegexParser("spock")
      *   when:
      *     def result = parser.parse('<code lang="spock"> * some code</code>')
      *   then:
@@ -75,7 +74,7 @@ public class RegexParser implements JdocParser {
     @Override
     public List<String> parse(String content) {
         return topLevelElements(regex.matcher(content)).stream()
-                .filter(e -> filter.test(e.openTag.content, e.closeTag.content))
+                .filter(e -> filter.test(e.openTag.content))
                 .map(e -> content.substring(e.openTag.end, e.closeTag.start))
                 .map(this::removeAsterisks)
                 .collect(Collectors.toList());
