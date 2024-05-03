@@ -27,7 +27,7 @@ class JdocCucumberPluginTest {
         Files.writeString(temp.toPath().resolve("build.gradle"), """
                 plugins {
                     id "java"
-                    id "com.github.boolivar.jdoc-cucumber"
+                    id "org.bool.jdoctest.jdoc-cucumber"
                 }
                 repositories {
                     mavenCentral()
@@ -52,7 +52,7 @@ class JdocCucumberPluginTest {
     void testPlugin() {
         var project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("java");
-        project.getPluginManager().apply("com.github.boolivar.jdoc-cucumber");
+        project.getPluginManager().apply("org.bool.jdoctest.jdoc-cucumber");
 
         assertThat(project.getExtensions().getByName("jdocCucumber"))
             .isInstanceOf(JdocCucumberExtension.class);

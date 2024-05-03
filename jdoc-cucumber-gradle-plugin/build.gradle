@@ -8,7 +8,7 @@ gradlePlugin {
     vcsUrl = "https://github.com/boolivar/jdoc-test.git"
     plugins {
         jdocCucumber {
-            id = "com.github.boolivar.jdoc-cucumber"
+            id = "org.bool.jdoctest.jdoc-cucumber"
             implementationClass = "org.bool.jdoc.gradle.cucumber.JdocCucumberPlugin"
             displayName = "Gradle plugin for jdoc-cucumber"
             description = "Plugin that runs cucumber tests for features written in javadocs"
