@@ -41,4 +41,4 @@ jobs:
         RELEASE_VERSION: ${{ steps.release.outputs.tag_name }}
         GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
         GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
-      run: ./gradlew -Prelease.forceVersion=$RELEASE_VERSION createRelease && ./gradlew -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET publishPlugins
+      run: ./gradlew -Prelease.forceVersion=$RELEASE_VERSION createRelease && ./gradlew publishPlugins
