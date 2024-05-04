@@ -23,3 +23,15 @@ dependencies {
 
     testImplementation gradleTestKit()
 }
+
+publishing {
+    publications {
+        pluginMaven(MavenPublication) {
+            versionMapping {
+                allVariants {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
+}
