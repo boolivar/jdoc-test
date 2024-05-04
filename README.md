@@ -20,9 +20,11 @@ usage example. Java code, tests and documentation become tightly coupled by putt
 
 ## WHAT?
 
-**jdoc-cucumber** library supports [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs.
+[jdoc-spock](#jdoc-spock) library runs [spockframework](https://spockframework.org/) test specifications from javadocs.
 
-**jdoc-spock** library runs [spockframework](https://spockframework.org/) test specifications from javadocs.
+[jdoc-cucumber](#jdoc-cucumber) library supports [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs.
+
+[jdoc-cucumber-gradle-plugin](#jdoc-cucumber-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) that automates cucumber feature generation and testing. 
 
 :warning: **Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.**
 
@@ -222,4 +224,61 @@ public class JdocCucumberTestSuite {
 `gradle` example:
 ```sh
 gradle test
+```
+
+#### jdoc-cucumber-gradle-plugin
+
+---
+
+Gradle plugin [**not yet**] available on [gradle plugin portal](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) that automates cucumber feature generation and cucumber testing tasks.
+
+##### Minimal configuration:
+`build.gradle`:
+```gradle
+plugins {
+    id "java"
+    id "org.bool.jdoctest.jdoc-cucumber" version "0.6.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+check.dependsOn jdocCucumberTest
+```
+
+```sh
+gradle check
+```
+
+##### jdocCucumber extension
+`build.gradle` example:
+```gradle
+jdocCucumber {
+    gluePackages = ["org.bool.cucumber.stepdefs"]
+    cucumberVersion = "7.17.0"
+    sourceSets.custom.java
+}
+```
+
+| Extension property | Type | Default value | Description |
+| ------------------ | ---- | ------------- | ----------- |
+| `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-cucumber") | Path to store generated features |
+| `langTag` | `String` | "gherkin" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and written as features |
+| `sources` | `SourceDirectorySet` | sourceSets.main.java | Java sources to parse |
+| `cucumberVersion` | `String` | "7.17.0" | `io.cucumber:cucumber-java` dependecny version to register in `testImplementation` configuration |
+| `gluePackages` | `List<String>` | | List of packages with cucumber glue code |
+
+##### Tasks
+When `java` plugin is applied to a project, `jdoc-cucumber` plugin registers `io.cucumber:cucumber-java` dependency in `testImplementation` configuration and creates 2 tasks:
+- **generateCucumberFeatures** - `JdocCucumberTask`  
+  Generates cucumber features from javadocs and stores them in `jdocCucumber.outputDir` path.
+- **jdocCucumberTest** - `JavaExec`  
+  _Depends on:_ all tasks with type `JdocCucumberTask`. Runs cucumber tests using cucumber CLI Runner. 
+
+Note that by default `jdocCucumberTest` task is **not a dependency** for `check` task. To include `jdocCucumberTest` in build this should be configured manually.
+
+`build.gradle` example:
+```gradle
+check.dependsOn jdocCucumberTest
 ```
