@@ -10,7 +10,6 @@ import com.github.javaparser.ast.comments.CommentsCollection;
 import com.github.javaparser.ast.comments.JavadocComment;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.apache.commons.lang3.StringUtils;
 
 import java.nio.file.Path;
 import java.util.Collections;
@@ -59,7 +58,7 @@ public class JavaFileParser {
         return comments.getComments().stream()
             .filter(comment -> JavadocComment.class.isInstance(comment) || BlockComment.class.isInstance(comment))
             .flatMap(comment -> jdocParser.parse(comment.getContent()).stream())
-            .filter(StringUtils::isNotBlank)
+            .filter(jdoc -> !jdoc.chars().allMatch(Character::isWhitespace))
             .collect(Collectors.toList());
     }
 }
