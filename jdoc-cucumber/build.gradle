@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation project(":jdoc-core")
+    implementation project(":jdoc-junit-engine-commons")
     implementation "io.cucumber:cucumber-junit-platform-engine"
     implementation "org.apache.commons:commons-lang3"
 

@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api project(":jdoc-core")
+    implementation project(":jdoc-junit-engine-commons")
     api "org.junit.platform:junit-platform-engine"
 
     implementation "com.github.javaparser:javaparser-core"
