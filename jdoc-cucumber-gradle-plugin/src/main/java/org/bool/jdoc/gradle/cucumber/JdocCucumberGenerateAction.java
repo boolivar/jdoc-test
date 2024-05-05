@@ -2,7 +2,6 @@ package org.bool.jdoc.gradle.cucumber;
 
 import org.bool.jdoc.core.JavaFileParser;
 
-import org.apache.commons.io.FilenameUtils;
 import org.gradle.api.file.FileType;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.work.ChangeType;
@@ -32,7 +31,7 @@ public class JdocCucumberGenerateAction {
             if (change.getFileType() == FileType.FILE) {
                 Path file = change.getFile().toPath();
                 Path path = outputRoot.resolve(relativizePath(sources, file.getParent()));
-                String name = FilenameUtils.getBaseName(Objects.toString(file.getFileName(), ""));
+                String name = baseName(Objects.toString(file.getFileName(), null));
 
                 if (change.getChangeType() != ChangeType.ADDED) {
                     deleteAction.delete(path, name + "_", ".feature");
@@ -54,5 +53,10 @@ public class JdocCucumberGenerateAction {
             }
         }
         throw new RuntimeException("Path " + path + " not found in " + sources);
+    }
+
+    private String baseName(String fileName) {
+        int index = Objects.requireNonNull(fileName, "fileName is null").lastIndexOf('.');
+        return index < 0 ? fileName : fileName.substring(0, index);
     }
 }

@@ -22,7 +22,6 @@ dependencies {
     shadow platform(project(":jdoc-platform"))
 
     implementation project(":jdoc-core")
-    implementation "commons-io:commons-io"
 
     testImplementation gradleTestKit()
 }
