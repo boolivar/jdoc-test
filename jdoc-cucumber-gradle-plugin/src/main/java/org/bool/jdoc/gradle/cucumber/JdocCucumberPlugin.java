@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 
 public class JdocCucumberPlugin implements Plugin<Project> {
 
+    public static final String ID = "io.github.boolivar.jdoctest.jdoc-cucumber";
+
     public static final String TASK_GROUP = "jdoc-cucumber";
 
     public static final String GENERATE_CUCUMBER_FEATURES_TASK_NAME = "generateCucumberFeatures";
