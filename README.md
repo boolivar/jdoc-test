@@ -66,7 +66,7 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.5.0"
+    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.7.0"
 }
 ```
 
@@ -169,8 +169,8 @@ public class Foo {
 `build.gradle` example:
 ```gradle
 dependencies {
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.5.0"
-    testImplementation "io.cucumber:cucumber-java:7.16.1"
+    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.7.0"
+    testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
 ```
 
