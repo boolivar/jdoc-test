@@ -9,8 +9,6 @@ public interface JdocCucumberExtension {
 
     DirectoryProperty getOutputDir();
 
-    DirectoryProperty getReportsDir();
-
     Property<String> getLangTag();
 
     Property<SourceDirectorySet> getSources();

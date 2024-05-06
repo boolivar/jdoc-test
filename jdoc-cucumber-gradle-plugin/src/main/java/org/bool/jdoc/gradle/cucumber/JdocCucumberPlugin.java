@@ -33,7 +33,6 @@ public class JdocCucumberPlugin implements Plugin<Project> {
     private void configureExtension(Project project, JdocCucumberExtension extension) {
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-cucumber"));
         extension.getLangTag().convention("gherkin");
-        extension.getReportsDir().convention(project.getLayout().getBuildDirectory().dir("jdoc-cucumber-test"));
         extension.getCucumberVersion().convention("7.17.0");
         extension.getSources().convention(project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().getByName("main").getJava());
     }
@@ -51,7 +50,6 @@ public class JdocCucumberPlugin implements Plugin<Project> {
         task.setGroup(TASK_GROUP);
         task.setDescription("Run jdoc-cucumber tests using cucumber CLI Runner");
         task.dependsOn(task.getProject().getTasks().withType(JdocCucumberTask.class));
-        task.getOutputs().dir(extension.getReportsDir());
         task.getMainClass().set("io.cucumber.core.cli.Main");
         task.setClasspath(task.getProject().getExtensions().getByType(JavaPluginExtension.class).getSourceSets().getByName("test").getRuntimeClasspath());
         task.args(Stream.concat(
