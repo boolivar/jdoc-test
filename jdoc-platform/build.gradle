@@ -18,7 +18,7 @@ dependencies {
         api "org.assertj:assertj-core:3.25.3"
         api "org.mockito:mockito-junit-jupiter:5.10.0"
 
-        runtime "com.github.boolivar.jdoc-test:jdoc-spock:0.4.0"
+        runtime "com.github.boolivar.jdoc-test:jdoc-spock:0.7.0"
         runtime "net.bytebuddy:byte-buddy:1.14.12"
         runtime "org.objenesis:objenesis:3.3"
     }
