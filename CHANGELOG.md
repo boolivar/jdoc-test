@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.0](https://github.com/boolivar/jdoc-test/compare/0.6.0...0.7.0) (2024-05-06)
+
+
+### Features
+
+* introduce jdoc-junit-engine-commons module in order to remove junit dependency from jdoc-core and gradle plugin ([004f8b0](https://github.com/boolivar/jdoc-test/commit/004f8b00cf3fe0e07e1b13a9c86cdee5a82152bc))
+* project group changed to io.github.boolivar.jdoctest ([c0f61dd](https://github.com/boolivar/jdoc-test/commit/c0f61dda7bd6615ac2ad6543a4455ba48fc245a0))
+* removed apache commons dependency from jdoc-core ([5ca99e2](https://github.com/boolivar/jdoc-test/commit/5ca99e24bea7bcdb6f78c93151bfe81611611637))
+* removed commons-io dependency from gradle plugin ([35b0184](https://github.com/boolivar/jdoc-test/commit/35b01847a70518cd7f64a49e6a7b1a2a92bb4a7f))
+
+
+### Bug Fixes
+
+* shadow jdoc-cucumber-gradle-plugin project dependencies ([7c563b0](https://github.com/boolivar/jdoc-test/commit/7c563b0a39a61272549ab02da96c3dcdc8c04efa))
+* versionMapping fromResolutionResult for jdoc-cucumber-gradle-plugin publication ([227f110](https://github.com/boolivar/jdoc-test/commit/227f110cb4db059f84fa7431ae95c7bec5bda044))
+
 ## [0.6.0](https://github.com/boolivar/jdoc-test/compare/0.5.0...0.6.0) (2024-05-03)
 
 
