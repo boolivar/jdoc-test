@@ -10,6 +10,4 @@ dependencies {
 
     runtimeOnly "net.bytebuddy:byte-buddy"
     runtimeOnly "org.objenesis:objenesis"
-
-    testImplementation "org.junit.platform:junit-platform-launcher"
 }
