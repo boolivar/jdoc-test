@@ -51,7 +51,7 @@ class JdocSpockActionTest {
     void testDeleteFile() throws IOException {
         var file = outputPath.resolve("FileNameTestSpec.groovy");
 
-        Files.writeString(file, "test");
+        Files.writeString(file, "spec");
         assertThat(file)
             .exists();
 
@@ -66,8 +66,8 @@ class JdocSpockActionTest {
         var file1 = outputPath.resolve("src/FileTestSpec.groovy");
         var file2 = outputPath.resolve("src/java/FileTestSpec.groovy");
 
-        Files.writeString(file1, "test");
-        Files.writeString(file2, "test");
+        Files.writeString(file1, "spec1");
+        Files.writeString(file2, "spec2");
         assertThat(file1)
             .exists();
         assertThat(file2)
