@@ -18,11 +18,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mock.Strictness;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -38,12 +36,12 @@ class JdocTaskTest {
 
     private final File srcDir = new File("/test");
 
-    private final Path outputPath = Paths.get("/output");
+    private final File outputPath = new File("/output");
 
     @Mock
     private SourceDirectorySet directorySet;
 
-    @Mock(strictness = Strictness.LENIENT)
+    @Mock(strictness = Mock.Strictness.LENIENT)
     private Property<SourceDirectorySet> sources;
 
     @Mock
@@ -70,8 +68,8 @@ class JdocTaskTest {
         "relative/path/to/SomeFile, SomeFile",
     })
     @ParameterizedTest
-    void testBaseName(Path path, String baseName) {
-        assertThat(task.baseName(path.toFile()))
+    void testBaseName(File file, String baseName) {
+        assertThat(task.baseName(file))
             .isEqualTo(baseName);
     }
 
@@ -96,50 +94,53 @@ class JdocTaskTest {
         given(input.getFileChanges((Provider) sources))
             .willReturn(changes);
         given(outputDir.get().getAsFile())
-            .willReturn(outputPath.toFile());
+            .willReturn(outputPath);
 
         assertThatNoException()
             .isThrownBy(() -> task.generate(input, action));
 
-        then(action).should().generate(new File("/test/File1.java"), "File1", outputPath);
-        then(action).should().generate(new File("/test/package/File2.java"), "File2", outputPath.resolve("package"));
+        then(action).should().generate(new File("/test/File1.java"), "File1", outputPath.toPath());
+        then(action).should().generate(new File("/test/package/File2.java"), "File2", outputPath.toPath().resolve("package"));
     }
 
     @Test
     void testFilesModified(@Mock InputChanges input, @Mock JdocAction action) {
-        var changes = List.<FileChange>of(DefaultFileChange.modified("/test/File.java", "test", FileType.RegularFile, FileType.RegularFile, ""));
+        var testFile = new File("/test/File.java");
+        var changes = List.<FileChange>of(DefaultFileChange.modified(testFile.toString(), "test", FileType.RegularFile, FileType.RegularFile, ""));
 
         given(directorySet.getSrcDirs())
             .willReturn(Set.of(srcDir));
         given(input.getFileChanges((Provider) sources))
             .willReturn(changes);
         given(outputDir.get().getAsFile())
-            .willReturn(outputPath.toFile());
+            .willReturn(outputPath);
 
         assertThatNoException()
             .isThrownBy(() -> task.generate(input, action));
 
-        then(action).should().delete(new File("/test/File.java"), "File", outputPath);
-        then(action).should().generate(new File("/test/File.java"), "File", outputPath);
+        then(action).should().delete(testFile, "File", outputPath.toPath());
+        then(action).should().generate(testFile, "File", outputPath.toPath());
     }
 
     @Test
     void testFilesRemoved(@Mock InputChanges input, @Mock JdocAction action) {
+        var testFile = new File("/test/File.java");
+        var testDir = new File("/test/package");
         var changes = List.<FileChange>of(
-                DefaultFileChange.removed("/test/File.java", "test", FileType.RegularFile, ""),
-                DefaultFileChange.removed("/test/package", "test", FileType.Directory, ""));
+                DefaultFileChange.removed(testFile.toString(), "testfile", FileType.RegularFile, ""),
+                DefaultFileChange.removed(testDir.toString(), "testdir", FileType.Directory, ""));
 
         given(directorySet.getSrcDirs())
             .willReturn(Set.of(srcDir));
         given(input.getFileChanges((Provider) sources))
             .willReturn(changes);
         given(outputDir.get().getAsFile())
-            .willReturn(outputPath.toFile());
+            .willReturn(outputPath);
 
         assertThatNoException()
             .isThrownBy(() -> task.generate(input, action));
 
-        then(action).should().delete(new File("/test/File.java"), "File", outputPath);
-        then(action).should().deleteDir(new File("/test/package"), outputPath.resolve("package"));
+        then(action).should().delete(testFile, "File", outputPath.toPath());
+        then(action).should().deleteDir(testDir, outputPath.toPath().resolve("package"));
     }
 }

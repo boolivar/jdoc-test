@@ -62,7 +62,7 @@ public class JdocTask extends DefaultTask {
             if (change.getFileType() == FileType.FILE) {
                 File file = change.getFile();
                 String baseName = baseName(file);
-                Path outputPath = outputRoot.resolve(relativizePath(file.toPath().getParent()));
+                Path outputPath = outputRoot.resolve(relativizePath(file.toPath())).getParent();
                 if (change.getChangeType() != ChangeType.ADDED) {
                     handler.delete(file, baseName, outputPath);
                 }
