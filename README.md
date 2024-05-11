@@ -230,7 +230,7 @@ gradle test
 
 ---
 
-Gradle plugin [**not yet**] available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-cucumber) that automates cucumber feature generation and cucumber testing tasks.
+Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-cucumber) that automates cucumber feature generation and cucumber testing tasks.
 
 ##### Minimal configuration:
 `build.gradle`:
