@@ -4,7 +4,6 @@ import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.testkit.runner.GradleRunner;
 import org.gradle.testkit.runner.TaskOutcome;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -59,13 +58,12 @@ class JdocSpockPluginTest {
             .isInstanceOf(JdocSpockTask.class);
     }
 
-    @Disabled
     @Test
     void testBuild() {
         var result = GradleRunner.create()
                 .withProjectDir(temp)
                 .withPluginClasspath()
-                .withArguments("generateSpockSpecs", "--stacktrace")
+                .withArguments("generateSpockSpecs")
                 .build();
         assertThat(result.task(":generateSpockSpecs").getOutcome())
             .isEqualTo(TaskOutcome.SUCCESS);

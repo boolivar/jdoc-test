@@ -5,6 +5,8 @@ import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Property;
+import org.gradle.api.provider.Provider;
+import org.gradle.api.tasks.SourceSet;
 
 public class JdocSpockPlugin implements Plugin<Project> {
 
@@ -35,13 +37,14 @@ public class JdocSpockPlugin implements Plugin<Project> {
     }
 
     private void configureExtension(Project project, JdocSpockExtension extension) {
+        Provider<SourceSet> sources = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named("main");
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-spock"));
         extension.getLangTag().convention("spock");
         extension.getSpockVersion().convention("2.3-groovy-4.0");
         extension.getByteBuddyVersion().convention("1.14.12");
         extension.getObjenesisVersion().convention("3.3");
-        extension.getSources().convention(project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().getByName("main").getJava());
-        extension.getClassPath().convention(project.getConfigurations().named(JavaPlugin.TEST_RUNTIME_CLASSPATH_CONFIGURATION_NAME));
+        extension.getSources().convention(sources.map(SourceSet::getJava));
+        extension.getClassPath().convention(sources.map(SourceSet::getOutput));
     }
 
     private void configureSpockTask(JdocSpockTask task, JdocSpockExtension extension) {
