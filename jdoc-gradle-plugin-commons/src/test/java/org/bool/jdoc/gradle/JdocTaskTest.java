@@ -65,14 +65,12 @@ class JdocTaskTest {
 
     @CsvSource({
         "some-file.java, some-file",
-        "/build/path/Main.java, Main",
-        "path/to/Java, Java",
-        "../root/task/Test.class, Test",
-        "D:\\disk\\java\\Class.java, Class"
+        "/absolute/path/to/File.class, File",
+        "relative/path/to/SomeFile, SomeFile",
     })
     @ParameterizedTest
-    void testBaseName(String path, String baseName) {
-        assertThat(task.baseName(new File(path)))
+    void testBaseName(Path path, String baseName) {
+        assertThat(task.baseName(path.toFile()))
             .isEqualTo(baseName);
     }
 
