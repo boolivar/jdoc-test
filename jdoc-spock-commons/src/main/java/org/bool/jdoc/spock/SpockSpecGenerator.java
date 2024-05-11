@@ -16,6 +16,8 @@ import static java.util.stream.Collectors.joining;
 @AllArgsConstructor
 public class SpockSpecGenerator {
 
+    private static final String LF = "\n";
+
     private final ClassIntrospector classIntrospector;
 
     public SpockSpecGenerator() {
@@ -56,12 +58,13 @@ public class SpockSpecGenerator {
     private String generateSpec(String name, CompilationUnit unit, List<String> codeBlocks, Constructor<?> ctor) {
         Builder<String> spec = Stream.builder();
         unit.getPackageDeclaration().map(Object::toString).ifPresent(spec);
+        spec.add("import spock.lang.*").add(LF);
         unit.getImports().stream().map(Object::toString).forEach(spec);
         spec.add(String.format("class %s extends Specification {", name));
         defMockFields(ctor).forEach(spec);
         defTargetField(ctor).ifPresent(spec);
         codeBlocks.forEach(spec);
-        return spec.add("}").build().collect(joining("\n"));
+        return spec.add("}").build().collect(joining(LF));
     }
 
     private Stream<String> defMockFields(Constructor<?> ctor) {
