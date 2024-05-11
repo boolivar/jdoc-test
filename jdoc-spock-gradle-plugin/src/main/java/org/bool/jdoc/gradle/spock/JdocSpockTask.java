@@ -27,7 +27,7 @@ public class JdocSpockTask extends JdocTask {
     public JdocSpockTask(ObjectFactory objectFactory) {
         super(objectFactory);
         this.classPath = objectFactory.property(FileCollection.class);
-        this.classLoaderFactory = null;
+        this.classLoaderFactory = new UrlClassLoaderFactory()::createClassLoader;
     }
 
     public JdocSpockTask(Property<SourceDirectorySet> sources, Property<String> langTag, DirectoryProperty outputDir,
