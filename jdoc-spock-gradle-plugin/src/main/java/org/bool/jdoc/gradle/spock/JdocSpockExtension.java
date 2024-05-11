@@ -1,6 +1,7 @@
 package org.bool.jdoc.gradle.spock;
 
 import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.provider.Property;
 
@@ -12,9 +13,9 @@ public interface JdocSpockExtension {
 
     Property<SourceDirectorySet> getSources();
 
-    Property<String> getSpockVersion();
+    Property<FileCollection> getClassPath();
 
-    Property<String> getGroovyVersion();
+    Property<String> getSpockVersion();
 
     Property<String> getByteBuddyVersion();
 
