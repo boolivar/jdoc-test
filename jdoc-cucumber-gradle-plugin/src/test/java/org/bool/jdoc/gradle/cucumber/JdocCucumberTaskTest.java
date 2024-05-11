@@ -1,7 +1,5 @@
 package org.bool.jdoc.gradle.cucumber;
 
-import org.bool.jdoc.core.JavaFileParser;
-
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.SourceDirectorySet;
@@ -17,17 +15,24 @@ import org.gradle.work.InputChanges;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class JdocCucumberTaskTest {
+
+    @TempDir
+    private Path tempDir;
 
     @Mock
     private Property<SourceDirectorySet> sources;
@@ -38,37 +43,48 @@ class JdocCucumberTaskTest {
     @Mock
     private DirectoryProperty outputDir;
 
-    @Mock
-    private JdocCucumberGenerateAction generateAction;
-
     private JdocCucumberTask task;
 
     @BeforeEach
     void setupTask() {
         var project = mock(ProjectInternal.class, RETURNS_DEEP_STUBS);
         var identity = new TaskIdentityFactory(new ConfigurationCacheableIdFactory()).create("test-task", JdocCucumberTask.class, project);
-        task = JdocCucumberTask.injectIntoNewInstance(project, identity, () -> new JdocCucumberTask(sources, langTag, outputDir, generateAction));
+        task = JdocCucumberTask.injectIntoNewInstance(project, identity, () -> new JdocCucumberTask(sources, langTag, outputDir));
     }
 
     @Test
-    void testGenerateFeatures(@Mock SourceDirectorySet sourceSet, @Mock Directory dir, @Mock InputChanges changes) {
-        var file = new File("some.file");
-        var fileChanges = List.<FileChange>of(DefaultFileChange.added("/", "test", FileType.RegularFile, "/"));
+    void testGenerateFeatures(@Mock SourceDirectorySet sourceSet, @Mock Directory dir, @Mock InputChanges changes) throws IOException {
+        var sourceDir = tempDir.resolve("in");
+        var targetDir = tempDir.resolve("out");
+        var testFile = sourceDir.resolve("Test.java");
+        var fileChanges = List.<FileChange>of(DefaultFileChange.added(testFile.toString(), "test", FileType.RegularFile, "/"));
+
+        Files.createDirectories(sourceDir);
+        Files.writeString(testFile, """
+                /**
+                 * <pre><code lang="test">TEST FEATURE</code></pre>
+                 */
+                public class Test {
+                }
+                """);
+
+        given(langTag.get())
+            .willReturn("test");
+        given(changes.getFileChanges((Provider) sources))
+            .willReturn(fileChanges);
 
         given(sources.get())
             .willReturn(sourceSet);
-        given(langTag.get())
-            .willReturn("test-lang");
+        given(sourceSet.getSrcDirs())
+            .willReturn(Set.of(sourceDir.toFile()));
         given(outputDir.get())
             .willReturn(dir);
-        given(changes.getFileChanges((Provider) sources))
-            .willReturn(fileChanges);
         given(dir.getAsFile())
-            .willReturn(file);
+            .willReturn(targetDir.toFile());
 
-        assertThatNoException()
-            .isThrownBy(() -> task.generateFeatures(changes));
+        task.generateFeatures(changes);
 
-        then(generateAction).should().generateFeatures(same(fileChanges), same(sourceSet), isA(JavaFileParser.class), eq(file.toPath()));
+        assertThat(targetDir.resolve("Test_1.feature"))
+            .content().isEqualTo("TEST FEATURE");
     }
 }
