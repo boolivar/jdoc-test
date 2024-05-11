@@ -1,19 +1,17 @@
 plugins {
-   id "java-conventions"
-   id "com.gradle.plugin-publish" version "1.2.1"
-   id "com.github.johnrengelman.shadow" version "8.1.1"
+   id "gradle-plugin-conventions"
 }
 
 gradlePlugin {
     website = "https://github.com/boolivar/jdoc-test"
     vcsUrl = "https://github.com/boolivar/jdoc-test.git"
     plugins {
-        jdocCucumber {
-            id = "io.github.boolivar.jdoctest.jdoc-cucumber"
-            implementationClass = "org.bool.jdoc.gradle.cucumber.JdocCucumberPlugin"
-            displayName = "Gradle plugin for jdoc-cucumber"
-            description = "Plugin that runs cucumber tests for features written in javadocs"
-            tags.addAll("testing", "bdd", "cucumber", "jdoc-test")
+        jdocSpock {
+            id = "io.github.boolivar.jdoctest.jdoc-spock"
+            implementationClass = "org.bool.jdoc.gradle.spock.JdocSpockPlugin"
+            displayName = "Gradle plugin for jdoc-spock"
+            description = "Plugin that runs spockframework tests written in javadocs"
+            tags.addAll("testing", "bdd", "spockframework", "jdoc-test")
         }
     }
 }
@@ -25,47 +23,4 @@ dependencies {
     implementation project(":jdoc-spock-commons")
 
     testImplementation gradleTestKit()
-}
-
-def shadowJdoc(Project project) {
-    def configuration = project.configurations.findByName("runtimeClasspath")
-    if (configuration != null) {
-        for (def dep : configuration.allDependencies) {
-            if (dep.group == project.group) {
-                shadowJdoc(dep.dependencyProject)
-            } else {
-                dependencies {
-                    shadow "$dep.group:$dep.name"
-                }
-            }
-        }
-    }
-}
-
-afterEvaluate {
-    shadowJdoc(project)
-}
-
-shadowJar {
-    archiveClassifier = ""
-    dependencies {
-        exclude(dependency {
-            it.moduleGroup != project.group
-        })
-    }
-}
-
-publishing {
-    publications {
-        pluginMaven(MavenPublication) {
-            versionMapping {
-                allVariants {
-                    fromResolutionResult()
-                }
-            }
-            pom.withXml {
-                asNode().remove(asNode().get("dependencyManagement"))
-            }
-        }
-    }
 }

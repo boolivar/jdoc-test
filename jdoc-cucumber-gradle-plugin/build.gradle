@@ -1,7 +1,5 @@
 plugins {
-   id "java-conventions"
-   id "com.gradle.plugin-publish" version "1.2.1"
-   id "com.github.johnrengelman.shadow" version "8.1.1"
+   id "gradle-plugin-conventions"
 }
 
 gradlePlugin {
@@ -24,47 +22,4 @@ dependencies {
     implementation project(":jdoc-gradle-plugin-commons")
 
     testImplementation gradleTestKit()
-}
-
-def shadowJdoc(Project project) {
-    def configuration = project.configurations.findByName("runtimeClasspath")
-    if (configuration != null) {
-        for (def dep : configuration.allDependencies) {
-            if (dep.group == project.group) {
-                shadowJdoc(dep.dependencyProject)
-            } else {
-                dependencies {
-                    shadow "$dep.group:$dep.name"
-                }
-            }
-        }
-    }
-}
-
-afterEvaluate {
-    shadowJdoc(project)
-}
-
-shadowJar {
-    archiveClassifier = ""
-    dependencies {
-        exclude(dependency {
-            it.moduleGroup != project.group
-        })
-    }
-}
-
-publishing {
-    publications {
-        pluginMaven(MavenPublication) {
-            versionMapping {
-                allVariants {
-                    fromResolutionResult()
-                }
-            }
-            pom.withXml {
-                asNode().remove(asNode().get("dependencyManagement"))
-            }
-        }
-    }
 }
