@@ -5,7 +5,5 @@ plugins {
 dependencies {
     api project(":jdoc-core")
 
-    implementation "org.apache.commons:commons-lang3"
-
     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock"
 }
