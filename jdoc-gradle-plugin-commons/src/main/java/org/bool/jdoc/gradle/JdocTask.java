@@ -85,7 +85,7 @@ public class JdocTask extends DefaultTask {
         return changes.getFileChanges((Provider) sources);
     }
 
-    protected Path relativizePath(Path path) throws NoSuchElementException {
+    protected Path relativizePath(Path path) {
         return sources.get().getSrcDirs().stream()
             .map(File::toPath).filter(path::startsWith)
             .findAny().orElseThrow(() -> new NoSuchElementException("Path " + path + " not found in " + sources))

@@ -29,6 +29,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.*;
 
@@ -97,7 +98,8 @@ class JdocTaskTest {
         given(outputDir.get().getAsFile())
             .willReturn(outputPath.toFile());
 
-        task.generate(input, action);
+        assertThatNoException()
+            .isThrownBy(() -> task.generate(input, action));
 
         then(action).should().generate(new File("/test/File1.java"), "File1", outputPath);
         then(action).should().generate(new File("/test/package/File2.java"), "File2", outputPath.resolve("package"));
@@ -114,7 +116,8 @@ class JdocTaskTest {
         given(outputDir.get().getAsFile())
             .willReturn(outputPath.toFile());
 
-        task.generate(input, action);
+        assertThatNoException()
+            .isThrownBy(() -> task.generate(input, action));
 
         then(action).should().delete(new File("/test/File.java"), "File", outputPath);
         then(action).should().generate(new File("/test/File.java"), "File", outputPath);
@@ -133,7 +136,8 @@ class JdocTaskTest {
         given(outputDir.get().getAsFile())
             .willReturn(outputPath.toFile());
 
-        task.generate(input, action);
+        assertThatNoException()
+            .isThrownBy(() -> task.generate(input, action));
 
         then(action).should().delete(new File("/test/File.java"), "File", outputPath);
         then(action).should().deleteDir(new File("/test/package"), outputPath.resolve("package"));
