@@ -8,11 +8,13 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +26,9 @@ class SpockSpecGeneratorTest {
     @Mock
     private ClassIntrospector classIntrospector;
 
+    @Spy
+    private Function<Class<?>, String> classNameFormat;
+
     @InjectMocks
     private SpockSpecGenerator generator;
 
@@ -32,23 +37,30 @@ class SpockSpecGeneratorTest {
     void testSpec(Constructor<SpockSpecGenerator> ctor, String expectedDef) {
         given(classIntrospector.findMockConstructor(SpockSpecGenerator.class))
             .willReturn(Optional.of(ctor));
+        given(classNameFormat.apply(SpockSpecGenerator.class))
+            .willReturn("JdocSpockSpec");
 
         assertThat(generator.generateSpec(new CompilationUnit("org.bool.jdoc"), List.of("def 'test'() {}"), SpockSpecGenerator.class))
             .returns("spock", TestSpec::getType)
-            .returns("SpockSpecGeneratorJdocSpockSpec", TestSpec::getName)
+            .returns("JdocSpockSpec", TestSpec::getName)
             .extracting(TestSpec::getScript).asString()
-                .contains(expectedDef);
+                .contains("class JdocSpockSpec")
+                .contains(expectedDef)
+                ;
     }
 
     @Test
     void testNoMockableConstructor() {
         given(classIntrospector.findMockConstructor(SpockSpecGenerator.class))
             .willReturn(Optional.empty());
+        given(classNameFormat.apply(SpockSpecGenerator.class))
+            .willReturn("SpockSpecGeneratorTest");
 
         assertThat(generator.generateSpec(new CompilationUnit("org.bool.jdoc"), List.of("def 'test'() {}"), SpockSpecGenerator.class))
             .returns("spock", TestSpec::getType)
-            .returns("SpockSpecGeneratorJdocSpockSpec", TestSpec::getName)
+            .returns("SpockSpecGeneratorTest", TestSpec::getName)
             .extracting(TestSpec::getScript).asString()
+                .contains("class SpockSpecGeneratorTest")
                 .doesNotContain("$target")
                 .doesNotContain("classIntrospector")
                 ;
@@ -61,8 +73,8 @@ class SpockSpecGeneratorTest {
                 "def $target = new SpockSpecGenerator()"
             ),
             Arguments.of(
-                SpockSpecGenerator.class.getDeclaredConstructor(ClassIntrospector.class),
-                "def $target = new SpockSpecGenerator(classIntrospector)"
+                SpockSpecGenerator.class.getDeclaredConstructor(ClassIntrospector.class, Function.class),
+                "def $target = new SpockSpecGenerator(classIntrospector, classNameFormat)"
             )
         );
     }
