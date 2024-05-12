@@ -51,9 +51,9 @@ public class JdocSpockPlugin implements Plugin<Project> {
         Provider<SourceSet> sources = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named("main");
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-spock"));
         extension.getLangTag().convention("spock");
-        extension.getSpockVersion().convention("2.3-groovy-4.0");
-        extension.getByteBuddyVersion().convention("1.14.12");
-        extension.getObjenesisVersion().convention("3.3");
+        extension.getSpockVersion().set("2.3-groovy-4.0");
+        extension.getByteBuddyVersion().set("1.14.12");
+        extension.getObjenesisVersion().set("3.3");
         extension.getSources().convention(sources.map(SourceSet::getJava));
         extension.getClassPath().convention(sources.map(SourceSet::getOutput));
     }
@@ -90,6 +90,6 @@ public class JdocSpockPlugin implements Plugin<Project> {
     }
 
     private void configureDependency(Project project, String configuration, String dependency, Property<String> version) {
-        project.getDependencies().addProvider(configuration, version.filter(v -> !v.isEmpty()).map(v -> dependency + ":" + v));
+        project.getDependencies().addProvider(configuration, version.map(v -> v.isEmpty() ? dependency : dependency + ":" + v));
     }
 }
