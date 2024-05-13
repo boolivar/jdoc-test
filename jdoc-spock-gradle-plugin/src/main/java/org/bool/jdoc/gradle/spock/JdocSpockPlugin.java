@@ -1,6 +1,7 @@
 package org.bool.jdoc.gradle.spock;
 
-import org.gradle.api.Plugin;
+import org.bool.jdoc.gradle.JdocTestPlugin;
+
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
@@ -11,13 +12,9 @@ import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.SourceSetContainer;
 import org.gradle.api.tasks.testing.Test;
 
-import java.util.Locale;
+public class JdocSpockPlugin implements JdocTestPlugin {
 
-public class JdocSpockPlugin implements Plugin<Project> {
-
-    public static final String ID = "io.github.boolivar.jdoctest.jdoc-spock";
-
-    public static final String TASK_GROUP = "jdoc-spock";
+    public static final String ID = GROUP_ID + ".jdoc-spock";
 
     public static final String EXTENSION_NAME = "jdocSpock";
 
@@ -38,7 +35,7 @@ public class JdocSpockPlugin implements Plugin<Project> {
 
             project.getTasks().register(GENERATE_SPECS_TASK_NAME, JdocSpockTask.class, task -> configureSpockTask(task, extension));
             project.getTasks().register(TEST_TASK_NAME, Test.class, this::configureTestTask);
-            project.getTasks().named("compile" + SOURCE_SET_NAME.substring(0, 1).toUpperCase(Locale.ROOT) + SOURCE_SET_NAME.substring(1) + "Groovy")
+            project.getTasks().named("compile" + Character.toUpperCase(SOURCE_SET_NAME.charAt(0)) + SOURCE_SET_NAME.substring(1) + "Groovy")
                 .configure(task -> task.dependsOn(GENERATE_SPECS_TASK_NAME));
 
             configureDependency(project, JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME, "org.spockframework:spock-core", extension.getSpockVersion());

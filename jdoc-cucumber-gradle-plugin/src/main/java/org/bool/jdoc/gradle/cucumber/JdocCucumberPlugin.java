@@ -1,6 +1,7 @@
 package org.bool.jdoc.gradle.cucumber;
 
-import org.gradle.api.Plugin;
+import org.bool.jdoc.gradle.JdocTestPlugin;
+
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
@@ -9,15 +10,13 @@ import org.gradle.api.tasks.JavaExec;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class JdocCucumberPlugin implements Plugin<Project> {
+public class JdocCucumberPlugin implements JdocTestPlugin {
 
-    public static final String ID = "io.github.boolivar.jdoctest.jdoc-cucumber";
+    public static final String ID = GROUP_ID + ".jdoc-cucumber";
 
-    public static final String TASK_GROUP = "jdoc-cucumber";
+    public static final String GENERATE_FEATURES_TASK_NAME = "generateCucumberFeatures";
 
-    public static final String GENERATE_CUCUMBER_FEATURES_TASK_NAME = "generateCucumberFeatures";
-
-    public static final String JDOC_CUCUMBER_TEST_TASK_NAME = "jdocCucumberTest";
+    public static final String TEST_TASK_NAME = "jdocCucumberTest";
 
     @Override
     public void apply(Project project) {
@@ -25,8 +24,8 @@ public class JdocCucumberPlugin implements Plugin<Project> {
         project.getPlugins().withType(JavaPlugin.class, javaPlugin -> {
             configureExtension(project, extension);
             project.getDependencies().addProvider(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME, extension.getCucumberVersion().map(version -> "io.cucumber:cucumber-java:" + version));
-            project.getTasks().register(GENERATE_CUCUMBER_FEATURES_TASK_NAME, JdocCucumberTask.class, task -> configureCucumberTask(task, extension));
-            project.getTasks().register(JDOC_CUCUMBER_TEST_TASK_NAME, JavaExec.class, task -> configureTestTask(task, extension));
+            project.getTasks().register(GENERATE_FEATURES_TASK_NAME, JdocCucumberTask.class, task -> configureCucumberTask(task, extension));
+            project.getTasks().register(TEST_TASK_NAME, JavaExec.class, task -> configureTestTask(task, extension));
         });
     }
 
