@@ -1,0 +1,10 @@
+plugins {
+   id "java-library-conventions"
+   id "dev.gradleplugins.java-gradle-plugin" version "1.6.11"
+}
+
+dependencies {
+    api project(":jdoc-core")
+
+    testImplementation gradleTestKit()
+}

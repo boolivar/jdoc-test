@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     api project(":jdoc-junit-engine-commons")
+    api project(":jdoc-spock-commons")
 
     implementation "org.apache.commons:commons-lang3"
     implementation "org.spockframework:spock-core"

@@ -1,0 +1,9 @@
+plugins {
+    id "java-library-jdoc-spock-conventions"
+}
+
+dependencies {
+    api project(":jdoc-core")
+
+    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock"
+}

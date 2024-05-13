@@ -1,5 +1,6 @@
-package org.bool.jdoc.gradle.cucumber;
+package org.bool.jdoc.gradle;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.FileVisitResult;
@@ -7,23 +8,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.stream.Stream;
 
-public class JdocCucumberDeleteAction {
+public interface JdocAction {
 
-    public void delete(Path path, String prefix, String suffix) {
-        try (Stream<Path> files = Files.list(path)) {
-            files.filter(p -> matches(p.getFileName().toString(), prefix, suffix))
-                .forEach(this::delete);
-        } catch (IOException e) {
-            throw new UncheckedIOException("Error listing files: " + path, e);
-        }
-    }
+    void generate(File sourceFile, String baseName, Path outputPath);
 
-    public void delete(Path path) {
-        if (Files.exists(path)) {
+    void delete(File sourceFile, String baseName, Path outputPath);
+
+    default void deleteDir(File sourceDir, Path outputPath) {
+        if (Files.exists(outputPath)) {
             try {
-                Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                Files.walkFileTree(outputPath, new SimpleFileVisitor<Path>() {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         Files.delete(file);
@@ -37,12 +32,8 @@ public class JdocCucumberDeleteAction {
                     }
                 });
             } catch (IOException e) {
-                throw new UncheckedIOException("Error traverse: " + path, e);
+                throw new UncheckedIOException("Error traverse: " + outputPath, e);
             }
         }
-    }
-
-    private boolean matches(String fileName, String prefix, String suffix) {
-        return fileName.startsWith(prefix) && fileName.endsWith(suffix);
     }
 }

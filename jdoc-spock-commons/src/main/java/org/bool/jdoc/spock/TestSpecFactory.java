@@ -32,7 +32,7 @@ public class TestSpecFactory {
      *   then:
      *     with(spec.get()) {
      *       type == "spock"
-     *       name == "TestSpecFactoryJdocSpockSpec"
+     *       name == "TestSpecFactoryTestSpec"
      *       script.startsWith("package org.bool.jdoc.spock")
      *       script.contains("this line of test spec")
      *       script.contains("actually any text written here")

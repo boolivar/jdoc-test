@@ -7,6 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
@@ -16,10 +17,18 @@ import static java.util.stream.Collectors.joining;
 @AllArgsConstructor
 public class SpockSpecGenerator {
 
+    private static final String LF = "\n";
+
     private final ClassIntrospector classIntrospector;
 
+    private final Function<Class<?>, String> classNameFormat; 
+
+    public static String defaultNameFormat(Class<?> cls) {
+        return cls.getSimpleName() + "TestSpec";
+    }
+
     public SpockSpecGenerator() {
-        this(new ClassIntrospector());
+        this(new ClassIntrospector(), SpockSpecGenerator::defaultNameFormat);
     }
 
     /**
@@ -28,17 +37,17 @@ public class SpockSpecGenerator {
      * <pre><code lang="spock">
      * def "Spec generated for targetClass"() {
      *   given:
-     *     classIntrospector.findMockConstructor(SpockSpecGenerator.class) >> Optional.of(SpockSpecGenerator.class.getConstructor(ClassIntrospector.class))
+     *     classIntrospector.findMockConstructor(SpockSpecGenerator.class) >> Optional.of(SpockSpecGenerator.class.getConstructor())
+     *     classNameFormat.apply(SpockSpecGenerator.class) >> SpockSpecGenerator.defaultNameFormat(SpockSpecGenerator.class)
      *   when:
      *     def spec = $target.generateSpec(new CompilationUnit("org.bool.jdoc"), ['def "test method"() { }'], SpockSpecGenerator.class)
      *   then:
      *     with (spec) {
      *       type == "spock"
-     *       name == "SpockSpecGeneratorJdocSpockSpec"
+     *       name == "SpockSpecGeneratorTestSpec"
      *       script.startsWith("package org.bool.jdoc")
      *       script.contains("class $name extends Specification")
-     *       script.contains("def classIntrospector = Mock(ClassIntrospector)")
-     *       script.contains('def $target = new SpockSpecGenerator(classIntrospector)')
+     *       script.contains('def $target = new SpockSpecGenerator()')
      *       script.contains('def "test method"() { }')
      *     }
      * }
@@ -49,19 +58,20 @@ public class SpockSpecGenerator {
     }
 
     public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass, Constructor<?> ctor) {
-        String name = String.format("%sJdocSpockSpec", targetClass.getSimpleName());
+        String name = classNameFormat.apply(targetClass);
         return new TestSpec("spock", name, generateSpec(name, unit, codeBlocks, ctor));
     }
 
     private String generateSpec(String name, CompilationUnit unit, List<String> codeBlocks, Constructor<?> ctor) {
         Builder<String> spec = Stream.builder();
         unit.getPackageDeclaration().map(Object::toString).ifPresent(spec);
+        spec.add("import spock.lang.*").add(LF);
         unit.getImports().stream().map(Object::toString).forEach(spec);
         spec.add(String.format("class %s extends Specification {", name));
         defMockFields(ctor).forEach(spec);
         defTargetField(ctor).ifPresent(spec);
         codeBlocks.forEach(spec);
-        return spec.add("}").build().collect(joining("\n"));
+        return spec.add("}").build().collect(joining(LF));
     }
 
     private Stream<String> defMockFields(Constructor<?> ctor) {

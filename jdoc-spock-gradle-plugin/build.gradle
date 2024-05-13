@@ -1,0 +1,26 @@
+plugins {
+   id "gradle-plugin-conventions"
+}
+
+gradlePlugin {
+    website = "https://github.com/boolivar/jdoc-test"
+    vcsUrl = "https://github.com/boolivar/jdoc-test.git"
+    plugins {
+        jdocSpock {
+            id = "io.github.boolivar.jdoctest.jdoc-spock"
+            implementationClass = "org.bool.jdoc.gradle.spock.JdocSpockPlugin"
+            displayName = "Gradle plugin for jdoc-spock"
+            description = "Plugin that runs spockframework tests written in javadocs"
+            tags.addAll("testing", "bdd", "spockframework", "jdoc-test")
+        }
+    }
+}
+
+dependencies {
+    shadow platform(project(":jdoc-platform"))
+
+    implementation project(":jdoc-gradle-plugin-commons")
+    implementation project(":jdoc-spock-commons")
+
+    testImplementation gradleTestKit()
+}
