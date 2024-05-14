@@ -17,8 +17,6 @@ gradlePlugin {
 }
 
 dependencies {
-    shadow platform(project(":jdoc-platform"))
-
     implementation project(":jdoc-gradle-plugin-commons")
     implementation project(":jdoc-spock-commons")
 

@@ -4,31 +4,17 @@ plugins {
    id "com.github.johnrengelman.shadow"
 }
 
-def shadowJdoc(Project project) {
-    def configuration = project.configurations.findByName("runtimeClasspath")
-    if (configuration != null) {
-        for (def dep : configuration.allDependencies) {
-            if (dep.group == project.group) {
-                shadowJdoc(dep.dependencyProject)
-            } else {
-                dependencies {
-                    shadow "$dep.group:$dep.name"
-                }
-            }
-        }
-    }
-}
-
-afterEvaluate {
-    shadowJdoc(project)
+dependencies {
+    shadow platform(project(":jdoc-platform"))
+    shadow "com.github.javaparser:javaparser-core"
 }
 
 shadowJar {
     archiveClassifier = ""
     dependencies {
-        exclude(dependency {
-            it.moduleGroup != project.group
-        })
+       exclude(dependency {
+           it.moduleGroup != project.group
+       })
     }
 }
 
