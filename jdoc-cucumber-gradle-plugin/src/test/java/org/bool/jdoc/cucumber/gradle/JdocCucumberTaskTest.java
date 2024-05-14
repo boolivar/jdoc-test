@@ -1,4 +1,4 @@
-package org.bool.jdoc.gradle.cucumber;
+package org.bool.jdoc.cucumber.gradle;
 
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;

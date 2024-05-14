@@ -1,4 +1,4 @@
-package org.bool.jdoc.gradle.spock;
+package org.bool.jdoc.spock.gradle;
 
 public class TestSpecClass {
 

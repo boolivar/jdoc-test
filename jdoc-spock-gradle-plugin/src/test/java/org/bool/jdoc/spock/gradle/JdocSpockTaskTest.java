@@ -1,4 +1,4 @@
-package org.bool.jdoc.gradle.spock;
+package org.bool.jdoc.spock.gradle;
 
 import org.bool.jdoc.spock.ResourceContainer;
 
@@ -62,7 +62,7 @@ class JdocSpockTaskTest {
     @Test
     void testGenerateSpecs(@Mock InputChanges changes, @Mock FileCollection files, @Mock ClassLoader classLoader, @Mock SourceDirectorySet directorySet) throws Exception {
         var srcDir = new File("src/test/java");
-        var srcFile = "src/test/java/org/bool/jdoc/gradle/spock/TestSpecClass.java";
+        var srcFile = "src/test/java/org/bool/jdoc/spock/gradle/TestSpecClass.java";
         var fileChanges = List.of(DefaultFileChange.added(srcFile, "test-class", FileType.RegularFile, srcFile));
 
         given(langTag.get())
@@ -87,7 +87,7 @@ class JdocSpockTaskTest {
 
         task.generateSpecs(changes);
 
-        assertThat(tempDir.toPath().resolve("org/bool/jdoc/gradle/spock/TestSpecClassTestSpec.groovy"))
+        assertThat(tempDir.toPath().resolve("org/bool/jdoc/spock/gradle/TestSpecClassTestSpec.groovy"))
             .content().contains("test spec");
     }
 }

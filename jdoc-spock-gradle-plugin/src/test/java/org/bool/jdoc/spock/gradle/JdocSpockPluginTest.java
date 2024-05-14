@@ -1,4 +1,4 @@
-package org.bool.jdoc.gradle.spock;
+package org.bool.jdoc.spock.gradle;
 
 import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.testkit.runner.GradleRunner;

@@ -8,7 +8,7 @@ gradlePlugin {
     plugins {
         jdocCucumber {
             id = "io.github.boolivar.jdoctest.jdoc-cucumber"
-            implementationClass = "org.bool.jdoc.gradle.cucumber.JdocCucumberPlugin"
+            implementationClass = "org.bool.jdoc.cucumber.gradle.JdocCucumberPlugin"
             displayName = "Gradle plugin for jdoc-cucumber"
             description = "Plugin that runs cucumber tests for features written in javadocs"
             tags.addAll("testing", "bdd", "cucumber", "jdoc-test")
@@ -20,4 +20,9 @@ dependencies {
     implementation project(":jdoc-gradle-plugin-commons")
 
     testImplementation gradleTestKit()
+}
+
+shadowJar {
+   relocate "org.bool.jdoc.core", "org.bool.jdoc.cucumber.core"
+   relocate "org.bool.jdoc.gradle", "org.bool.jdoc.cucumber.gradle"
 }

@@ -1,4 +1,4 @@
-package org.bool.jdoc.gradle.spock;
+package org.bool.jdoc.spock.gradle;
 
 import org.bool.jdoc.core.JavaFileParser;
 import org.bool.jdoc.core.SpecSource;

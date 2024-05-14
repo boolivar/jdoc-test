@@ -8,7 +8,7 @@ gradlePlugin {
     plugins {
         jdocSpock {
             id = "io.github.boolivar.jdoctest.jdoc-spock"
-            implementationClass = "org.bool.jdoc.gradle.spock.JdocSpockPlugin"
+            implementationClass = "org.bool.jdoc.spock.gradle.JdocSpockPlugin"
             displayName = "Gradle plugin for jdoc-spock"
             description = "Plugin that runs spockframework tests written in javadocs"
             tags.addAll("testing", "bdd", "spockframework", "jdoc-test")
@@ -21,4 +21,9 @@ dependencies {
     implementation project(":jdoc-spock-commons")
 
     testImplementation gradleTestKit()
+}
+
+shadowJar {
+   relocate "org.bool.jdoc.core", "org.bool.jdoc.spock.core"
+   relocate "org.bool.jdoc.gradle", "org.bool.jdoc.spock.gradle"
 }
