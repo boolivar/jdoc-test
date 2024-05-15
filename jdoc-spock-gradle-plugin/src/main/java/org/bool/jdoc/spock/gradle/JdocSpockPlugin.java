@@ -24,6 +24,10 @@ public class JdocSpockPlugin implements JdocTestPlugin {
 
     public static final String SOURCE_SET_NAME = "jdocSpock";
 
+    private static final String IMPLEMENTATION_CONFIGURATION_NAME = SOURCE_SET_NAME + "Implementation";
+
+    private static final String RUNTIME_CONFIGURATION_NAME = SOURCE_SET_NAME + "RuntimeOnly";
+
     @Override
     public void apply(Project project) {
         JdocSpockExtension extension = project.getExtensions().create(EXTENSION_NAME, JdocSpockExtension.class);
@@ -38,9 +42,9 @@ public class JdocSpockPlugin implements JdocTestPlugin {
             project.getTasks().named("compile" + Character.toUpperCase(SOURCE_SET_NAME.charAt(0)) + SOURCE_SET_NAME.substring(1) + "Groovy")
                 .configure(task -> task.dependsOn(GENERATE_SPECS_TASK_NAME));
 
-            configureDependency(project, JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME, "org.spockframework:spock-core", extension.getSpockVersion());
-            configureDependency(project, JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME, "net.bytebuddy:byte-buddy", extension.getByteBuddyVersion());
-            configureDependency(project, JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME, "org.objenesis:objenesis", extension.getObjenesisVersion());
+            configureDependency(project, IMPLEMENTATION_CONFIGURATION_NAME, "org.spockframework:spock-core", extension.getSpockVersion());
+            configureDependency(project, RUNTIME_CONFIGURATION_NAME, "net.bytebuddy:byte-buddy", extension.getByteBuddyVersion());
+            configureDependency(project, RUNTIME_CONFIGURATION_NAME, "org.objenesis:objenesis", extension.getObjenesisVersion());
         });
     }
 
@@ -62,7 +66,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
             sourceSet.setCompileClasspath(sourceSet.getCompileClasspath().plus(sourceSets.getByName("main").getOutput()));
             sourceSet.setRuntimeClasspath(sourceSet.getRuntimeClasspath().plus(sourceSets.getByName("main").getOutput()));
         });
-        project.getConfigurations().named(SOURCE_SET_NAME + "Implementation")
+        project.getConfigurations().named(IMPLEMENTATION_CONFIGURATION_NAME)
             .configure(cfg -> cfg.extendsFrom(project.getConfigurations().getByName(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME)));
     }
 
