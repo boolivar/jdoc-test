@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.8.0](https://github.com/boolivar/jdoc-test/compare/0.7.0...0.8.0) (2024-05-15)
+
+
+### Features
+
+* jdoc-spock gradle plugin ([#24](https://github.com/boolivar/jdoc-test/issues/24)) ([0188932](https://github.com/boolivar/jdoc-test/commit/01889324d4b9f8d4e46e6da2749e9efd858dd460))
+* JdocSpockPlugin byteBuddyVersion 1.14.15 ([e51bcb7](https://github.com/boolivar/jdoc-test/commit/e51bcb7c69ddbd7c2ce0af0aa817a19e18360fd4))
+* packages renamed in order to relocate on shadow and eliminate class conflicts between plugins ([f2f2524](https://github.com/boolivar/jdoc-test/commit/f2f2524fbeadfe59a56d65bbe6ad069c3ca7a74a))
+* shadow direct dependencies of projects on gradle.projectsEvaluated ([e3fa4aa](https://github.com/boolivar/jdoc-test/commit/e3fa4aa5146f0fc2aafc609528ccefaf4e84c28e))
+
+
+### Bug Fixes
+
+* configure jdocSpock source set dependencies in JdocSpockPlugin ([11390cf](https://github.com/boolivar/jdoc-test/commit/11390cf80116c6b89621e76e90a8690bc6388959))
+* public SOURCE_SET_NAME for JdocSpockPlugin ([bc0bb12](https://github.com/boolivar/jdoc-test/commit/bc0bb120a2fd67c97a1f042d00d74a1043ed60fd))
+* removed reports dir output for jdocCucumberTest gradle task ([ef3687c](https://github.com/boolivar/jdoc-test/commit/ef3687ca379dda49b59fdebb28e11421373d6546))
+
 ## [0.7.0](https://github.com/boolivar/jdoc-test/compare/0.6.0...0.7.0) (2024-05-06)
 
 
