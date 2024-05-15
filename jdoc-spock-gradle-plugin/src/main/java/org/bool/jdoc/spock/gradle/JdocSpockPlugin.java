@@ -53,7 +53,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-spock"));
         extension.getLangTag().convention("spock");
         extension.getSpockVersion().set("2.3-groovy-4.0");
-        extension.getByteBuddyVersion().set("1.14.12");
+        extension.getByteBuddyVersion().set("1.14.15");
         extension.getObjenesisVersion().set("3.3");
         extension.getSources().convention(sources.map(SourceSet::getJava));
         extension.getClassPath().convention(sources.map(SourceSet::getOutput));
