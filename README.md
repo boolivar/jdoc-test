@@ -22,7 +22,7 @@ usage example. Java code, tests and documentation become tightly coupled by putt
 
 [jdoc-spock](#jdoc-spock) library runs [spockframework](https://spockframework.org/) test specifications from javadocs.
 
-[jdoc-spock-gradle-plugin](#jdoc-spock-gradle-plugin) :hourglass: [**not available yet**] gradle [plugin](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing.
+[jdoc-spock-gradle-plugin](#jdoc-spock-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing.
 
 [jdoc-cucumber](#jdoc-cucumber) library supports [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs.
 
@@ -68,7 +68,7 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.7.0"
+    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.8.0"
 }
 ```
 
@@ -171,7 +171,7 @@ public class Foo {
 `build.gradle` example:
 ```gradle
 dependencies {
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.7.0"
+    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.8.0"
     testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
 ```
@@ -239,7 +239,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.7.0"
+    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.8.0"
 }
 
 repositories {
@@ -290,14 +290,14 @@ When `java` plugin is applied to a project, `jdoc-cucumber` plugin registers `io
 
 ---
 
-Gradle plugin [**not yet**] available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing tasks.
+Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing tasks.
 
 ##### Configuration example
 `build.gradle`:
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-spock"
+    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.8.0"
 }
 
 repositories {
