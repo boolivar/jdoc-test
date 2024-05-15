@@ -22,7 +22,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
 
     public static final String TEST_TASK_NAME = "jdocSpockTest";
 
-    private static final String SOURCE_SET_NAME = "jdocSpock";
+    public static final String SOURCE_SET_NAME = "jdocSpock";
 
     @Override
     public void apply(Project project) {
