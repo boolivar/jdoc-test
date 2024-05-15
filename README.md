@@ -22,6 +22,8 @@ usage example. Java code, tests and documentation become tightly coupled by putt
 
 [jdoc-spock](#jdoc-spock) library runs [spockframework](https://spockframework.org/) test specifications from javadocs.
 
+[jdoc-spock-gradle-plugin](#jdoc-spock-gradle-plugin) :hourglass: [**not available yet**] gradle [plugin](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing.
+
 [jdoc-cucumber](#jdoc-cucumber) library supports [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs.
 
 [jdoc-cucumber-gradle-plugin](#jdoc-cucumber-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) that automates cucumber feature generation and testing. 
@@ -276,9 +278,87 @@ When `java` plugin is applied to a project, `jdoc-cucumber` plugin registers `io
 - **jdocCucumberTest** - `JavaExec`  
   _Depends on:_ all tasks with type `JdocCucumberTask`. Runs cucumber tests using cucumber CLI Runner. 
 
-Note that by default `jdocCucumberTest` task is **not a dependency** for `check` task. To include `jdocCucumberTest` in build this should be configured manually.
+> [!NOTE]
+> By default `jdocCucumberTest` task is **not a dependency** for `check` task. To include `jdocCucumberTest` in build this should be configured manually.
+>
+> `build.gradle` example:
+> ```gradle
+> check.dependsOn jdocCucumberTest
+> ```
 
+#### jdoc-spock-gradle-plugin
+
+---
+
+Gradle plugin [**not yet**] available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing tasks.
+
+##### Configuration example
+`build.gradle`:
+```gradle
+plugins {
+    id "java"
+    id "io.github.boolivar.jdoctest.jdoc-spock"
+}
+
+repositories {
+    mavenCentral()
+}
+
+jdocSpockTest {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+check.dependsOn jdocSpockTest
+```
+
+```sh
+gradle check
+```
+
+##### Reacting to the java plugin
+When `java` plugin is applied to a project, `jdoc-spock` plugin:
+- applies `groovy` plugin
+- creates source set `jdocSpock` with groovy sources configured to outputDir property of extension
+- registers `org.spockframework:spock-core` as implementation dependency for `jdocSpock` source set
+- registers `net.bytebuddy:byte-buddy` and `org.objenesis:objenesis` as runtimeOnly dependencies for `jdocSpock` source set
+- creates `generateSpockSpecs` task
+- creates `jdocSpockTest` task
+- configures `compileJdocSpockGroovy` task to depend on `generateSpockSpecs` task
+
+##### jdocSpock extension
 `build.gradle` example:
 ```gradle
-check.dependsOn jdocCucumberTest
+jdocSpock {
+    outputDir = project.layout.buildDirectory.dir("spock-specs")
+    spockVersion = "2.3-groovy-4.0"
+    byteBuddyVersion = null
+    objenesisVersion = null
+}
 ```
+
+| Extension property | Type | Default value | Description |
+| ------------------ | ---- | ------------- | ----------- |
+| `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-spock") | Path to store generated groovy specs |
+| `langTag` | `String` | "spock" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and included in spec generation |
+| `sources` | `SourceDirectorySet` | sourceSets.main.java | Java sources to parse |
+| `classPath` | `FileCollection` | sourceSets.main.output | Classpath containing classes under test, used for mockable constructor search. |
+| `spockVersion` | `String` | "2.3-groovy-4.0" | `org.spockframework:spock-core` dependecny version to register in `jdocSpockImplementation` configuration |
+| `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependecny version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
+| `objenesisVersion` | `String` | "3.3" | `org.objenesis:objenesis` dependecny version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
+
+##### Tasks
+- **generateSpockSpecs** - `JdocSpockTask`  
+  _Depends on:_ `compileJava`. Generates spockframework test specs from javadocs and stores them in `jdocSpock.outputDir` path.
+- **jdocSpockTest** - `Test`  
+Runs spockframework tests using junit platform . 
+
+> [!NOTE]
+> By default `jdocSpockTest` task is **not a dependency** for `check` task. To include `jdocSpockTest` in build this should be configured manually.
+> 
+> `build.gradle` example:
+>
+> ```gradle
+> check.dependsOn jdocSpockTest
+> ```
