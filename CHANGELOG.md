@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/boolivar/jdoc-test/compare/0.8.0...0.8.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* removed jdoc-platform publication from module metadata ([d490322](https://github.com/boolivar/jdoc-test/commit/d49032222cc3e391fe5062ab9f092e674d36e221))
+
 ## [0.8.0](https://github.com/boolivar/jdoc-test/compare/0.7.0...0.8.0) (2024-05-15)
 
 
