@@ -16,7 +16,7 @@ public class ResourceContainer<T> implements AutoCloseable {
      *   given:
      *     def closeable = Mock(Closeable)
      *   when:
-     *     try (ResourceContainer<?> container = new ResourceContainer(closeable)) {
+     *     try (ResourceContainer<?> container = new ResourceContainer<>(closeable)) {
      *       assert container.resource == closeable
      *     }
      *   then:
@@ -25,7 +25,7 @@ public class ResourceContainer<T> implements AutoCloseable {
      * 
      * def "arbitrary resource intact"() {
      *   when:
-     *     try (ResourceContainer<?> container = new ResourceContainer(resource)) {
+     *     try (ResourceContainer<?> container = new ResourceContainer<>(resource)) {
      *       assert container.resource == resource
      *     }
      *   then:
