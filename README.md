@@ -7,6 +7,39 @@
 
 Write BDD tests in javadocs.
 
+```java
+public class MathUtils {
+    /**
+     * Calculate square of x.
+     * 
+     * <pre><code lang="spock">
+     * def "returns square"() {
+     *   expect:
+     *     MathUtils.sqr(2) == 4
+     * }
+     * </code></pre>
+     * 
+     * <pre><code lang="gherkin">
+     * Feature: square calculation
+     *   Scenario Outline: integers
+     *     When input value equals <x>
+     *     Then result should be <sqr>
+     *     Examples:
+     *       | x | sqr |
+     *       | 0 | 0   |
+     *       | 1 | 1   |
+     *       | 2 | 4   |
+     *       |-1 | 1   |
+     *       | 10| 100 |
+     *       | 11| 121 |
+     * </code></pre>
+     */
+    public static int sqr(int x) {
+        return x * x;
+    }
+}
+```
+
 ## What?
 
 **jdoc-test** is a framework for javadoc sourced java tests.
