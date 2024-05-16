@@ -11,10 +11,7 @@ shadowJar {
            it.moduleGroup != project.group
        })
     }
-}
-
-dependencies {
-    shadow platform(project(":jdoc-platform"))
+    actions.removeAt(0) // remove manifest Class-Path configuration action that requires platform in configuration
 }
 
 def shadowDeps(Project project) {
@@ -43,9 +40,6 @@ publishing {
                 allVariants {
                     fromResolutionResult()
                 }
-            }
-            pom.withXml {
-                asNode().remove(asNode().get("dependencyManagement"))
             }
         }
     }
