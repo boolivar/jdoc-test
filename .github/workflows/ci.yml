@@ -1,8 +1,8 @@
 name: CI
 on:
   push:
-    branches:
-    - '**'
+    branches-ignore:
+    - gh-pages
 permissions:
   contents: write
   pull-requests: write
