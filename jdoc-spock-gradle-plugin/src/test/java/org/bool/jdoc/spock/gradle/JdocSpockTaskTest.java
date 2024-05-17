@@ -1,5 +1,6 @@
 package org.bool.jdoc.spock.gradle;
 
+import org.bool.jdoc.spock.NoopContainer;
 import org.bool.jdoc.spock.ResourceContainer;
 
 import org.gradle.api.file.DirectoryProperty;
@@ -60,7 +61,7 @@ class JdocSpockTaskTest {
     }
 
     @Test
-    void testGenerateSpecs(@Mock InputChanges changes, @Mock FileCollection files, @Mock ClassLoader classLoader, @Mock SourceDirectorySet directorySet) throws Exception {
+    void testGenerateSpecs(@Mock InputChanges changes, @Mock FileCollection files, @Mock SourceDirectorySet directorySet) throws Exception {
         var srcDir = new File("src/test/java");
         var srcFile = "src/test/java/org/bool/jdoc/spock/gradle/TestSpecClass.java";
         var fileChanges = List.of(DefaultFileChange.added(srcFile, "test-class", FileType.RegularFile, srcFile));
@@ -78,9 +79,7 @@ class JdocSpockTaskTest {
         given(classPath.get())
             .willReturn(files);
         given(classLoaderFactory.apply(files))
-            .willReturn(new ResourceContainer<>(classLoader));
-        given(classLoader.loadClass(TestSpecClass.class.getName()))
-            .willReturn((Class) TestSpecClass.class);
+            .willReturn(new NoopContainer<>(Thread.currentThread().getContextClassLoader()));
 
         given(changes.getFileChanges((Provider) sources))
             .willReturn(fileChanges);
