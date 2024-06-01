@@ -97,6 +97,9 @@ public void foo() {
 
 2. Add `jdoc-spock` dependency.
 
+> [!IMPORTANT]
+> Currently `jdoc-spock` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
+
 `build.gradle` example:
 ```gradle
 repositories {
@@ -106,8 +109,6 @@ dependencies {
     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.8.1"
 }
 ```
-
-Currently `jdoc-spock` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
 
 3. Compile java code with parameter names using `javac` `-parameters` argument.
 
@@ -202,6 +203,9 @@ public class Foo {
 ```
 
 2. Provide cucumber and jdoc-cucumber test dependencies.
+
+> [!IMPORTANT]
+> Currently `jdoc-cucumber` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
 
 `build.gradle` example:
 ```gradle
