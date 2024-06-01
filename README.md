@@ -2,10 +2,12 @@
 
 [![CI](https://github.com/boolivar/jdoc-test/workflows/CI/badge.svg)](https://github.com/boolivar/jdoc-test/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/boolivar/jdoc-test/graph/badge.svg?token=PCV1VTNFYT)](https://codecov.io/gh/boolivar/jdoc-test)
+[![codeclimate](https://api.codeclimate.com/v1/badges/5abdb712f0e232643f83/maintainability)](https://codeclimate.com/github/boolivar/jdoc-test/maintainability)
+[![codebeat](https://codebeat.co/badges/2cfd51bf-0d1b-4422-a845-e71b37e7a3f6)](https://codebeat.co/projects/github-com-boolivar-jdoc-test-master)
 [![release](https://img.shields.io/github/v/release/boolivar/jdoc-test)](https://github.com/boolivar/jdoc-test/releases/latest)
 [![](https://jitpack.io/v/boolivar/jdoc-test.svg)](https://jitpack.io/#boolivar/jdoc-test)
 
-Write BDD tests in javadocs.
+Write BDD tests in javadocs!
 
 ```java
 public class MathUtils {
@@ -53,13 +55,13 @@ usage example. Java code, tests and documentation become tightly coupled by putt
 
 ## WHAT?
 
-[jdoc-spock](#jdoc-spock) library runs [spockframework](https://spockframework.org/) test specifications from javadocs.
+[jdoc-spock](#jdoc-spock) jupiter engine library runs [spockframework](https://spockframework.org/) test specifications written in javadocs.
 
-[jdoc-spock-gradle-plugin](#jdoc-spock-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing.
+[jdoc-spock-gradle-plugin](#jdoc-spock-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) automates spockframework specs generation and testing.
 
-[jdoc-cucumber](#jdoc-cucumber) library supports [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs.
+[jdoc-cucumber](#jdoc-cucumber) jupiter engine library runs [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs.
 
-[jdoc-cucumber-gradle-plugin](#jdoc-cucumber-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) that automates cucumber feature generation and testing. 
+[jdoc-cucumber-gradle-plugin](#jdoc-cucumber-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) automates cucumber feature generation and testing. 
 
 :warning: **Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.**
 
@@ -69,7 +71,7 @@ Yes, see `jdoc-spock` and `jdoc-cucumber` test examples in source code.
 
 ## How?
 
-#### jdoc-spock
+### jdoc-spock
 
 ---
 
@@ -170,7 +172,7 @@ test {
 gradle test
 ```
 
-#### jdoc-cucumber
+### jdoc-cucumber
 
 ---
 
@@ -261,13 +263,13 @@ public class JdocCucumberTestSuite {
 gradle test
 ```
 
-#### jdoc-cucumber-gradle-plugin
+### jdoc-cucumber-gradle-plugin
 
 ---
 
 Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-cucumber) that automates cucumber feature generation and cucumber testing tasks.
 
-##### Minimal configuration:
+#### Minimal configuration:
 `build.gradle`:
 ```gradle
 plugins {
@@ -286,7 +288,7 @@ check.dependsOn jdocCucumberTest
 gradle check
 ```
 
-##### jdocCucumber extension
+#### jdocCucumber extension
 `build.gradle` example:
 ```gradle
 jdocCucumber {
@@ -304,7 +306,7 @@ jdocCucumber {
 | `cucumberVersion` | `String` | "7.17.0" | `io.cucumber:cucumber-java` dependecny version to register in `testImplementation` configuration |
 | `gluePackages` | `List<String>` | | List of packages with cucumber glue code |
 
-##### Tasks
+#### Tasks
 When `java` plugin is applied to a project, `jdoc-cucumber` plugin registers `io.cucumber:cucumber-java` dependency in `testImplementation` configuration and creates 2 tasks:
 - **generateCucumberFeatures** - `JdocCucumberTask`  
   Generates cucumber features from javadocs and stores them in `jdocCucumber.outputDir` path.
@@ -319,13 +321,13 @@ When `java` plugin is applied to a project, `jdoc-cucumber` plugin registers `io
 > check.dependsOn jdocCucumberTest
 > ```
 
-#### jdoc-spock-gradle-plugin
+### jdoc-spock-gradle-plugin
 
 ---
 
 Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing tasks.
 
-##### Configuration example
+#### Configuration example
 `build.gradle`:
 ```gradle
 plugins {
@@ -350,7 +352,7 @@ check.dependsOn jdocSpockTest
 gradle check
 ```
 
-##### Reacting to the java plugin
+#### Reacting to the java plugin
 When `java` plugin is applied to a project, `jdoc-spock` plugin:
 - applies `groovy` plugin
 - creates source set `jdocSpock` with groovy sources configured to outputDir property of extension
@@ -360,7 +362,7 @@ When `java` plugin is applied to a project, `jdoc-spock` plugin:
 - creates `jdocSpockTest` task
 - configures `compileJdocSpockGroovy` task to depend on `generateSpockSpecs` task
 
-##### jdocSpock extension
+#### jdocSpock extension
 `build.gradle` example:
 ```gradle
 jdocSpock {
@@ -381,7 +383,7 @@ jdocSpock {
 | `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependecny version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 | `objenesisVersion` | `String` | "3.3" | `org.objenesis:objenesis` dependecny version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 
-##### Tasks
+#### Tasks
 - **generateSpockSpecs** - `JdocSpockTask`  
   _Depends on:_ `compileJava`. Generates spockframework test specs from javadocs and stores them in `jdocSpock.outputDir` path.
 - **jdocSpockTest** - `Test`  
