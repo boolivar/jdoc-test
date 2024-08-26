@@ -64,7 +64,7 @@ tasks.register("bundleLibraryZip", Zip) {
     destinationDirectory = layout.buildDirectory.dir("maven-central")
 }
 
-tasks.register("publishMavenCentral", MavenCentralUpload) {
-    token = mavenCentralToken
+tasks.register("publishToMavenCentral", MavenCentralUpload) {
+    token = Base64.encoder.encodeToString("$mavenCentralUser:$mavenCentralPassword".bytes)
     bundle = bundleLibraryZip.archiveFile
 }
