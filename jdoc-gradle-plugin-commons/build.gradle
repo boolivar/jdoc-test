@@ -3,6 +3,8 @@ plugins {
    id "dev.gradleplugins.java-gradle-plugin" version "1.6.11"
 }
 
+description = "jdoc-test gradle plugin common components"
+
 dependencies {
     api project(":jdoc-core")
 

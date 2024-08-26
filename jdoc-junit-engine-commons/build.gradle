@@ -2,6 +2,8 @@ plugins {
     id "java-library-jdoc-spock-conventions"
 }
 
+description = "jdoc-test JUnit test engine common components"
+
 dependencies {
     api project(":jdoc-core")
     api "org.junit.platform:junit-platform-engine"

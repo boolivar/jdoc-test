@@ -10,16 +10,3 @@ jar {
                    "Implementation-Version": version)
     }
 }
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-            versionMapping {
-                allVariants {
-                    fromResolutionResult()
-                }
-            }
-        }
-    }
-}
