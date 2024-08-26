@@ -1,3 +1,68 @@
 plugins {
+    id "signing"
     id "maven-publish"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            versionMapping {
+                allVariants {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = "$groupId:$artifactId"
+                description = project.description
+                url = "https://github.com/boolivar/jdoc-test"
+                inceptionYear = "2024"
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "http://www.opensource.org/licenses/mit-license.php"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "boolivar"
+                        name = "Aleksey Krichevskiy"
+                        email = "boolivar@gmail.com"
+                        organizationUrl = "https://github.com/boolivar"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/boolivar/jdoc-test.git"
+                    developerConnection = "scm:git:ssh://github.com:boolivar/jdoc-test.git"
+                    url = "https://github.com/boolivar/jdoc-test"
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir("maven-central/bundle")
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.maven
+    useInMemoryPgpKeys(signingKey, signingSecret)
+}
+
+tasks.named("publishMavenPublicationToMavenRepository") {
+    outputs.dir layout.buildDirectory.dir("maven-central/bundle")
+}
+
+tasks.register("bundleLibraryZip", Zip) {
+    from publishMavenPublicationToMavenRepository
+    exclude "**/maven-metadata.*"
+    archiveBaseName = project.name
+    destinationDirectory = layout.buildDirectory.dir("maven-central")
+}
+
+tasks.register("publishMavenCentral", MavenCentralUpload) {
+    token = mavenCentralToken
+    bundle = bundleLibraryZip.archiveFile
 }
