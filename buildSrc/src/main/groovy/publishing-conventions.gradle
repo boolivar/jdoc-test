@@ -12,29 +12,31 @@ publishing {
                     fromResolutionResult()
                 }
             }
-            pom {
-                name = "$groupId:$artifactId"
-                description = project.description
-                url = "https://github.com/boolivar/jdoc-test"
-                inceptionYear = "2024"
-                licenses {
-                    license {
-                        name = "MIT License"
-                        url = "http://www.opensource.org/licenses/mit-license.php"
-                    }
-                }
-                developers {
-                    developer {
-                        id = "boolivar"
-                        name = "Aleksey Krichevskiy"
-                        email = "boolivar@gmail.com"
-                        organizationUrl = "https://github.com/boolivar"
-                    }
-                }
-                scm {
-                    connection = "scm:git:https://github.com/boolivar/jdoc-test.git"
-                    developerConnection = "scm:git:ssh://github.com:boolivar/jdoc-test.git"
+            afterEvaluate {
+                pom {
+                    name = "$groupId:$artifactId"
+                    description = project.description
                     url = "https://github.com/boolivar/jdoc-test"
+                    inceptionYear = "2024"
+                    licenses {
+                        license {
+                            name = "MIT License"
+                            url = "http://www.opensource.org/licenses/mit-license.php"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "boolivar"
+                            name = "Aleksey Krichevskiy"
+                            email = "boolivar@gmail.com"
+                            organizationUrl = "https://github.com/boolivar"
+                        }
+                    }
+                    scm {
+                        connection = "scm:git:https://github.com/boolivar/jdoc-test.git"
+                        developerConnection = "scm:git:ssh://github.com:boolivar/jdoc-test.git"
+                        url = "https://github.com/boolivar/jdoc-test"
+                    }
                 }
             }
         }

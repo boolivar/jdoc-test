@@ -2,6 +2,8 @@ plugins {
     id "java-library-jdoc-spock-conventions"
 }
 
+description = "jdoc-spock common components"
+
 dependencies {
     api project(":jdoc-core")
 
