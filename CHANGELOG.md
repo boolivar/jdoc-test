@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/boolivar/jdoc-test/compare/0.8.1...0.9.0) (2024-08-27)
+
+
+### Features
+
+* maven central upload ([#32](https://github.com/boolivar/jdoc-test/issues/32)) ([cfd2219](https://github.com/boolivar/jdoc-test/commit/cfd2219c65517cbc887c1ae2ed36759530733b4a))
+
 ## [0.8.1](https://github.com/boolivar/jdoc-test/compare/0.8.0...0.8.1) (2024-05-16)
 
 
