@@ -50,14 +50,14 @@ abstract class MavenCentralUpload extends DefaultTask {
             .addQueryParameter("publishingType", autoPublish.getOrElse(false) ? "AUTOMATIC" : "USER_MANAGED")
 
         def request = new Request.Builder()
-            .header("Authorization", "Bearer " + token)
+            .header("Authorization", "Bearer " + token.get())
             .url(bundleName.present ? requestUrl.addQueryParameter("name", bundleName.get()).build() : requestUrl.build())
             .post(requestBody)
             .build()
 
         try (def rsp = new OkHttpClient().newCall(request).execute()) {
             if (!rsp.isSuccessful()) {
-                throw new IOException("Request error: " + rsp.code + " " + rsp.body.string)
+                throw new IOException("Request error: " + rsp.code + " " + rsp.body.string())
             }
         }
     }
