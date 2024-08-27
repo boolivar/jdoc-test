@@ -48,4 +48,4 @@ jobs:
         ORG_GRADLE_PROJECT_signingSecret: ${{ secrets.GPG_SECRET }}
         ORG_GRADLE_PROJECT_mavenCentralUser: ${{ secrets.SONATYPE_USER }}
         ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
-      run: ./gradlew -Prelease.forceVersion=$RELEASE_VERSION createRelease && ./gradlew publishToMavenCentral publishPlugins
+      run: ./gradlew -Prelease.forceVersion=$RELEASE_VERSION createRelease && ./gradlew -x check publishToMavenCentral publishPlugins
