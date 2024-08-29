@@ -1,5 +1,6 @@
 # jdoc-test
 
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.boolivar.jdoctest/jdoc-core)](https://central.sonatype.com/namespace/io.github.boolivar.jdoctest)
 [![CI](https://github.com/boolivar/jdoc-test/workflows/CI/badge.svg)](https://github.com/boolivar/jdoc-test/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/boolivar/jdoc-test/graph/badge.svg?token=PCV1VTNFYT)](https://codecov.io/gh/boolivar/jdoc-test)
 [![codeclimate](https://api.codeclimate.com/v1/badges/5abdb712f0e232643f83/maintainability)](https://codeclimate.com/github/boolivar/jdoc-test/maintainability)
@@ -63,7 +64,7 @@ usage example. Java code, tests and documentation become tightly coupled by putt
 
 [jdoc-cucumber-gradle-plugin](#jdoc-cucumber-gradle-plugin) gradle [plugin](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) automates cucumber feature generation and testing. 
 
-:warning: **Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.**
+:warning: **Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.** 
 
 ## WHAT???
 
@@ -73,11 +74,20 @@ Yes, see `jdoc-spock` and `jdoc-cucumber` test examples in source code.
 
 ### jdoc-spock
 
+```xml
+<dependency>
+    <groupId>io.github.boolivar.jdoctest</groupId>
+    <artifactId>jdoc-spock</artifactId>
+    <version>0.9.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
 ---
 
 1. Write `jdoc-spock` tests.
    
-`jdoc-spock` contains junit platform engine to run tests. It consider text in javadoc or block comment between `<code lang="spock">` `</code>` tags as spock specification code.
+`jdoc-spock` contains junit platform engine to run tests. It considers text in javadoc or block comment between `<code lang="spock">` `</code>` tags as spock specification code.
 Additional non-mandatory `<pre>` tag keeps code formatting for javadoc presentation:
 ```java
 /**
@@ -97,18 +107,29 @@ public void foo() {
 
 2. Add `jdoc-spock` dependency.
 
-> [!IMPORTANT]
-> Currently `jdoc-spock` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
-
 `build.gradle` example:
 ```gradle
 repositories {
-    maven { url "https://jitpack.io" }
+    mavenCentral()
 }
+
 dependencies {
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.8.1"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.9.0"
 }
 ```
+
+> [!IMPORTANT]
+> `jdoc-spock` versions before `0.9.0` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
+>
+> ```gradle
+> repositories {
+>     maven { url "https://jitpack.io" }
+> }
+> 
+> dependencies {
+>     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.8.1"
+> }
+> ```
 
 3. Compile java code with parameter names using `javac` `-parameters` argument.
 
@@ -175,6 +196,15 @@ gradle test
 
 ### jdoc-cucumber
 
+```xml
+<dependency>
+    <groupId>io.github.boolivar.jdoctest</groupId>
+    <artifactId>jdoc-cucumber</artifactId>
+    <version>0.9.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
 ---
 
 1. Write jdoc gherkin feature using `<code lang="gherkin">` tag:
@@ -204,16 +234,31 @@ public class Foo {
 
 2. Provide cucumber and jdoc-cucumber test dependencies.
 
-> [!IMPORTANT]
-> Currently `jdoc-cucumber` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
-
 `build.gradle` example:
 ```gradle
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.8.1"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.9.0"
     testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
 ```
+
+> [!IMPORTANT]
+> `jdoc-cucumber` versions before `0.9.0` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
+>
+> `build.gradle` example:
+> ```gradle
+> repositories {
+>     maven { url "https://jitpack.io" }
+> }
+> dependencies {
+>     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.8.1"
+>     testImplementation "io.cucumber:cucumber-java:7.17.0"
+> }
+> ```
 
 3. Write cucumber step definitions.
 
@@ -307,7 +352,7 @@ jdocCucumber {
 | `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-cucumber") | Path to store generated features |
 | `langTag` | `String` | "gherkin" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and written as features |
 | `sources` | `SourceDirectorySet` | sourceSets.main.java | Java sources to parse |
-| `cucumberVersion` | `String` | "7.17.0" | `io.cucumber:cucumber-java` dependecny version to register in `testImplementation` configuration |
+| `cucumberVersion` | `String` | "7.17.0" | `io.cucumber:cucumber-java` dependency version to register in `testImplementation` configuration |
 | `gluePackages` | `List<String>` | | List of packages with cucumber glue code |
 
 #### Tasks
@@ -383,9 +428,9 @@ jdocSpock {
 | `langTag` | `String` | "spock" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and included in spec generation |
 | `sources` | `SourceDirectorySet` | sourceSets.main.java | Java sources to parse |
 | `classPath` | `FileCollection` | sourceSets.main.output | Classpath containing classes under test, used for mockable constructor search. |
-| `spockVersion` | `String` | "2.3-groovy-4.0" | `org.spockframework:spock-core` dependecny version to register in `jdocSpockImplementation` configuration |
-| `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependecny version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
-| `objenesisVersion` | `String` | "3.3" | `org.objenesis:objenesis` dependecny version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
+| `spockVersion` | `String` | "2.3-groovy-4.0" | `org.spockframework:spock-core` dependency version to register in `jdocSpockImplementation` configuration |
+| `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
+| `objenesisVersion` | `String` | "3.3" | `org.objenesis:objenesis` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 
 #### Tasks
 - **generateSpockSpecs** - `JdocSpockTask`  
