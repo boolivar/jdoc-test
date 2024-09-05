@@ -148,10 +148,12 @@ As an example for java class:
 
 ```java
 public class Foo {
-  private final Bar delegate;
-  public Foo(Bar delegate) {
-    this.delegate = delegate;
-  }
+
+    private final Bar delegate;
+
+    public Foo(Bar delegate) {
+        this.delegate = delegate;
+    }
 }
 ```
 
@@ -342,8 +344,8 @@ gradle check
 ```gradle
 jdocCucumber {
     gluePackages = ["org.bool.cucumber.stepdefs"]
-    cucumberVersion = "7.17.0"
-    sourceSets.custom.java
+    cucumberVersion = "7.18.1"
+    sources = sourceSets.custom.java
 }
 ```
 
