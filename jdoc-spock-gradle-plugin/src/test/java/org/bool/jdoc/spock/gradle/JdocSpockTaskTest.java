@@ -61,7 +61,7 @@ class JdocSpockTaskTest {
     }
 
     @Test
-    void testGenerateSpecs(@Mock InputChanges changes, @Mock FileCollection files, @Mock SourceDirectorySet directorySet) throws Exception {
+    void testGenerateSpecs(@Mock InputChanges changes, @Mock FileCollection files, @Mock SourceDirectorySet directorySet) {
         var srcDir = new File("src/test/java");
         var srcFile = "src/test/java/org/bool/jdoc/spock/gradle/TestSpecClass.java";
         var fileChanges = List.of(DefaultFileChange.added(srcFile, "test-class", FileType.RegularFile, srcFile));
