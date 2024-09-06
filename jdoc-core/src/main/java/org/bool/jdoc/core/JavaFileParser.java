@@ -56,7 +56,7 @@ public class JavaFileParser {
 
     private List<String> parseComments(CommentsCollection comments) {
         return comments.getComments().stream()
-            .filter(comment -> JavadocComment.class.isInstance(comment) || BlockComment.class.isInstance(comment))
+            .filter(comment -> comment instanceof JavadocComment || comment instanceof BlockComment)
             .flatMap(comment -> jdocParser.parse(comment.getContent()).stream())
             .filter(jdoc -> !jdoc.chars().allMatch(Character::isWhitespace))
             .collect(Collectors.toList());
