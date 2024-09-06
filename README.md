@@ -8,6 +8,11 @@
 [![release](https://img.shields.io/github/v/release/boolivar/jdoc-test)](https://github.com/boolivar/jdoc-test/releases/latest)
 [![](https://jitpack.io/v/boolivar/jdoc-test.svg)](https://jitpack.io/#boolivar/jdoc-test)
 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=bugs)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
+
+
 Write BDD tests in javadocs!
 
 ```java
