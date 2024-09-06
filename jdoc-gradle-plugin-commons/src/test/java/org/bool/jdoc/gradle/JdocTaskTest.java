@@ -75,10 +75,11 @@ class JdocTaskTest {
 
     @Test
     void testRelativizeUnrelatedPath() {
+        var testFile = Paths.get("org/bool/file/Test.java");
         given(directorySet.getSrcDirs())
             .willReturn(Set.of(new File("src/main/java")));
 
-        assertThatThrownBy(() -> task.relativizePath(Paths.get("org/bool/file/Test.java")))
+        assertThatThrownBy(() -> task.relativizePath(testFile))
             .isInstanceOf(NoSuchElementException.class)
             .hasMessageContaining("Test.java");
     }

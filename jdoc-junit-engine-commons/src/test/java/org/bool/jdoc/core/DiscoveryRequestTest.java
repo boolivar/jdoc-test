@@ -2,6 +2,8 @@ package org.bool.jdoc.core;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.DiscoveryFilter;
 import org.junit.platform.engine.DiscoverySelector;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class DiscoveryRequestTest {
@@ -24,16 +27,19 @@ class DiscoveryRequestTest {
     @Mock
     private ConfigurationParameters params;
 
-    @Test
-    void testFieldsRequired() {
-        assertThatThrownBy(() -> DiscoveryRequest.builder().build())
-                .isInstanceOf(RuntimeException.class);
+    static List<DiscoveryRequest.DiscoveryRequestBuilder> testFieldsRequired() {
+        return List.of(
+            DiscoveryRequest.builder(),
+            DiscoveryRequest.builder().selectors(List.of()),
+            DiscoveryRequest.builder().params(mock(ConfigurationParameters.class))
+        );
+    }
 
-        assertThatThrownBy(() -> DiscoveryRequest.builder().selectors(List.of()).build())
-                .isInstanceOf(RuntimeException.class);
-
-        assertThatThrownBy(() -> DiscoveryRequest.builder().params(params).build())
-                .isInstanceOf(RuntimeException.class);
+    @MethodSource
+    @ParameterizedTest
+    void testFieldsRequired(DiscoveryRequest.DiscoveryRequestBuilder builder) {
+        assertThatThrownBy(() -> builder.build())
+            .isInstanceOf(RuntimeException.class);
     }
 
     @Test
