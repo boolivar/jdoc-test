@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,7 +49,7 @@ public class FeatureLoader {
     }
 
     private Stream<Path> loadFeatures(SpecSource spec, Path outputDir) {
-        String name = spec.getUnit().getPrimaryTypeName().get();
+        String name = spec.getUnit().getPrimaryTypeName().orElseThrow(() -> new NoSuchElementException("No type name for " + spec.getUnit()));
         String pkg = spec.getUnit().getPackageDeclaration().map(pd -> pd.getName().toString()).orElse("");
         Path dir = CodeGenerationUtils.packageAbsolutePath(outputDir, pkg);
         Instant sourceTimestamp = spec.getUnit().getStorage().map(this::modifiedTime).orElse(Instant.MAX);

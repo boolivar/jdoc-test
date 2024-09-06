@@ -3,10 +3,12 @@ package org.bool.jdoc.spock;
 import org.bool.jdoc.core.SpecSource;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -47,7 +49,9 @@ public class TestSpecFactory {
 
     @SneakyThrows
     private TestSpec createSpec(CompilationUnit unit, List<String> codeBlocks, ClassLoader classLoader) {
-        Class<?> targetClass = classLoader.loadClass(unit.getPrimaryType().get().getFullyQualifiedName().get());
+        String className = unit.getPrimaryType().flatMap(TypeDeclaration::getFullyQualifiedName)
+            .orElseThrow(() -> new NoSuchElementException("No primary type name found for " + unit));
+        Class<?> targetClass = classLoader.loadClass(className);
         return spockSpecGenerator.generateSpec(unit, codeBlocks, targetClass);
     }
 }
