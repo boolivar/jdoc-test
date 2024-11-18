@@ -38,7 +38,7 @@ class DiscoveryRequestTest {
     @MethodSource
     @ParameterizedTest
     void testFieldsRequired(DiscoveryRequest.DiscoveryRequestBuilder builder) {
-        assertThatThrownBy(() -> builder.build())
+        assertThatThrownBy(builder::build)
             .isInstanceOf(RuntimeException.class);
     }
 

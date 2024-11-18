@@ -47,7 +47,7 @@ class SpecClassMapperTest {
 
     @Test
     void testCloseClassLoader() throws IOException {
-        assertThatNoException().isThrownBy(() -> mapper.close());
+        assertThatNoException().isThrownBy(mapper::close);
         then(classLoader).should().close();
     }
 }

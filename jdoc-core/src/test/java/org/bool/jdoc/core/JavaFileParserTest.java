@@ -50,7 +50,7 @@ class JavaFileParserTest {
         var comments = new CommentsCollection();
         comments.addComment(comment);
         given(javaParser.parse(path))
-            .willReturn(new ParseResult<CompilationUnit>(unit, List.of(), comments));
+            .willReturn(new ParseResult<>(unit, List.of(), comments));
         given(jdocParser.parse(comment.getContent()))
             .willReturn(List.of("code", "out"));
 
@@ -64,7 +64,7 @@ class JavaFileParserTest {
     void testException() throws IOException {
         var path = Paths.get(".");
         given(javaParser.parse(path))
-            .willReturn(new ParseResult<CompilationUnit>(null, List.of(), new CommentsCollection()));
+            .willReturn(new ParseResult<>(null, List.of(), new CommentsCollection()));
         assertThatThrownBy(() -> parser.parse(path))
             .isInstanceOf(JdocException.class);
     }

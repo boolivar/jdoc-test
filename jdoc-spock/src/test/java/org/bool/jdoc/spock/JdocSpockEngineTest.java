@@ -29,32 +29,32 @@ class JdocSpockEngineTest {
     private JdocSpockEngine engine;
 
     @Test
-    void testDiscover(@Mock EngineDiscoveryRequest request) {
+    void testDiscover(@Mock EngineDiscoveryRequest request) throws Exception {
         var id = UniqueId.forEngine(engine.getId());
-        var descriptor = JdocSpockEngineDescriptor.builder().uniqueId(id).displayName("jdoc-test").build();
-
-        given(spockEngineService.discover(spockEngine, request, id))
-            .willReturn(descriptor);
-
-        assertThat(engine.discover(request, id))
-            .isEqualTo(descriptor);
+        try (var descriptor = JdocSpockEngineDescriptor.builder().uniqueId(id).displayName("jdoc-test").build()) {
+            given(spockEngineService.discover(spockEngine, request, id))
+                .willReturn(descriptor);
+            assertThat(engine.discover(request, id))
+                .isEqualTo(descriptor);
+        }
     }
 
     @Test
-    void testExecute(@Mock ExecutionRequest request, @Mock TestDescriptor testDescriptor) {
+    void testExecute(@Mock ExecutionRequest request, @Mock TestDescriptor testDescriptor) throws Exception {
         var id = UniqueId.forEngine(engine.getId());
-        var descriptor = JdocSpockEngineDescriptor.builder().uniqueId(id).displayName("jdoc-test").build();
-        descriptor.addChild(testDescriptor);
+        try (var descriptor = JdocSpockEngineDescriptor.builder().uniqueId(id).displayName("jdoc-test").build()) {
+            descriptor.addChild(testDescriptor);
 
-        given(request.getRootTestDescriptor())
-            .willReturn(descriptor);
+            given(request.getRootTestDescriptor())
+                .willReturn(descriptor);
 
-        engine.execute(request);
+            engine.execute(request);
 
-        ArgumentCaptor<ExecutionRequest> captor = ArgumentCaptor.forClass(ExecutionRequest.class);
-        then(spockEngine).should().execute(captor.capture());
+            ArgumentCaptor<ExecutionRequest> captor = ArgumentCaptor.forClass(ExecutionRequest.class);
+            then(spockEngine).should().execute(captor.capture());
 
-        assertThat(captor.getValue().getRootTestDescriptor())
-            .isSameAs(testDescriptor);
+            assertThat(captor.getValue().getRootTestDescriptor())
+                .isSameAs(testDescriptor);
+        }
     }
 }

@@ -24,6 +24,8 @@
         <exclude name="OnlyOneReturn"/>
         <exclude name="ShortClassName"/>
         <exclude name="ShortVariable"/>
+        <exclude name="UseDiamondOperator"/>
+        <exclude name="UseExplicitTypes"/>
     </rule>
     <rule ref="category/java/codestyle.xml/UseUnderscoresInNumericLiterals">
         <properties>

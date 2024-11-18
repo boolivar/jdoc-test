@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -82,8 +83,8 @@ public class RegexParser implements JdocParser {
 
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private List<Element> topLevelElements(Matcher matcher) {
-        ArrayList<Element> elements = new ArrayList<>();
-        ArrayDeque<Tag> tags = new ArrayDeque<>();
+        List<Element> elements = new ArrayList<>();
+        Deque<Tag> tags = new ArrayDeque<>();
         while (matcher.find()) {
             Tag tag = new Tag(matcher.group(), matcher.start(), matcher.end());
             if (tag.isOpen()) {

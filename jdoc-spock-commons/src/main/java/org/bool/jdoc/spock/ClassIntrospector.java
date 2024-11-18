@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.NavigableMap;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Stream;
@@ -44,7 +45,7 @@ public class ClassIntrospector {
      */
     @SneakyThrows
     public <T> Optional<Constructor<T>> findMockConstructor(Class<T> targetClass) {
-        TreeMap<Integer, List<Constructor<?>>> ctors = Stream.of(targetClass.getDeclaredConstructors())
+        NavigableMap<Integer, List<Constructor<?>>> ctors = Stream.of(targetClass.getDeclaredConstructors())
             .filter(this::canBeMocked)
             .collect(groupingBy(Constructor::getParameterCount, TreeMap::new, toList()));
         for (List<Constructor<?>> mockable : ctors.descendingMap().values()) {
