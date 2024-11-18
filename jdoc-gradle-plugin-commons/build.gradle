@@ -1,6 +1,6 @@
 plugins {
    id "java-library-conventions"
-   id "dev.gradleplugins.java-gradle-plugin" version "1.6.11"
+   id "dev.gradleplugins.java-gradle-plugin"
 }
 
 description = "jdoc-test gradle plugin common components"
