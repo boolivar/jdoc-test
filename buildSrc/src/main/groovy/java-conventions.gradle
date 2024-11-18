@@ -51,12 +51,13 @@ jar.dependsOn check
 
 checkstyle {
     configDirectory = file("$rootDir/gradle/config/checkstyle")
-    toolVersion = "9.3"
+    toolVersion = com.puppycrawl.tools.checkstyle.Checker.package.implementationVersion
 }
 
 pmd {
     consoleOutput = true
     ruleSets = ["ruleset.xml"]
+    toolVersion = net.sourceforge.pmd.PMDVersion.VERSION
 }
 
 tasks.withType(Pmd).configureEach {
