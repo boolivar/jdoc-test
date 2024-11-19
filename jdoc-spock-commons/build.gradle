@@ -7,5 +7,5 @@ description = "jdoc-spock common components"
 dependencies {
     api project(":jdoc-core")
 
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock"
 }

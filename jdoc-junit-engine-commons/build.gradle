@@ -10,5 +10,5 @@ dependencies {
 
     implementation "org.apache.commons:commons-lang3"
 
-    testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock"
 }
