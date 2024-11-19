@@ -132,7 +132,7 @@ dependencies {
 > }
 > 
 > dependencies {
->     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-spock:0.8.1"
+>     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.9.0"
 > }
 > ```
 
@@ -262,7 +262,7 @@ dependencies {
 >     maven { url "https://jitpack.io" }
 > }
 > dependencies {
->     testRuntimeOnly "com.github.boolivar.jdoc-test:jdoc-cucumber:0.8.1"
+>     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.9.0"
 >     testImplementation "io.cucumber:cucumber-java:7.17.0"
 > }
 > ```
@@ -330,7 +330,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.8.1"
+    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.9.0"
 }
 
 repositories {
@@ -388,7 +388,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.8.1"
+    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.9.0"
 }
 
 repositories {
