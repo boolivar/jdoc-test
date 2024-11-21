@@ -1,3 +1,5 @@
+enableFeaturePreview "STABLE_CONFIGURATION_CACHE"
+
 rootProject.name = "jdoc-test"
 
 rootDir.eachFileRecurse groovy.io.FileType.FILES, {
