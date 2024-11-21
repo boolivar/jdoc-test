@@ -8,5 +8,7 @@ description = "jdoc-test gradle plugin common components"
 dependencies {
     api project(":jdoc-core")
 
+    compileOnly gradleApi("5.4")
+
     testImplementation gradleTestKit()
 }
