@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/boolivar/jdoc-test/compare/0.9.0...0.10.0) (2024-11-21)
+
+
+### Features
+
+* JdocTask configuration cache support ([67b64d0](https://github.com/boolivar/jdoc-test/commit/67b64d026e1ac6b68c2301bd9c4ccc4348f66b8e))
+
 ## [0.9.0](https://github.com/boolivar/jdoc-test/compare/0.8.1...0.9.0) (2024-08-27)
 
 
