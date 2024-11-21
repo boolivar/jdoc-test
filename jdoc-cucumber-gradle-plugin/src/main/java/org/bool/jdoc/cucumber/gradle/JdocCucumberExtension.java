@@ -1,7 +1,7 @@
 package org.bool.jdoc.cucumber.gradle;
 
 import org.gradle.api.file.DirectoryProperty;
-import org.gradle.api.file.SourceDirectorySet;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 
@@ -11,7 +11,7 @@ public interface JdocCucumberExtension {
 
     Property<String> getLangTag();
 
-    Property<SourceDirectorySet> getSources();
+    Property<FileCollection> getSources();
 
     Property<String> getCucumberVersion();
 

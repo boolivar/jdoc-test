@@ -69,7 +69,7 @@ class JdocSpockPluginTest {
         var result = GradleRunner.create()
                 .withProjectDir(temp)
                 .withPluginClasspath()
-                .withArguments("jdocSpockTest")
+                .withArguments("--configuration-cache", "jdocSpockTest")
                 .build();
         assertThat(result.task(":jdocSpockTest").getOutcome())
             .isEqualTo(TaskOutcome.SUCCESS);

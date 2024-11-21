@@ -2,11 +2,10 @@ package org.bool.jdoc.gradle;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.FileType;
-import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputDirectory;
@@ -23,7 +22,7 @@ import javax.inject.Inject;
 
 public class JdocTask extends DefaultTask {
 
-    private final Property<SourceDirectorySet> sources;
+    private final Property<FileCollection> sources;
 
     private final Property<String> langTag;
 
@@ -31,10 +30,10 @@ public class JdocTask extends DefaultTask {
 
     @Inject
     public JdocTask(ObjectFactory objectFactory) {
-        this(objectFactory.property(SourceDirectorySet.class), objectFactory.property(String.class), objectFactory.directoryProperty());
+        this(objectFactory.property(FileCollection.class), objectFactory.property(String.class), objectFactory.directoryProperty());
     }
 
-    public JdocTask(Property<SourceDirectorySet> sources, Property<String> langTag, DirectoryProperty outputDir) {
+    public JdocTask(Property<FileCollection> sources, Property<String> langTag, DirectoryProperty outputDir) {
         this.sources = sources;
         this.langTag = langTag;
         this.outputDir = outputDir;
@@ -42,7 +41,7 @@ public class JdocTask extends DefaultTask {
 
     @Incremental
     @InputFiles
-    public Property<SourceDirectorySet> getSources() {
+    public Property<FileCollection> getSources() {
         return sources;
     }
 
@@ -82,11 +81,11 @@ public class JdocTask extends DefaultTask {
     }
 
     protected Iterable<FileChange> fileChanges(InputChanges changes) {
-        return changes.getFileChanges((Provider) sources);
+        return changes.getFileChanges((Property) sources);
     }
 
     protected Path relativizePath(Path path) {
-        return sources.get().getSrcDirs().stream()
+        return sources.get().getFiles().stream()
             .map(File::toPath).filter(path::startsWith)
             .findAny().orElseThrow(() -> new NoSuchElementException("Path " + path + " not found in " + sources))
             .relativize(path);

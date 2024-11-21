@@ -2,7 +2,6 @@ package org.bool.jdoc.spock.gradle;
 
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
-import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.provider.Property;
 
 public interface JdocSpockExtension {
@@ -11,7 +10,7 @@ public interface JdocSpockExtension {
 
     Property<String> getLangTag();
 
-    Property<SourceDirectorySet> getSources();
+    Property<FileCollection> getSources();
 
     Property<FileCollection> getClassPath();
 

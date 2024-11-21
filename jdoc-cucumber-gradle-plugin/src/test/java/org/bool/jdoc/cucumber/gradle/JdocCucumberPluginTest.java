@@ -67,7 +67,7 @@ class JdocCucumberPluginTest {
         var result = GradleRunner.create()
                 .withProjectDir(temp)
                 .withPluginClasspath()
-                .withArguments("generateCucumberFeatures")
+                .withArguments("--configuration-cache", "generateCucumberFeatures")
                 .build();
         assertThat(result.task(":generateCucumberFeatures").getOutcome())
             .isEqualTo(TaskOutcome.SUCCESS);

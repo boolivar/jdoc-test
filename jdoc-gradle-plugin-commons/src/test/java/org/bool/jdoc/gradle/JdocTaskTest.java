@@ -1,11 +1,11 @@
 package org.bool.jdoc.gradle;
 
 import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.internal.project.taskfactory.TaskIdentityFactory;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.internal.execution.history.changes.DefaultFileChange;
 import org.gradle.internal.file.FileType;
 import org.gradle.internal.id.ConfigurationCacheableIdFactory;
@@ -42,7 +42,7 @@ class JdocTaskTest {
     private SourceDirectorySet directorySet;
 
     @Mock(strictness = Mock.Strictness.LENIENT)
-    private Property<SourceDirectorySet> sources;
+    private Property<FileCollection> sources;
 
     @Mock
     private Property<String> langTag;
@@ -76,7 +76,7 @@ class JdocTaskTest {
     @Test
     void testRelativizeUnrelatedPath() {
         var testFile = Paths.get("org/bool/file/Test.java");
-        given(directorySet.getSrcDirs())
+        given(directorySet.getFiles())
             .willReturn(Set.of(new File("src/main/java")));
 
         assertThatThrownBy(() -> task.relativizePath(testFile))
@@ -90,9 +90,9 @@ class JdocTaskTest {
                 DefaultFileChange.added("/test/File1.java", "test1", FileType.RegularFile, ""),
                 DefaultFileChange.added("/test/package/File2.java", "test2", FileType.RegularFile, ""));
 
-        given(directorySet.getSrcDirs())
+        given(directorySet.getFiles())
             .willReturn(Set.of(srcDir));
-        given(input.getFileChanges((Provider) sources))
+        given(input.getFileChanges((Property) sources))
             .willReturn(changes);
         given(outputDir.get().getAsFile())
             .willReturn(outputPath);
@@ -109,9 +109,9 @@ class JdocTaskTest {
         var testFile = new File("/test/File.java");
         var changes = List.<FileChange>of(DefaultFileChange.modified(testFile.toString(), "test", FileType.RegularFile, FileType.RegularFile, ""));
 
-        given(directorySet.getSrcDirs())
+        given(directorySet.getFiles())
             .willReturn(Set.of(srcDir));
-        given(input.getFileChanges((Provider) sources))
+        given(input.getFileChanges((Property) sources))
             .willReturn(changes);
         given(outputDir.get().getAsFile())
             .willReturn(outputPath);
@@ -131,9 +131,9 @@ class JdocTaskTest {
                 DefaultFileChange.removed(testFile.toString(), "testfile", FileType.RegularFile, ""),
                 DefaultFileChange.removed(testDir.toString(), "testdir", FileType.Directory, ""));
 
-        given(directorySet.getSrcDirs())
+        given(directorySet.getFiles())
             .willReturn(Set.of(srcDir));
-        given(input.getFileChanges((Provider) sources))
+        given(input.getFileChanges((Property) sources))
             .willReturn(changes);
         given(outputDir.get().getAsFile())
             .willReturn(outputPath);

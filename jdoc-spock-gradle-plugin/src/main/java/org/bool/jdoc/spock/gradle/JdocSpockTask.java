@@ -5,7 +5,6 @@ import org.bool.jdoc.spock.ResourceContainer;
 
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
-import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Classpath;
@@ -30,7 +29,7 @@ public class JdocSpockTask extends JdocTask {
         this.classLoaderFactory = new UrlClassLoaderFactory()::createClassLoader;
     }
 
-    public JdocSpockTask(Property<SourceDirectorySet> sources, Property<String> langTag, DirectoryProperty outputDir,
+    public JdocSpockTask(Property<FileCollection> sources, Property<String> langTag, DirectoryProperty outputDir,
             Property<FileCollection> classPath, Function<FileCollection, ResourceContainer<ClassLoader>> classLoaderFactory) {
         super(sources, langTag, outputDir);
         this.classPath = classPath;

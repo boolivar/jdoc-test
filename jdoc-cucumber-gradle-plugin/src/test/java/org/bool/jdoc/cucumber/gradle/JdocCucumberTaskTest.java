@@ -2,11 +2,11 @@ package org.bool.jdoc.cucumber.gradle;
 
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.internal.project.taskfactory.TaskIdentityFactory;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.internal.execution.history.changes.DefaultFileChange;
 import org.gradle.internal.file.FileType;
 import org.gradle.internal.id.ConfigurationCacheableIdFactory;
@@ -35,7 +35,7 @@ class JdocCucumberTaskTest {
     private Path tempDir;
 
     @Mock
-    private Property<SourceDirectorySet> sources;
+    private Property<FileCollection> sources;
 
     @Mock
     private Property<String> langTag;
@@ -70,12 +70,12 @@ class JdocCucumberTaskTest {
 
         given(langTag.get())
             .willReturn("test");
-        given(changes.getFileChanges((Provider) sources))
+        given(changes.getFileChanges((Property) sources))
             .willReturn(fileChanges);
 
         given(sources.get())
             .willReturn(sourceSet);
-        given(sourceSet.getSrcDirs())
+        given(sourceSet.getFiles())
             .willReturn(Set.of(sourceDir.toFile()));
         given(outputDir.get())
             .willReturn(dir);

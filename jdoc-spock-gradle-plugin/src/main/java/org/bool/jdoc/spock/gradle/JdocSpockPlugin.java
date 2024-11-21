@@ -3,6 +3,7 @@ package org.bool.jdoc.spock.gradle;
 import org.bool.jdoc.gradle.JdocTestPlugin;
 
 import org.gradle.api.Project;
+import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Property;
@@ -55,7 +56,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
         extension.getSpockVersion().set("2.3-groovy-4.0");
         extension.getByteBuddyVersion().set("1.14.15");
         extension.getObjenesisVersion().set("3.3");
-        extension.getSources().convention(sources.map(SourceSet::getJava));
+        extension.getSources().convention(sources.map(SourceSet::getJava).map(SourceDirectorySet::getSourceDirectories));
         extension.getClassPath().convention(sources.map(SourceSet::getOutput));
     }
 

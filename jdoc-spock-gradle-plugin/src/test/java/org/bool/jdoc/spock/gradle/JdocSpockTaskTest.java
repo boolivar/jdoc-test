@@ -9,10 +9,10 @@ import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.internal.project.taskfactory.TaskIdentityFactory;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.internal.execution.history.changes.DefaultFileChange;
 import org.gradle.internal.file.FileType;
 import org.gradle.internal.id.ConfigurationCacheableIdFactory;
+import org.gradle.work.FileChange;
 import org.gradle.work.InputChanges;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class JdocSpockTaskTest {
     private File tempDir;
 
     @Mock
-    private Property<SourceDirectorySet> sources;
+    private Property<FileCollection> sources;
 
     @Mock
     private Property<String> langTag;
@@ -64,14 +64,14 @@ class JdocSpockTaskTest {
     void testGenerateSpecs(@Mock InputChanges changes, @Mock FileCollection files, @Mock SourceDirectorySet directorySet) {
         var srcDir = new File("src/test/java");
         var srcFile = "src/test/java/org/bool/jdoc/spock/gradle/TestSpecClass.java";
-        var fileChanges = List.of(DefaultFileChange.added(srcFile, "test-class", FileType.RegularFile, srcFile));
+        var fileChanges = List.<FileChange>of(DefaultFileChange.added(srcFile, "test-class", FileType.RegularFile, srcFile));
 
         given(langTag.get())
             .willReturn("test");
 
         given(sources.get())
             .willReturn(directorySet);
-        given(directorySet.getSrcDirs())
+        given(directorySet.getFiles())
             .willReturn(Set.of(srcDir));
         given(outputDir.get().getAsFile())
             .willReturn(tempDir);
@@ -81,7 +81,7 @@ class JdocSpockTaskTest {
         given(classLoaderFactory.apply(files))
             .willReturn(new NoopContainer<>(Thread.currentThread().getContextClassLoader()));
 
-        given(changes.getFileChanges((Provider) sources))
+        given(changes.getFileChanges((Property) sources))
             .willReturn(fileChanges);
 
         task.generateSpecs(changes);

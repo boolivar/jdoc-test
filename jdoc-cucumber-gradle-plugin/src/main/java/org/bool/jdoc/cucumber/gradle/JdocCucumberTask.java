@@ -3,7 +3,7 @@ package org.bool.jdoc.cucumber.gradle;
 import org.bool.jdoc.gradle.JdocTask;
 
 import org.gradle.api.file.DirectoryProperty;
-import org.gradle.api.file.SourceDirectorySet;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.TaskAction;
@@ -18,7 +18,7 @@ public class JdocCucumberTask extends JdocTask {
         super(objectFactory);
     }
 
-    public JdocCucumberTask(Property<SourceDirectorySet> sources, Property<String> langTag, DirectoryProperty outputDir) {
+    public JdocCucumberTask(Property<FileCollection> sources, Property<String> langTag, DirectoryProperty outputDir) {
         super(sources, langTag, outputDir);
     }
 
