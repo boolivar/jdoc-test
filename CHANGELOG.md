@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.0](https://github.com/boolivar/jdoc-test/compare/0.9.0...0.10.0) (2024-11-22)
+
+
+### Features
+
+* JdocTask configuration cache support ([67b64d0](https://github.com/boolivar/jdoc-test/commit/67b64d026e1ac6b68c2301bd9c4ccc4348f66b8e))
+
+
+### Reverts
+
+* configuration cache enabled (sonatype-portal-publish error) ([64ba2a0](https://github.com/boolivar/jdoc-test/commit/64ba2a0f432ed5b8fe7a5bf8392d867ca9d907b0))
+
 ## [0.9.0](https://github.com/boolivar/jdoc-test/compare/0.8.1...0.9.0) (2024-08-27)
 
 
