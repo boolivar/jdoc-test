@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
     - gh-pages
+    - release-please--branches--*
 permissions:
   contents: write
   pull-requests: write
