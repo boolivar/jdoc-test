@@ -83,7 +83,7 @@ Yes, see `jdoc-spock` and `jdoc-cucumber` test examples in source code.
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
     <artifactId>jdoc-spock</artifactId>
-    <version>0.9.0</version>
+    <version>0.10.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -119,7 +119,7 @@ repositories {
 }
 
 dependencies {
-    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.9.0"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.10.0"
 }
 ```
 
@@ -132,7 +132,7 @@ dependencies {
 > }
 > 
 > dependencies {
->     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.9.0"
+>     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.10.0"
 > }
 > ```
 
@@ -207,7 +207,7 @@ gradle test
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
     <artifactId>jdoc-cucumber</artifactId>
-    <version>0.9.0</version>
+    <version>0.10.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -248,7 +248,7 @@ repositories {
 }
 
 dependencies {
-    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.9.0"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.10.0"
     testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
 ```
@@ -262,7 +262,7 @@ dependencies {
 >     maven { url "https://jitpack.io" }
 > }
 > dependencies {
->     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.9.0"
+>     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.10.0"
 >     testImplementation "io.cucumber:cucumber-java:7.17.0"
 > }
 > ```
@@ -330,7 +330,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.9.0"
+    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.10.0"
 }
 
 repositories {
@@ -358,7 +358,7 @@ jdocCucumber {
 | ------------------ | ---- | ------------- | ----------- |
 | `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-cucumber") | Path to store generated features |
 | `langTag` | `String` | "gherkin" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and written as features |
-| `sources` | `SourceDirectorySet` | sourceSets.main.java | Java sources to parse |
+| `sources` | `FileCollection` | sourceSets.main.java.sourceDirectories | source directories to search java files with jdoc-cucumber comments |
 | `cucumberVersion` | `String` | "7.17.0" | `io.cucumber:cucumber-java` dependency version to register in `testImplementation` configuration |
 | `gluePackages` | `List<String>` | | List of packages with cucumber glue code |
 
@@ -388,7 +388,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.9.0"
+    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.10.0"
 }
 
 repositories {
@@ -433,7 +433,7 @@ jdocSpock {
 | ------------------ | ---- | ------------- | ----------- |
 | `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-spock") | Path to store generated groovy specs |
 | `langTag` | `String` | "spock" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and included in spec generation |
-| `sources` | `SourceDirectorySet` | sourceSets.main.java | Java sources to parse |
+| `sources` | `FileCollection` | sourceSets.main.java.sourceDirectories | source directories to search java files with jdoc-spock comments |
 | `classPath` | `FileCollection` | sourceSets.main.output | Classpath containing classes under test, used for mockable constructor search. |
 | `spockVersion` | `String` | "2.3-groovy-4.0" | `org.spockframework:spock-core` dependency version to register in `jdocSpockImplementation` configuration |
 | `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
