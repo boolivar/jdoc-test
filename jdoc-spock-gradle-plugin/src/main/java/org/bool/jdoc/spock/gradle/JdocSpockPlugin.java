@@ -7,7 +7,6 @@ import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.GroovySourceDirectorySet;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.SourceSetContainer;
@@ -51,14 +50,14 @@ public class JdocSpockPlugin implements JdocTestPlugin {
     }
 
     private void configureExtension(Project project, JdocSpockExtension extension) {
-        Provider<SourceSet> sources = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named(SourceSet.MAIN_SOURCE_SET_NAME);
+        SourceSetContainer sourceSets = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets();
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-spock"));
         extension.getLangTag().convention("spock");
         extension.getSpockVersion().set("2.3-groovy-4.0");
         extension.getByteBuddyVersion().set("1.14.15");
         extension.getObjenesisVersion().set("3.3");
-        extension.getSources().convention(sources.map(SourceSet::getJava).map(SourceDirectorySet::getSourceDirectories));
-        extension.getClassPath().convention(sources.map(SourceSet::getOutput));
+        extension.getSources().convention(sourceSets.named(SourceSet.MAIN_SOURCE_SET_NAME).map(SourceSet::getJava).map(SourceDirectorySet::getSourceDirectories));
+        extension.getClassPath().convention(project.provider(() -> SOURCE_SET_NAME).flatMap(sourceSets::named).map(SourceSet::getCompileClasspath));
     }
 
     private void configureSourceSet(Project project, JdocSpockExtension extension) {

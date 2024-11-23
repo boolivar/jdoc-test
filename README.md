@@ -434,7 +434,7 @@ jdocSpock {
 | `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-spock") | Path to store generated groovy specs |
 | `langTag` | `String` | "spock" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and included in spec generation |
 | `sources` | `FileCollection` | sourceSets.main.java.sourceDirectories | source directories to search java files with jdoc-spock comments |
-| `classPath` | `FileCollection` | sourceSets.main.output | Classpath containing classes under test, used for mockable constructor search. |
+| `classPath` | `FileCollection` | sourceSets.jdocSpock.compileClasspath | Classpath for mockable constructor search during spec generation. |
 | `spockVersion` | `String` | "2.3-groovy-4.0" | `org.spockframework:spock-core` dependency version to register in `jdocSpockImplementation` configuration |
 | `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 | `objenesisVersion` | `String` | "3.3" | `org.objenesis:objenesis` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
