@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/boolivar/jdoc-test/compare/0.10.0...0.10.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* jdocSpock.compileClasspath as default classPath for generateSpockSpecs task ([b118859](https://github.com/boolivar/jdoc-test/commit/b118859c51a6e79398334ec571ecd054c8c86dce))
+
 ## [0.10.0](https://github.com/boolivar/jdoc-test/compare/0.9.0...0.10.0) (2024-11-22)
 
 
