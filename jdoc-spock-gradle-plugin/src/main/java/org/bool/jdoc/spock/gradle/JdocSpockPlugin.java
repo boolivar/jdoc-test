@@ -21,6 +21,8 @@ public class JdocSpockPlugin implements JdocTestPlugin {
 
     public static final String GENERATE_SPECS_TASK_NAME = "generateSpockSpecs";
 
+    public static final String COMPILE_SPECS_TASK_NAME = "compileJdocSpockGroovy";
+
     public static final String TEST_TASK_NAME = "jdocSpockTest";
 
     public static final String SOURCE_SET_NAME = "jdocSpock";
@@ -40,8 +42,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
 
             project.getTasks().register(GENERATE_SPECS_TASK_NAME, JdocSpockTask.class, task -> configureSpockTask(task, extension));
             project.getTasks().register(TEST_TASK_NAME, Test.class, this::configureTestTask);
-            project.getTasks().named("compile" + Character.toUpperCase(SOURCE_SET_NAME.charAt(0)) + SOURCE_SET_NAME.substring(1) + "Groovy")
-                .configure(task -> task.dependsOn(GENERATE_SPECS_TASK_NAME));
+            project.getTasks().named(COMPILE_SPECS_TASK_NAME).configure(task -> task.dependsOn(GENERATE_SPECS_TASK_NAME));
 
             configureDependency(project, IMPLEMENTATION_CONFIGURATION_NAME, "org.spockframework:spock-core", extension.getSpockVersion());
             configureDependency(project, RUNTIME_CONFIGURATION_NAME, "net.bytebuddy:byte-buddy", extension.getByteBuddyVersion());
@@ -50,7 +51,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
     }
 
     private void configureExtension(Project project, JdocSpockExtension extension) {
-        Provider<SourceSet> sources = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named("main");
+        Provider<SourceSet> sources = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named(SourceSet.MAIN_SOURCE_SET_NAME);
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-spock"));
         extension.getLangTag().convention("spock");
         extension.getSpockVersion().set("2.3-groovy-4.0");
@@ -64,8 +65,8 @@ public class JdocSpockPlugin implements JdocTestPlugin {
         SourceSetContainer sourceSets = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets();
         sourceSets.create(SOURCE_SET_NAME, sourceSet -> {
             sourceSet.getExtensions().getByType(GroovySourceDirectorySet.class).srcDir(extension.getOutputDir());
-            sourceSet.setCompileClasspath(sourceSet.getCompileClasspath().plus(sourceSets.getByName("main").getOutput()));
-            sourceSet.setRuntimeClasspath(sourceSet.getRuntimeClasspath().plus(sourceSets.getByName("main").getOutput()));
+            sourceSet.setCompileClasspath(sourceSet.getCompileClasspath().plus(sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).getOutput()));
+            sourceSet.setRuntimeClasspath(sourceSet.getRuntimeClasspath().plus(sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).getOutput()));
         });
         project.getConfigurations().named(IMPLEMENTATION_CONFIGURATION_NAME)
             .configure(cfg -> cfg.extendsFrom(project.getConfigurations().getByName(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME)));

@@ -54,6 +54,8 @@ class JdocSpockPluginTest {
         project.getPluginManager().apply("java");
         project.getPluginManager().apply(JdocSpockPlugin.ID);
 
+        assertThat(JdocSpockPlugin.COMPILE_SPECS_TASK_NAME)
+            .isEqualTo("compile" + Character.toUpperCase(JdocSpockPlugin.SOURCE_SET_NAME.charAt(0)) + JdocSpockPlugin.SOURCE_SET_NAME.substring(1) + "Groovy");
         assertThat(project.getPluginManager().hasPlugin("groovy"))
             .isTrue();
         assertThat(project.getExtensions().getByName(JdocSpockPlugin.EXTENSION_NAME))
