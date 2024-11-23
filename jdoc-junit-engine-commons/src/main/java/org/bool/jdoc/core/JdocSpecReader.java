@@ -17,6 +17,10 @@ public class JdocSpecReader {
 
     private final JavaFileParser parser;
 
+    public JdocSpecReader(String lang) {
+        this(new JavaFileParser(lang));
+    }
+
     /**
      * Collect the specs from selected java files.
      * 
@@ -32,10 +36,6 @@ public class JdocSpecReader {
      * }
      * </code></pre>
      */
-    public JdocSpecReader(String lang) {
-        this(new JavaFileParser(lang));
-    }
-
     public List<SpecSource> readSpecs(List<DiscoverySelector> selectors) {
         return selectors.stream()
                 .flatMap(this::streamFiles).distinct()
