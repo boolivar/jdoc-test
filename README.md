@@ -79,6 +79,7 @@ Yes, see `jdoc-spock` and `jdoc-cucumber` test examples in source code.
 
 ### jdoc-spock
 
+<!-- x-release-please-start-version -->
 ```xml
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
@@ -87,6 +88,7 @@ Yes, see `jdoc-spock` and `jdoc-cucumber` test examples in source code.
     <scope>test</scope>
 </dependency>
 ```
+<!-- x-release-please-end -->
 
 ---
 
@@ -113,6 +115,7 @@ public void foo() {
 2. Add `jdoc-spock` dependency.
 
 `build.gradle` example:
+<!-- x-release-please-start-version -->
 ```gradle
 repositories {
     mavenCentral()
@@ -122,6 +125,7 @@ dependencies {
     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.10.0"
 }
 ```
+<!-- x-release-please-end -->
 
 > [!IMPORTANT]
 > `jdoc-spock` versions before `0.9.0` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
@@ -132,7 +136,7 @@ dependencies {
 > }
 > 
 > dependencies {
->     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.10.0"
+>     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.8.1"
 > }
 > ```
 
@@ -203,6 +207,7 @@ gradle test
 
 ### jdoc-cucumber
 
+<!-- x-release-please-start-version -->
 ```xml
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
@@ -211,6 +216,7 @@ gradle test
     <scope>test</scope>
 </dependency>
 ```
+<!-- x-release-please-end -->
 
 ---
 
@@ -242,16 +248,16 @@ public class Foo {
 2. Provide cucumber and jdoc-cucumber test dependencies.
 
 `build.gradle` example:
-```gradle
+<pre>
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.10.0"
+    <!-- x-release-please-version -->testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.10.0"
     testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
-```
+</pre>
 
 > [!IMPORTANT]
 > `jdoc-cucumber` versions before `0.9.0` available only on [jitpack](https://jitpack.io/#boolivar/jdoc-test).
@@ -262,7 +268,7 @@ dependencies {
 >     maven { url "https://jitpack.io" }
 > }
 > dependencies {
->     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.10.0"
+>     testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.8.1"
 >     testImplementation "io.cucumber:cucumber-java:7.17.0"
 > }
 > ```
@@ -327,6 +333,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 
 #### Minimal configuration:
 `build.gradle`:
+<!-- x-release-please-start-version -->
 ```gradle
 plugins {
     id "java"
@@ -339,6 +346,7 @@ repositories {
 
 check.dependsOn jdocCucumberTest
 ```
+<!-- x-release-please-end -->
 
 ```sh
 gradle check
@@ -385,6 +393,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 
 #### Configuration example
 `build.gradle`:
+<!-- x-release-please-start-version -->
 ```gradle
 plugins {
     id "java"
@@ -403,6 +412,7 @@ jdocSpockTest {
 
 check.dependsOn jdocSpockTest
 ```
+<!-- x-release-please-end -->
 
 ```sh
 gradle check
