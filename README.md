@@ -73,7 +73,7 @@ usage example. Java code, tests and documentation become tightly coupled by putt
 
 ## WHAT???
 
-Yes, see `jdoc-spock` and `jdoc-cucumber` test examples in source code.
+Yes, see `jdoc-spock` and `jdoc-cucumber` [test](https://github.com/boolivar/jdoc-test/blob/master/jdoc-spock-commons/src/main/java/org/bool/jdoc/spock/ResourceContainer.java) [examples](https://github.com/boolivar/jdoc-test/blob/master/jdoc-cucumber/src/main/java/org/bool/jdoc/cucumber/ConfigParams.java) in [source](https://github.com/boolivar/jdoc-test/blob/master/jdoc-core/src/main/java/org/bool/jdoc/core/JavaFileParser.java) [code](https://github.com/boolivar/jdoc-test/blob/master/jdoc-spock-commons/src/main/java/org/bool/jdoc/spock/ClassIntrospector.java).
 
 ## How?
 
