@@ -15,7 +15,7 @@ dependencies {
         api "org.apache.commons:commons-lang3:3.17.0"
         api "org.spockframework:spock-core:2.3-groovy-4.0"
 
-        api "org.assertj:assertj-core:3.25.3"
+        api "org.assertj:assertj-core:3.27.0"
         api "org.mockito:mockito-junit-jupiter:5.10.0"
 
         runtime "io.github.boolivar.jdoctest:jdoc-spock:0.9.0"
