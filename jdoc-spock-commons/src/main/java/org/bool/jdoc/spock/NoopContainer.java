@@ -37,5 +37,6 @@ public class NoopContainer<T> extends ResourceContainer<T> {
      */
     @Override
     public void close() {
+        // do nothing
     }
 }

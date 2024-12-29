@@ -9,5 +9,6 @@ public class TestSpecClass {
      * </code></pre>
      */
     public void foo() {
+        // awesome code here
     }
 }
