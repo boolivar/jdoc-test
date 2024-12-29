@@ -4,6 +4,8 @@ import org.bool.jdoc.core.exception.JdocException;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
+import com.github.javaparser.ParserConfiguration;
+import com.github.javaparser.ParserConfiguration.LanguageLevel;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.BlockComment;
 import com.github.javaparser.ast.comments.CommentsCollection;
@@ -24,7 +26,7 @@ public class JavaFileParser {
     private final JdocParser jdocParser;
 
     public JavaFileParser(String lang) {
-        this(new JavaParser(), new RegexParser(lang));
+        this(new JavaParser(new ParserConfiguration().setLanguageLevel(LanguageLevel.BLEEDING_EDGE)), new RegexParser(lang));
     }
 
     /**
