@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.11.0](https://github.com/boolivar/jdoc-test/compare/0.10.1...0.11.0) (2024-12-29)
+
+
+### Features
+
+* commons-io v2.18.0 ([9ae2be2](https://github.com/boolivar/jdoc-test/commit/9ae2be241a85b09465104cda409fb2478bc31b61))
+* commons-lang3 v3.17.0 ([9c1cae1](https://github.com/boolivar/jdoc-test/commit/9c1cae1cafdcb748946d94815985cf846a5dda5b))
+* java21 files support ([baf7560](https://github.com/boolivar/jdoc-test/commit/baf75600f6e6df72f78fe4f5e01bf000e791fb45))
+* javaparser v3.26.3 ([6f1d21c](https://github.com/boolivar/jdoc-test/commit/6f1d21c7fe41e3a3ddc4e2c8219488e970b2e016))
+
 ## [0.10.1](https://github.com/boolivar/jdoc-test/compare/0.10.0...0.10.1) (2024-11-23)
 
 
