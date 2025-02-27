@@ -13,7 +13,7 @@ dependencies {
     implementation "com.puppycrawl.tools:checkstyle:10.21.3"
     implementation "commons-io:commons-io:2.18.0"
     implementation "dev.gradleplugins:gradle-plugin-development:1.9.0"
-    implementation "io.freefair.gradle:lombok-plugin:8.12"
+    implementation "io.freefair.gradle:lombok-plugin:8.12.2"
     implementation "io.github.boolivar.sonatype-portal-publish:gradle-plugin:0.1.0"
     implementation "net.sourceforge.pmd:pmd-java:7.10.0"
 }
