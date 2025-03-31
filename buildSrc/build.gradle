@@ -15,5 +15,5 @@ dependencies {
     implementation "dev.gradleplugins:gradle-plugin-development:1.9.0"
     implementation "io.freefair.gradle:lombok-plugin:8.13"
     implementation "io.github.boolivar.sonatype-portal-publish:gradle-plugin:0.1.0"
-    implementation "net.sourceforge.pmd:pmd-java:7.11.0"
+    implementation "net.sourceforge.pmd:pmd-java:7.12.0"
 }
