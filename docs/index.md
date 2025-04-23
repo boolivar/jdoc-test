@@ -1,3 +1,6 @@
+---
+nav_order: 1
+---
 # Tutorial: jdoc-test
 
 `jdoc-test` lets you write *real tests* directly inside your **Javadoc comments**.
@@ -27,14 +30,10 @@ flowchart TD
 
 ## Chapters
 
-1. [Gradle Build Integration
-](01_gradle_build_integration_.md)
-2. [Javadoc Test Parser
-](02_javadoc_test_parser_.md)
-3. [BDD Spec Generator
-](03_bdd_spec_generator_.md)
-4. [JUnit Test Engine
-](04_junit_test_engine_.md)
+1. [Gradle Build Integration](01_gradle_build_integration_.md)
+2. [Javadoc Test Parser](02_javadoc_test_parser_.md)
+3. [BDD Spec Generator](03_bdd_spec_generator_.md)
+4. [JUnit Test Engine](04_junit_test_engine_.md)
 
 
 ---
