@@ -1,0 +1,11 @@
+title: jdoc-test
+description: BDD tests in javadocs
+remote_theme: sighingnow/jekyll-gitbook
+syntax_highlighter_style: github
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      mermaid: true
