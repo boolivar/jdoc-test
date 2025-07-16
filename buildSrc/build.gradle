@@ -10,7 +10,7 @@ dependencies {
     implementation "com.github.johnrengelman:shadow:8.1.1"
     implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.7"
     implementation "com.gradle.publish:plugin-publish-plugin:1.2.1"
-    implementation "com.puppycrawl.tools:checkstyle:10.23.1"
+    implementation "com.puppycrawl.tools:checkstyle:10.26.1"
     implementation "commons-io:commons-io:2.19.0"
     implementation "dev.gradleplugins:gradle-plugin-development:1.9.0"
     implementation "io.freefair.gradle:lombok-plugin:8.14"
