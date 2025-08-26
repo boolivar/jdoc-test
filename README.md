@@ -1,4 +1,4 @@
-# jdoc-test
+# [jdoc-test](https://boolivar.github.io/jdoc-test/)
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.boolivar.jdoctest/jdoc-core)](https://central.sonatype.com/namespace/io.github.boolivar.jdoctest)
 [![CI](https://github.com/boolivar/jdoc-test/workflows/CI/badge.svg)](https://github.com/boolivar/jdoc-test/actions/workflows/ci.yml)
