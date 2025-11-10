@@ -11,7 +11,7 @@ dependencies {
     implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.7"
     implementation "com.gradle.publish:plugin-publish-plugin:1.2.1"
     implementation "com.puppycrawl.tools:checkstyle:12.1.1"
-    implementation "commons-io:commons-io:2.20.0"
+    implementation "commons-io:commons-io:2.21.0"
     implementation "dev.gradleplugins:gradle-plugin-development:1.9.0"
     implementation "io.freefair.gradle:lombok-plugin:9.0.0"
     implementation "io.github.boolivar.sonatype-portal-publish:gradle-plugin:0.1.0"
