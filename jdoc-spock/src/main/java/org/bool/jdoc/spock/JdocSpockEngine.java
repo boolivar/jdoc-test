@@ -63,8 +63,12 @@ public class JdocSpockEngine implements TestEngine {
     public void execute(ExecutionRequest request) {
         try (JdocSpockEngineDescriptor engineDescriptor = (JdocSpockEngineDescriptor) request.getRootTestDescriptor()) {
             for (TestDescriptor testDescriptor : engineDescriptor.getChildren()) {
-                spockEngine.execute(ExecutionRequest.create(testDescriptor,
-                        request.getEngineExecutionListener(), request.getConfigurationParameters()));
+                spockEngine.execute(ExecutionRequest.create(
+                        testDescriptor,
+                        request.getEngineExecutionListener(),
+                        request.getConfigurationParameters(),
+                        request.getOutputDirectoryCreator(),
+                        request.getStore()));
             }
         }
     }

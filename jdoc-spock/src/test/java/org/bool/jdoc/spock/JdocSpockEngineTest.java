@@ -6,6 +6,7 @@ import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.UniqueId;
+import org.mockito.Answers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -40,7 +41,7 @@ class JdocSpockEngineTest {
     }
 
     @Test
-    void testExecute(@Mock ExecutionRequest request, @Mock TestDescriptor testDescriptor) throws Exception {
+    void testExecute(@Mock(answer = Answers.RETURNS_MOCKS) ExecutionRequest request, @Mock TestDescriptor testDescriptor) throws Exception {
         var id = UniqueId.forEngine(engine.getId());
         try (var descriptor = JdocSpockEngineDescriptor.builder().uniqueId(id).displayName("jdoc-test").build()) {
             descriptor.addChild(testDescriptor);
