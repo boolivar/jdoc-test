@@ -1,0 +1,22 @@
+plugins {
+    `kotlin-dsl`
+    `groovy-gradle-plugin`
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation("com.github.johnrengelman:shadow:8.1.1")
+    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.7")
+    implementation("com.gradle.publish:plugin-publish-plugin:1.2.1")
+    implementation("com.puppycrawl.tools:checkstyle:13.3.0")
+    implementation("commons-io:commons-io:2.21.0")
+    implementation("dev.gradleplugins:gradle-plugin-development:1.9.0")
+    implementation("io.freefair.gradle:lombok-plugin:9.2.0")
+    implementation("io.github.boolivar.sonatype-portal-publish:gradle-plugin:0.1.0")
+    implementation("net.sourceforge.pmd:pmd-java:7.23.0")
+    implementation("net.ltgt.errorprone:net.ltgt.errorprone.gradle.plugin:5.1.0")
+    implementation("net.ltgt.nullaway:net.ltgt.nullaway.gradle.plugin:3.0.0")
+}

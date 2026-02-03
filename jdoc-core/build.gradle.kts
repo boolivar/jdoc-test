@@ -1,0 +1,12 @@
+plugins {
+    id("java-library-jdoc-spock-conventions")
+    id("jspecify-conventions")
+}
+
+description = "Core jdoc-test components"
+
+dependencies {
+    api("com.github.javaparser:javaparser-core")
+
+    testRuntimeOnly("io.github.boolivar.jdoctest:jdoc-spock")
+}
