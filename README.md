@@ -4,9 +4,8 @@
 [![CI](https://github.com/boolivar/jdoc-test/workflows/CI/badge.svg)](https://github.com/boolivar/jdoc-test/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/boolivar/jdoc-test/graph/badge.svg?token=PCV1VTNFYT)](https://codecov.io/gh/boolivar/jdoc-test)
 [![codeclimate](https://api.codeclimate.com/v1/badges/5abdb712f0e232643f83/maintainability)](https://codeclimate.com/github/boolivar/jdoc-test/maintainability)
-[![codebeat](https://codebeat.co/badges/2cfd51bf-0d1b-4422-a845-e71b37e7a3f6)](https://codebeat.co/projects/github-com-boolivar-jdoc-test-master)
 [![release](https://img.shields.io/github/v/release/boolivar/jdoc-test)](https://github.com/boolivar/jdoc-test/releases/latest)
-[![](https://jitpack.io/v/boolivar/jdoc-test.svg)](https://jitpack.io/#boolivar/jdoc-test)
+[![jitpack](https://jitpack.io/v/boolivar/jdoc-test.svg)](https://jitpack.io/#boolivar/jdoc-test)
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=bugs)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
