@@ -17,6 +17,7 @@ import org.gradle.work.InputChanges;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -61,7 +62,10 @@ public class JdocTask extends DefaultTask {
             if (change.getFileType() == FileType.FILE) {
                 File file = change.getFile();
                 String baseName = baseName(file);
-                Path outputPath = outputRoot.resolve(relativizePath(file.toPath())).getParent();
+                Path outputPath = Objects.requireNonNull(
+                    outputRoot.resolve(relativizePath(file.toPath())).getParent(),
+                    () -> "Error resolving path for file: " + file
+                );
                 if (change.getChangeType() != ChangeType.ADDED) {
                     handler.delete(file, baseName, outputPath);
                 }
