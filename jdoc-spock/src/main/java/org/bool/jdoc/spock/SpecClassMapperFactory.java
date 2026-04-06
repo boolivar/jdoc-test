@@ -16,7 +16,6 @@ public class SpecClassMapperFactory {
         this(new TestSpecFactory(), new CompilerConfigurationFactory());
     }
 
-    @SuppressWarnings("PMD.CloseResource")
     public SpecClassMapper createMapper(ConfigurationParameters params) {
         CompilerConfiguration config = compilerConfigurationFactory.createCompilerConfig(params);
         GroovyClassLoader classLoader = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(), config);
