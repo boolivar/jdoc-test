@@ -2,6 +2,7 @@ package org.bool.jdoc.spock;
 
 import com.github.javaparser.ast.CompilationUnit;
 import lombok.AllArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
@@ -10,7 +11,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
 
 import static java.util.stream.Collectors.joining;
 
@@ -57,13 +57,13 @@ public class SpockSpecGenerator {
         return generateSpec(unit, codeBlocks, targetClass, classIntrospector.findMockConstructor(targetClass).orElse(null));
     }
 
-    public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass, Constructor<?> ctor) {
+    public TestSpec generateSpec(CompilationUnit unit, List<String> codeBlocks, Class<?> targetClass, @Nullable Constructor<?> ctor) {
         String name = classNameFormat.apply(targetClass);
         return new TestSpec("spock", name, generateSpec(name, unit, codeBlocks, ctor));
     }
 
-    private String generateSpec(String name, CompilationUnit unit, List<String> codeBlocks, Constructor<?> ctor) {
-        Builder<String> spec = Stream.builder();
+    private String generateSpec(String name, CompilationUnit unit, List<String> codeBlocks, @Nullable Constructor<?> ctor) {
+        Stream.Builder<String> spec = Stream.builder();
         unit.getPackageDeclaration().map(Object::toString).ifPresent(spec);
         spec.add("import spock.lang.*").add(LF);
         unit.getImports().stream().map(Object::toString).forEach(spec);
@@ -74,12 +74,15 @@ public class SpockSpecGenerator {
         return spec.add("}").build().collect(joining(LF));
     }
 
-    private Stream<String> defMockFields(Constructor<?> ctor) {
-        return IntStream.range(0, ctor != null ? ctor.getParameterCount() : 0)
-            .mapToObj(index -> String.format("def %s = Mock(%s)", ctor.getParameters()[index].getName(), ctor.getParameterTypes()[index].getSimpleName()));
+    private Stream<String> defMockFields(@Nullable Constructor<?> ctor) {
+        if (ctor != null) {
+            return IntStream.range(0, ctor.getParameterCount())
+                    .mapToObj(index -> String.format("def %s = Mock(%s)", ctor.getParameters()[index].getName(), ctor.getParameterTypes()[index].getSimpleName()));
+        }
+        return Stream.empty();
     }
 
-    private Optional<String> defTargetField(Constructor<?> constructor) {
+    private Optional<String> defTargetField(@Nullable Constructor<?> constructor) {
         return Optional.ofNullable(constructor)
                 .map(ctor -> String.format("def $target = new %s(%s)",
                         ctor.getDeclaringClass().getSimpleName(),
