@@ -50,6 +50,7 @@
     </rule>
 
     <rule ref="category/java/errorprone.xml">
+        <exclude name="AvoidCatchingGenericException"/>
         <exclude name="UseProperClassLoader"/>
     </rule>
     <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
