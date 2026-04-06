@@ -1,4 +1,5 @@
 plugins {
+    id "jspecify-conventions"
     id "java-conventions"
     id "java-library"
     id "publishing-conventions"
