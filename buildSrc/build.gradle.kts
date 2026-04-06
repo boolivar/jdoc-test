@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     implementation("com.github.johnrengelman:shadow:8.1.1")
-    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.7")
+    implementation("com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.4.8")
     implementation("com.gradle.publish:plugin-publish-plugin:1.2.1")
     implementation("com.puppycrawl.tools:checkstyle:13.3.0")
     implementation("commons-io:commons-io:2.21.0")
