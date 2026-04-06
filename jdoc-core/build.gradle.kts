@@ -1,6 +1,5 @@
 plugins {
     id("java-library-jdoc-spock-conventions")
-    id("jspecify-conventions")
 }
 
 description = "Core jdoc-test components"
