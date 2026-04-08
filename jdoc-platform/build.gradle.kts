@@ -11,10 +11,11 @@ dependencies {
     api(platform(libs.junit.bom))
     constraints {
         api(libs.commons.io)
-        api(libs.javaparser.core)
         api(libs.commons.lang3)
-        api(libs.spock.core)
+        api(libs.errorprone.annotations)
+        api(libs.javaparser.core)
         api(libs.jspecify)
+        api(libs.spock.core)
 
         api(libs.assertj.core)
         api(libs.mockito.junitJupiter)

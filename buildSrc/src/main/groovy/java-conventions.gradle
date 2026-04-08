@@ -89,6 +89,10 @@ configurations {
 dependencies {
     internalPlatform platform(project(":jdoc-platform"))
 
+    compileOnly "com.google.errorprone:error_prone_annotations"
+
+    testCompileOnly "com.google.errorprone:error_prone_annotations"
+
     testImplementation "org.assertj:assertj-core"
     testImplementation "org.junit.jupiter:junit-jupiter"
     testImplementation "org.junit.platform:junit-platform-suite"
