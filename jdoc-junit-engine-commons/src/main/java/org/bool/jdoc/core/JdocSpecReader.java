@@ -1,7 +1,9 @@
 package org.bool.jdoc.core;
 
+import com.google.errorprone.annotations.MustBeClosed;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.discovery.DirectorySelector;
 import org.junit.platform.engine.discovery.FileSelector;
@@ -38,15 +40,16 @@ public class JdocSpecReader {
      */
     public List<SpecSource> readSpecs(List<DiscoverySelector> selectors) {
         return selectors.stream()
-                .flatMap(this::streamFiles).distinct()
-                .map(parser::parse).collect(Collectors.toList());
+                .flatMap(this::streamFiles).distinct().map(parser::parse)
+                .collect(Collectors.toList());
     }
 
+    @MustBeClosed
     @SneakyThrows
     private Stream<Path> streamFiles(DiscoverySelector selector) {
         if (selector instanceof DirectorySelector) {
             return Files.walk(((DirectorySelector) selector).getPath())
-                    .filter(path -> path.getFileName().toString().endsWith(".java"));
+                    .filter(path -> Files.isRegularFile(path) && StringUtils.endsWithIgnoreCase(path.getFileName().toString(), ".java"));
         }
         if (selector instanceof FileSelector) {
             return Stream.of(((FileSelector) selector).getPath());
