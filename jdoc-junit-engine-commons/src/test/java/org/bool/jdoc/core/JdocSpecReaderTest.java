@@ -33,7 +33,7 @@ class JdocSpecReaderTest {
         var subdir = Files.createDirectories(dir.resolve("subdir"));
         var file1 = dir.resolve("File1.java");
         var file2 = subdir.resolve("File2.java");
-        var file3 = subdir.resolve("File3.java");
+        var file3 = subdir.resolve("File3.JAVA");
 
         Files.createFile(file1);
         Files.createFile(file2);
