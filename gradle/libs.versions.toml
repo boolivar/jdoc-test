@@ -1,0 +1,7 @@
+[versions]
+axion-plugin = "1.21.1"
+sonar-plugin = "7.2.3.7755"
+
+[plugins]
+versioning = { id = "pl.allegro.tech.build.axion-release", version.ref = "axion-plugin" }
+sonar = { id = "org.sonarqube", version.ref = "sonar-plugin" }
