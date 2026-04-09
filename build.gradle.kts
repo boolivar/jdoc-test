@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.versioning)
-    alias(libs.plugins.sonar)
+    alias(libs.plugins.sonarqube)
 }
 
 scmVersion {
