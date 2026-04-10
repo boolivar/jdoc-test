@@ -1,18 +1,21 @@
-# [jdoc-test](https://boolivar.github.io/jdoc-test/)
+# jdoc-test
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.boolivar.jdoctest/jdoc-core)](https://central.sonatype.com/namespace/io.github.boolivar.jdoctest)
 [![CI](https://github.com/boolivar/jdoc-test/workflows/CI/badge.svg)](https://github.com/boolivar/jdoc-test/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/boolivar/jdoc-test/graph/badge.svg?token=PCV1VTNFYT)](https://codecov.io/gh/boolivar/jdoc-test)
 [![codeclimate](https://api.codeclimate.com/v1/badges/5abdb712f0e232643f83/maintainability)](https://codeclimate.com/github/boolivar/jdoc-test/maintainability)
-[![release](https://img.shields.io/github/v/release/boolivar/jdoc-test)](https://github.com/boolivar/jdoc-test/releases/latest)
 [![jitpack](https://jitpack.io/v/boolivar/jdoc-test.svg)](https://jitpack.io/#boolivar/jdoc-test)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.boolivar.jdoctest/jdoc-core)](https://central.sonatype.com/namespace/io.github.boolivar.jdoctest)
+
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![License](https://img.shields.io/github/license/boolivar/jdoc-test)](LICENSE)
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=bugs)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=boolivar_jdoc-test&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=boolivar_jdoc-test)
 
-
 Write BDD tests in javadocs!
+
+Documentation (AI generated): https://boolivar.github.io/jdoc-test/
 
 ```java
 public class MathUtils {
