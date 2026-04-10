@@ -8,15 +8,19 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.johnrengelman:shadow:8.1.1")
-    implementation("com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.4.8")
-    implementation("com.gradle.publish:plugin-publish-plugin:1.2.1")
-    implementation("com.puppycrawl.tools:checkstyle:13.3.0")
-    implementation("commons-io:commons-io:2.21.0")
-    implementation("dev.gradleplugins:gradle-plugin-development:1.9.0")
-    implementation("io.freefair.gradle:lombok-plugin:9.2.0")
-    implementation("io.github.boolivar.sonatype-portal-publish:gradle-plugin:0.1.0")
-    implementation("net.sourceforge.pmd:pmd-java:7.23.0")
-    implementation("net.ltgt.errorprone:net.ltgt.errorprone.gradle.plugin:5.1.0")
-    implementation("net.ltgt.nullaway:net.ltgt.nullaway.gradle.plugin:3.0.0")
+	implementation(libs.checkstyle)
+    implementation(libs.commons.io)
+    implementation(libs.pmd)
+
+    implementation(plugin(libs.plugins.errorprone))
+    implementation(plugin(libs.plugins.gradleDevelopment))
+    implementation(plugin(libs.plugins.lombok))
+    implementation(plugin(libs.plugins.nullaway))
+    implementation(plugin(libs.plugins.pluginPublish))
+    implementation(plugin(libs.plugins.shadow))
+    implementation(plugin(libs.plugins.sonatypePublish))
+    implementation(plugin(libs.plugins.spotbugs))
 }
+
+fun DependencyHandlerScope.plugin(plugin: Provider<PluginDependency>) =
+    plugin.map { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" }

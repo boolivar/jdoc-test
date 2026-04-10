@@ -12,8 +12,9 @@ nullaway {
 }
 
 dependencies {
-    errorprone("com.uber.nullaway:nullaway:0.13.1")
-    errorprone("com.google.errorprone:error_prone_core:2.46.0")
+    val libs = project.the<VersionCatalogsExtension>().named("libs")
+
+    errorprone(libs.findBundle("errorprone").get())
 
     implementation("org.jspecify:jspecify")
 }
