@@ -6,7 +6,7 @@ plugins {
 scmVersion {
     tag.prefix = ""
     useHighestVersion = true
-    versionIncrementer("incrementMinorIfNotOnRelease", mapOf("releaseBranchPattern" to "(?>release|(?>hot)?fix)/.+"))
+    versionIncrementer("incrementMinorIfNotOnRelease", mapOf("releaseBranchPattern" to "release\\/.+"))
     branchVersionCreator = mapOf(
         "master" to "simple",
         "release/.*" to "simple",
