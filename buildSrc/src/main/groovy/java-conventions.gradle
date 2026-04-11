@@ -5,6 +5,7 @@ plugins {
     id "checkstyle"
     id "com.github.spotbugs"
     id "io.freefair.lombok"
+    id "jspecify-conventions"
 }
 
 java {
