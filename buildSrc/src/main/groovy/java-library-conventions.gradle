@@ -1,7 +1,7 @@
 plugins {
-    id "jspecify-conventions"
     id "java-conventions"
     id "java-library"
+    id "jspecify-conventions"
     id "publishing-conventions"
 }
 
@@ -10,4 +10,8 @@ jar {
         attributes("Implementation-Title": project.name,
                    "Implementation-Version": version)
     }
+}
+
+dependencies {
+    api("org.jspecify:jspecify")
 }
