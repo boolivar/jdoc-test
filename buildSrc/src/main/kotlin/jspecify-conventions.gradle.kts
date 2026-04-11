@@ -31,21 +31,22 @@ tasks.withType<JavaCompile>().configureEach {
 
 val generatePackageInfo = tasks.register("generatePackageInfo") {
 
+    inputs.dir("src/main/java")
+
     outputs.dir(layout.buildDirectory.dir("generated/package-info"))
 
     doLast {
         val template = file("$rootDir/gradle/package-info").readText()
-        sourceSets.main.get().java.sourceDirectories.minus(outputs.files).forEach { baseDir ->
-            baseDir.walk().filter { f -> f.isDirectory() }.forEach { dir ->
-                val files = dir.list()
+        inputs.files.asFileTree.visit {
+            if (isDirectory) {
+                val files = file.list()
                 if (files.any { it.endsWith(".java", ignoreCase = true) } && !files.contains("package-info.java")) {
-                    val targetDir = dir.relativeTo(baseDir).path
-                    File(File(outputs.files.singleFile, targetDir), "package-info.java").apply {
+                    val packageName = path.replace('/', '.')
+                    File(File(outputs.files.singleFile, path), "package-info.java").apply {
                         parentFile.mkdirs()
-                        val packageName = targetDir.replace(File.separatorChar, '.')
                         writeText(template.format(packageName))
                     }
-                    logger.lifecycle("package-info.java generated for $targetDir")
+                    logger.lifecycle("package-info.java generated for $path")
                 }
             }
         }
