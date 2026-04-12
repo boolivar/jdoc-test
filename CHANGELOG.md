@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.12.0](https://github.com/boolivar/jdoc-test/compare/0.11.0...0.12.0) (2026-04-12)
+
+
+### Features
+
+* java21 ([#121](https://github.com/boolivar/jdoc-test/issues/121)) ([d20a446](https://github.com/boolivar/jdoc-test/commit/d20a446e8fd8a2c84c99e5afd761ebf7484b2a80))
+* jspecify ([#122](https://github.com/boolivar/jdoc-test/issues/122)) ([1cc18bc](https://github.com/boolivar/jdoc-test/commit/1cc18bcd8e8add97f299a4e24037f030ec73b387))
+* spockframework v2.4 ([#119](https://github.com/boolivar/jdoc-test/issues/119)) ([c0d8207](https://github.com/boolivar/jdoc-test/commit/c0d8207bf1de0d5f404cd700bef33b34be5709e6))
+
 ## [0.11.0](https://github.com/boolivar/jdoc-test/compare/0.10.1...0.11.0) (2024-12-29)
 
 
