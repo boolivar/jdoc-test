@@ -14,26 +14,47 @@ pluginPublish = { id = "com.gradle.plugin-publish", version.ref = "pluginPublish
 errorprone = ["errorprone-core", "nullaway"]
 
 [libraries]
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+bytebuddy = { module = "net.bytebuddy:byte-buddy", version.ref = "bytebuddy" }
 checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
 commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+cucumber-bom = { module = "io.cucumber:cucumber-bom", version.ref = "cucumber" }
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
+javaparser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
+jdoc-spock = { module = "io.github.boolivar.jdoctest:jdoc-spock", version.ref = "jdoc-spock" }
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+mockito-junitJupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
+objenesis = { module = "org.objenesis:objenesis", version.ref = "objenesis" }
 pmd = { module = "net.sourceforge.pmd:pmd-java", version.ref = "pmd" }
-
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 
 [versions]
+assertj = "3.27.0"
 axionRelease = "1.21.1"
+bytebuddy = "1.18.3"
 checkstyle = "13.3.0"
-commons-io = "2.21.0"
+commons-io = "2.18.0"
+commons-lang3 = "3.17.0"
+cucumber = "7.15.0"
 errorprone = "2.46.0"
 errorprone-plugin = "5.1.0"
 gradleDevelopment = "1.9.0"
+javaparser = "3.26.3"
+jdoc-spock = "0.10.1"
+jspecify = "1.0.0"
+junit = "5.11.4"
 lombok-plugin = "9.2.0"
+mockito = "5.10.0"
 nullaway = "0.13.1"
 nullaway-plugin = "3.0.0"
+objenesis = "3.4"
 pmd = "7.23.0"
 pluginPublish = "1.2.1"
 shadow = "8.1.1"
 sonarqube = "7.2.3.7755"
 sonatypePublish = "0.1.0"
+spock = "2.4-groovy-4.0"
 spotbugs-plugin = "6.4.8"
