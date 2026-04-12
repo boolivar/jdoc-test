@@ -86,7 +86,7 @@ Yes, see `jdoc-spock` and `jdoc-cucumber` [test](https://github.com/boolivar/jdo
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
     <artifactId>jdoc-spock</artifactId>
-    <version>0.11.0</version>
+    <version>0.12.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -124,7 +124,7 @@ repositories {
 }
 
 dependencies {
-    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.11.0"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.12.0"
 }
 ```
 <!-- x-release-please-end -->
@@ -214,7 +214,7 @@ gradle test
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
     <artifactId>jdoc-cucumber</artifactId>
-    <version>0.11.0</version>
+    <version>0.12.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -256,7 +256,7 @@ repositories {
 }
 
 dependencies {
-    <!-- x-release-please-version -->testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.11.0"
+    <!-- x-release-please-version -->testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.12.0"
     testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
 </pre>
@@ -339,7 +339,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.11.0"
+    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.12.0"
 }
 
 repositories {
@@ -399,7 +399,7 @@ Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plu
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.11.0"
+    id "io.github.boolivar.jdoctest.jdoc-spock" version "0.12.0"
 }
 
 repositories {
