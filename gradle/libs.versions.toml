@@ -34,7 +34,7 @@ spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 [versions]
 assertj = "3.27.7"
 axionRelease = "1.21.1"
-bytebuddy = "1.18.3"
+bytebuddy = "1.18.8"
 checkstyle = "13.3.0"
 commons-io = "2.21.0"
 commons-lang3 = "3.20.0"
