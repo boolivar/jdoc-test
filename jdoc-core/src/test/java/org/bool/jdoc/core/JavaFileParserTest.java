@@ -8,7 +8,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.BlockComment;
 import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.CommentsCollection;
-import com.github.javaparser.ast.comments.JavadocComment;
+import com.github.javaparser.ast.comments.TraditionalJavadocComment;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -39,7 +39,7 @@ class JavaFileParserTest {
     private JavaFileParser parser;
 
     static Stream<Comment> testParse() {
-        return Stream.of(new JavadocComment("/** javadoc code in */"), new BlockComment("/* block code in *"));
+        return Stream.of(new TraditionalJavadocComment("/** javadoc code in */"), new BlockComment("/* block code in *"));
     }
 
     @MethodSource
