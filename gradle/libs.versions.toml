@@ -32,7 +32,7 @@ pmd = { module = "net.sourceforge.pmd:pmd-java", version.ref = "pmd" }
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 
 [versions]
-assertj = "3.27.0"
+assertj = "3.27.7"
 axionRelease = "1.21.1"
 bytebuddy = "1.18.3"
 checkstyle = "13.3.0"
