@@ -18,6 +18,8 @@ public class JdocCucumberPlugin implements JdocTestPlugin {
 
     public static final String TEST_TASK_NAME = "jdocCucumberTest";
 
+    public static final String CUCUMBER_VERSION = "7.34.3";
+
     @Override
     public void apply(Project project) {
         JdocCucumberExtension extension = project.getExtensions().create("jdocCucumber", JdocCucumberExtension.class);
@@ -32,7 +34,7 @@ public class JdocCucumberPlugin implements JdocTestPlugin {
     private void configureExtension(Project project, JdocCucumberExtension extension) {
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-cucumber"));
         extension.getLangTag().convention("gherkin");
-        extension.getCucumberVersion().convention("7.17.0");
+        extension.getCucumberVersion().convention(CUCUMBER_VERSION);
         extension.getSources().convention(project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named("main").map(ss -> ss.getJava().getSourceDirectories()));
     }
 
