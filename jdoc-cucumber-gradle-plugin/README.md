@@ -2,7 +2,7 @@
 
 > Part of [jdoc-test](../README.md). Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-cucumber) that automates cucumber feature generation and cucumber testing tasks.
 
-#### Minimal configuration:
+## Minimal configuration:
 `build.gradle`:
 <!-- x-release-please-start-version -->
 ```gradle
@@ -23,7 +23,7 @@ check.dependsOn jdocCucumberTest
 gradle check
 ```
 
-#### jdocCucumber extension
+## jdocCucumber extension
 `build.gradle` example:
 ```gradle
 jdocCucumber {
@@ -41,7 +41,7 @@ jdocCucumber {
 | `cucumberVersion` | `String` | "7.17.0" | `io.cucumber:cucumber-java` dependency version to register in `testImplementation` configuration |
 | `gluePackages` | `List<String>` | | List of packages with cucumber glue code |
 
-#### Tasks
+## Tasks
 When `java` plugin is applied to a project, `jdoc-cucumber` plugin registers `io.cucumber:cucumber-java` dependency in `testImplementation` configuration and creates 2 tasks:
 - **generateCucumberFeatures** - `JdocCucumberTask`  
   Generates cucumber features from javadocs and stores them in `jdocCucumber.outputDir` path.

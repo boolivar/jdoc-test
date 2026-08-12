@@ -2,7 +2,7 @@
 
 > Part of [jdoc-test](../README.md). Gradle plugin available on [gradle plugin portal](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) that automates spockframework specs generation and testing tasks.
 
-#### Configuration example
+## Configuration example
 `build.gradle`:
 <!-- x-release-please-start-version -->
 ```gradle
@@ -29,7 +29,7 @@ check.dependsOn jdocSpockTest
 gradle check
 ```
 
-#### Reacting to the java plugin
+## Reacting to the java plugin
 When `java` plugin is applied to a project, `jdoc-spock` plugin:
 - applies `groovy` plugin
 - creates source set `jdocSpock` with groovy sources configured to outputDir property of extension
@@ -39,7 +39,7 @@ When `java` plugin is applied to a project, `jdoc-spock` plugin:
 - creates `jdocSpockTest` task
 - configures `compileJdocSpockGroovy` task to depend on `generateSpockSpecs` task
 
-#### jdocSpock extension
+## jdocSpock extension
 `build.gradle` example:
 ```gradle
 jdocSpock {
@@ -60,7 +60,7 @@ jdocSpock {
 | `byteBuddyVersion` | `String` | "1.14.15" | `net.bytebuddy:byte-buddy` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 | `objenesisVersion` | `String` | "3.3" | `org.objenesis:objenesis` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 
-#### Tasks
+## Tasks
 - **generateSpockSpecs** - `JdocSpockTask`  
   _Depends on:_ `compileJava`. Generates spockframework test specs from javadocs and stores them in `jdocSpock.outputDir` path.
 - **jdocSpockTest** - `Test`  
