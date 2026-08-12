@@ -5,7 +5,11 @@
     "packages": {
         ".": {
             "extra-files": [
-                "README.md"
+                "README.md",
+                "jdoc-spock/README.md",
+                "jdoc-cucumber/README.md",
+                "jdoc-spock-gradle-plugin/README.md",
+                "jdoc-cucumber-gradle-plugin/README.md"
             ]
         }
     }
