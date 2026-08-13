@@ -9,6 +9,7 @@ import org.junit.platform.engine.discovery.FileSelector;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,15 +39,17 @@ public class JdocSpecReader {
      */
     public List<SpecSource> readSpecs(List<DiscoverySelector> selectors) {
         return selectors.stream()
-                .flatMap(this::streamFiles).distinct()
-                .map(parser::parse).collect(Collectors.toList());
+                .flatMap(this::streamFiles)
+                .distinct()
+                .map(parser::parse)
+                .collect(Collectors.toList());
     }
 
     @SneakyThrows
     private Stream<Path> streamFiles(DiscoverySelector selector) {
         if (selector instanceof DirectorySelector) {
             return Files.walk(((DirectorySelector) selector).getPath())
-                    .filter(path -> path.getFileName().toString().endsWith(".java"));
+                    .filter(path -> Objects.toString(path.getFileName(), "").endsWith(".java"));
         }
         if (selector instanceof FileSelector) {
             return Stream.of(((FileSelector) selector).getPath());

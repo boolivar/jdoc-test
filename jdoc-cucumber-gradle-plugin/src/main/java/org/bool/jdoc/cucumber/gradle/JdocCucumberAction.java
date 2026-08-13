@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class JdocCucumberAction implements JdocAction {
@@ -41,7 +42,7 @@ public class JdocCucumberAction implements JdocAction {
     public void delete(File sourceFile, String baseName, Path outputPath) {
         try (Stream<Path> files = Files.list(outputPath)) {
             String prefix = baseName + "_";
-            files.filter(p -> matches(p.getFileName().toString(), prefix, ".feature"))
+            files.filter(p -> matches(Objects.toString(p.getFileName(), ""), prefix, ".feature"))
                 .forEach(this::delete);
         } catch (IOException e) {
             throw new UncheckedIOException("Error listing files: " + outputPath, e);
