@@ -20,6 +20,7 @@ checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checks
 commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
 commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
 cucumber-bom = { module = "io.cucumber:cucumber-bom", version.ref = "cucumber" }
+errorprone-annotations = { module = "com.google.errorprone:error_prone_annotations", version.ref = "errorprone" }
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
 javaparser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
 jdoc-spock = { module = "io.github.boolivar.jdoctest:jdoc-spock", version.ref = "jdoc-spock" }
