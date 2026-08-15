@@ -1,5 +1,6 @@
 package org.bool.jdoc.core;
 
+import com.google.errorprone.annotations.MustBeClosed;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.junit.platform.engine.DiscoverySelector;
@@ -45,6 +46,7 @@ public class JdocSpecReader {
                 .collect(Collectors.toList());
     }
 
+    @MustBeClosed
     @SneakyThrows
     private Stream<Path> streamFiles(DiscoverySelector selector) {
         if (selector instanceof DirectorySelector) {
