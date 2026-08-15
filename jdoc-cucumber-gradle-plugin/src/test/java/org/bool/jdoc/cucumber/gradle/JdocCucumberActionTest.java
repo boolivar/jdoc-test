@@ -42,7 +42,7 @@ class JdocCucumberActionTest {
 
         action.generate(file.toFile(), "File", outputPath);
 
-        assertThat(Files.list(outputPath).toList())
+        assertThat(files(outputPath))
             .hasSize(2);
         assertThat(outputPath.resolve("File_1.feature"))
             .content().isEqualTo("test");
@@ -59,12 +59,12 @@ class JdocCucumberActionTest {
         Files.writeString(outputPath.resolve("TestFile.feature"), "unknown feature");
         Files.writeString(outputPath.resolve("TestFile_2.java"), "javafile");
 
-        assertThat(Files.list(outputPath).toList())
+        assertThat(files(outputPath))
             .hasSize(5);
 
         action.delete(new File("any-file.java"), "TestFile", outputPath);
 
-        assertThat(Files.list(outputPath).toList())
+        assertThat(files(outputPath))
             .hasSize(2)
             .doesNotContain(
                     outputPath.resolve("TestFile_1.feature"),
@@ -85,5 +85,11 @@ class JdocCucumberActionTest {
 
         assertThat(outputPath)
             .isEmptyDirectory();
+    }
+
+    private List<Path> files(Path dir) throws IOException {
+        try (var files = Files.list(dir)) {
+            return files.toList();
+        }
     }
 }
