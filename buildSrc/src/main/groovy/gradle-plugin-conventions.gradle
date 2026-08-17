@@ -1,36 +1,36 @@
 plugins {
-   id "java-conventions"
-   id "com.gradle.plugin-publish"
-   id "com.gradleup.shadow"
+    id "java-conventions"
+    id "com.gradle.plugin-publish"
+    id "com.gradleup.shadow"
 }
 
-shadowJar {
+shadow {
+    addShadowVariantIntoJavaComponent = false
+}
+
+tasks.named("shadowJar") {
     archiveClassifier = ""
-    dependencies {
-       exclude(dependency {
-           it.moduleGroup != project.group
-       })
-    }
+    configurations = project.configurations.named("bundled").map { [it] }
     actions.removeAt(0) // remove manifest Class-Path configuration action that requires platform in configuration
 }
 
-def shadowDeps(Project project) {
-    def configuration = project.configurations.findByName("runtimeClasspath")
-    if (configuration != null) {
-        for (def dep : configuration.allDependencies) {
-            if (dep.group == rootProject.group) {
-                shadowDeps(dep.dependencyProject)
-            } else {
-                dependencies {
-                    shadow "$dep.group:$dep.name"
-                }
-            }
-        }
-    }
+configurations {
+    bundled.extendsFrom internalPlatform
 }
 
-gradle.projectsEvaluated {
-    shadowDeps(project)
+dependencies {
+    bundled project(":jdoc-gradle-plugin-commons")
+    implementation project(":jdoc-gradle-plugin-commons")
+}
+
+afterEvaluate {
+    configurations.runtimeClasspath.allDependencies.each { dep ->
+        if (!configurations.bundled.allDependencies.any {
+            it.group == dep.group && it.name == dep.name
+        }) {
+            dependencies.add("shadow", dep)
+        }
+    }
 }
 
 publishing {

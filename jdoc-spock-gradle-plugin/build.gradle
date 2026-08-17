@@ -1,5 +1,5 @@
 plugins {
-   id "gradle-plugin-conventions"
+    id "gradle-plugin-conventions"
 }
 
 gradlePlugin {
@@ -17,13 +17,11 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation project(":jdoc-gradle-plugin-commons")
     implementation project(":jdoc-spock-commons")
 
     testImplementation gradleTestKit()
 }
 
-shadowJar {
-   relocate "org.bool.jdoc.core", "org.bool.jdoc.spock.core"
-   relocate "org.bool.jdoc.gradle", "org.bool.jdoc.spock.gradle"
+tasks.named("shadowJar") {
+    relocate "org.bool.jdoc.gradle", "org.bool.jdoc.spock.gradle"
 }

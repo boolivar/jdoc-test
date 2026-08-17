@@ -17,12 +17,10 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation project(":jdoc-gradle-plugin-commons")
-
+    implementation project(":jdoc-core")
     testImplementation gradleTestKit()
 }
 
-shadowJar {
-   relocate "org.bool.jdoc.core", "org.bool.jdoc.cucumber.core"
-   relocate "org.bool.jdoc.gradle", "org.bool.jdoc.cucumber.gradle"
+tasks.named("shadowJar") {
+    relocate "org.bool.jdoc.gradle", "org.bool.jdoc.cucumber.gradle"
 }
