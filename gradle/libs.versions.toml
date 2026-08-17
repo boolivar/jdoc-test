@@ -6,7 +6,7 @@ nullaway = { id = "net.ltgt.nullaway", version.ref = "nullaway-plugin" }
 sonatypePublish = { id = "io.github.boolivar.sonatype-portal-publish", version.ref = "sonatypePublish" }
 gradleDevelopment = { id = "dev.gradleplugins.gradle-plugin-development", version.ref = "gradleDevelopment" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }
 pluginPublish = { id = "com.gradle.plugin-publish", version.ref = "pluginPublish" }
 
@@ -54,7 +54,7 @@ nullaway-plugin = "3.1.0"
 objenesis = "3.4"
 pmd = "7.25.0"
 pluginPublish = "2.1.1"
-shadow = "8.1.1"
+shadow = "9.2.2"
 sonarqube = "7.3.1.8318"
 sonatypePublish = "0.1.0"
 spock = "2.4-groovy-4.0"
