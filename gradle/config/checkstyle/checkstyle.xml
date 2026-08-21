@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <!DOCTYPE module PUBLIC
-    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
-    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
     <!-- Properties (http://checkstyle.sourceforge.net/config.html#Properties#Checker) -->
     <property name="fileExtensions" value="java, properties, xml"/>
 
     <!-- Filters (http://checkstyle.sourceforge.net/config_filters.html) -->
     <module name="SuppressWarningsFilter"/>
-    
+
     <module name="LineLength">
         <property name="max" value="140"/>
         <property name="severity" value="warning"/>
@@ -35,10 +35,8 @@
         <!--<module name="AnnotationLocation"/>-->
         <!--<module name="AnnotationOnSameLine">-->
         <!--<module name="AnnotationUseStyle"/>-->
-        <module name="MissingDeprecated">
-            <property name="severity" value="warning"/>
-        </module>
-        <!--<module name="MissingOverride"/>-->
+        <!--<module name="MissingDeprecated"/>-->
+        <module name="MissingOverride"/>
         <module name="PackageAnnotation"/>
         <module name="SuppressWarningsHolder"/>
         <module name="SuppressWarnings"/>
@@ -152,16 +150,19 @@
             <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
         <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <module name="UnusedImports">
+            <property name="processJavadoc" value="false"/>
+        </module>
 
         <!-- Javadoc Comments (http://checkstyle.sourceforge.net/config_javadoc.html) -->
         <!--<module name="AtclauseOrder"/>-->
+        <!--<module name="InvalidJavadocPosition"/>-->
+        <!--<module name="JavadocLeadingAsteriskAlign"/>-->
         <!--<module name="JavadocMethod"/>-->
+        <!--<module name="JavadocMissingLeadingAsterisk"/>-->
+        <!--<module name="JavadocMissingWhitespaceAfterAsterisk"/>-->
         <!--<module name="JavadocPackage"/>-->
         <!--<module name="JavadocParagraph"/>-->
-        <module name="JavadocStyle">
-            <property name="severity" value="warning"/>
-        </module>
         <!--<module name="JavadocTagContinuationIndentation"/>-->
         <!--<module name="JavadocType"/>-->
         <!--<module name="JavadocVariable"/>-->
