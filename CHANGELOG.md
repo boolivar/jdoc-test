@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.13.0](https://github.com/boolivar/jdoc-test/compare/0.12.0...0.13.0) (2026-08-21)
+
+
+### Features
+
+* JdocSpecReader.streamFiles @MustBeClosed ([#135](https://github.com/boolivar/jdoc-test/issues/135)) ([1a6e46a](https://github.com/boolivar/jdoc-test/commit/1a6e46adbba3c6be4eef52998c58f3d13004b0e7))
+
+
+### Bug Fixes
+
+* Path.getFileName() null handling ([0b229b3](https://github.com/boolivar/jdoc-test/commit/0b229b3770c903df5e34c01c1685a31b14fdbe7b))
+
 ## [0.12.0](https://github.com/boolivar/jdoc-test/compare/0.11.0...0.12.0) (2026-04-12)
 
 
