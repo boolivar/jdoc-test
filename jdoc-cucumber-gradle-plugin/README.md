@@ -38,7 +38,7 @@ jdocCucumber {
 | `outputDir` | `Directory` | project.layout.buildDirectory.dir("generated/sources/jdoc-cucumber") | Path to store generated features |
 | `langTag` | `String` | "gherkin" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and written as features |
 | `sources` | `FileCollection` | sourceSets.main.java.sourceDirectories | source directories to search java files with jdoc-cucumber comments |
-| `cucumberVersion` | `String` | "7.34.6" | `io.cucumber:cucumber-java` dependency version to register in `testImplementation` configuration |
+| `cucumberVersion` | `String` | "7.34.7" | `io.cucumber:cucumber-java` dependency version to register in `testImplementation` configuration |
 | `gluePackages` | `List<String>` | | List of packages with cucumber glue code |
 
 ## Tasks
