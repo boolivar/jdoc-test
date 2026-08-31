@@ -7,7 +7,7 @@
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
     <artifactId>jdoc-cucumber</artifactId>
-    <version>0.12.0</version>
+    <version>0.13.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    <!-- x-release-please-version -->testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.12.0"
+    <!-- x-release-please-version -->testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-cucumber:0.13.0"
     testImplementation "io.cucumber:cucumber-java:7.17.0"
 }
 </pre>
