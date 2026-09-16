@@ -8,7 +8,7 @@
 ```gradle
 plugins {
     id "java"
-    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.12.0"
+    id "io.github.boolivar.jdoctest.jdoc-cucumber" version "0.13.0"
 }
 
 repositories {
