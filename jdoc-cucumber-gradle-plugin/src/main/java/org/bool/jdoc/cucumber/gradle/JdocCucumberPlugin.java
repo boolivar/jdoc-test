@@ -18,7 +18,7 @@ public class JdocCucumberPlugin implements JdocTestPlugin {
 
     public static final String TEST_TASK_NAME = "jdocCucumberTest";
 
-    public static final String CUCUMBER_VERSION = "7.34.7";
+    public static final String CUCUMBER_VERSION = "7.34.8";
 
     @Override
     public void apply(Project project) {
