@@ -9,6 +9,7 @@
     <rule ref="category/java/bestpractices.xml">
         <exclude name="ImplicitFunctionalInterface"/>
         <exclude name="GuardLogStatement"/>
+        <exclude name="OnDemandImport"/>
         <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
         <exclude name="UnitTestContainsTooManyAsserts"/>
     </rule>
