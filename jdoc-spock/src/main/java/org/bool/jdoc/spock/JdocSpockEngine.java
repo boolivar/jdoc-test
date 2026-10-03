@@ -60,6 +60,7 @@ public class JdocSpockEngine implements TestEngine {
 
     @SneakyThrows
     @Override
+    @SuppressWarnings("PMD.InternalApiUsage")
     public void execute(ExecutionRequest request) {
         try (JdocSpockEngineDescriptor engineDescriptor = (JdocSpockEngineDescriptor) request.getRootTestDescriptor()) {
             for (TestDescriptor testDescriptor : engineDescriptor.getChildren()) {
