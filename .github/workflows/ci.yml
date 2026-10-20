@@ -47,7 +47,7 @@ jobs:
     - name: Run Gradle checks
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew ${{ env.IS_DEPENDABOT && 'check' || 'check sonar' }} --stacktrace
+      run: ./gradlew --stacktrace -PpmdAuxClasspath=${{ steps.jdk8.outputs.path }}/jre/lib/rt.jar ${{ env.IS_DEPENDABOT && 'check' || 'check sonar' }}
 
     - name: Upload test reports
       if: ${{ !cancelled() }}
