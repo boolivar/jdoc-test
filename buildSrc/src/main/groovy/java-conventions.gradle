@@ -87,6 +87,9 @@ configurations {
 }
 
 dependencies {
+    if (pmdAuxClasspath) {
+        pmdAux files(pmdAuxClasspath)
+    }
     internalPlatform platform(project(":jdoc-platform"))
 
     compileOnly "com.google.errorprone:error_prone_annotations"
