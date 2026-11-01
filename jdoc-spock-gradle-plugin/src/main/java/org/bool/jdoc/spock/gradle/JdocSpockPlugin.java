@@ -52,7 +52,7 @@ public class JdocSpockPlugin implements JdocTestPlugin {
     }
 
     private void configureExtension(Project project, JdocSpockExtension extension) {
-        Properties versions = loadProperties(project, "/version.properties");
+        Properties versions = loadProperties(project, "/jdoc-spock-extension.properties");
         SourceSetContainer sourceSets = project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets();
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-spock"));
         extension.getLangTag().convention("spock");
