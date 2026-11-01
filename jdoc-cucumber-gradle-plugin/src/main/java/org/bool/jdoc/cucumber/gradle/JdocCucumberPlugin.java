@@ -32,7 +32,7 @@ public class JdocCucumberPlugin implements JdocTestPlugin {
     private void configureExtension(Project project, JdocCucumberExtension extension) {
         extension.getOutputDir().convention(project.getLayout().getBuildDirectory().dir("generated/sources/jdoc-cucumber"));
         extension.getLangTag().convention("gherkin");
-        extension.getCucumberVersion().convention(loadProperties(project, "/version.properties").getProperty("cucumberVersion"));
+        extension.getCucumberVersion().convention(loadProperties(project, "/jdoc-cucumber-extension.properties").getProperty("cucumberVersion"));
         extension.getSources().convention(project.getExtensions().getByType(JavaPluginExtension.class).getSourceSets().named("main").map(ss -> ss.getJava().getSourceDirectories()));
     }
 
