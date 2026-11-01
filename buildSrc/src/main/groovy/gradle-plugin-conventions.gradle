@@ -29,6 +29,11 @@ def shadowDeps(Project project) {
     }
 }
 
+processResources {
+    def libs = project.extensions.getByType(VersionCatalogsExtension).named("libs")
+    expand(libs.versionAliases.collectEntries { [(it + 'Version'): libs.findVersion(it).get()] })
+}
+
 gradle.projectsEvaluated {
     shadowDeps(project)
 }
