@@ -19,23 +19,22 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.mock;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GroovyCompilerTest {
 
-    private final CompilationUnit unit = mock(CompilationUnit.class);
-
-    private final GroovyCompiler compiler = new GroovyCompiler(() -> unit);
-
     @Captor
     private ArgumentCaptor<SourceUnit> captor;
 
+    @Mock
+    private CompilationUnit unit;
+
+    private final GroovyCompiler compiler = new GroovyCompiler(() -> unit);
+
     @AfterEach
-    void verifyCompile() {
-        then(unit).should().compile();
+    void verifyUnitCompiled() {
+        verify(unit).compile();
     }
 
     @Test
