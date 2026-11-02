@@ -1,5 +1,6 @@
 package org.bool.jdoc.cucumber.gradle;
 
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.gradle.api.tasks.JavaExec;
 import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.testkit.runner.GradleRunner;
@@ -55,7 +56,8 @@ class JdocCucumberPluginTest {
         project.getPluginManager().apply(JdocCucumberPlugin.ID);
 
         assertThat(project.getExtensions().getByName("jdocCucumber"))
-            .isInstanceOf(JdocCucumberExtension.class);
+            .asInstanceOf(InstanceOfAssertFactories.type(JdocCucumberExtension.class))
+            .satisfies(ext -> assertThat(ext.getCucumberVersion().get()).matches("\\d+\\.\\d+\\.\\d+"));
         assertThat(project.getTasks().getByName("generateCucumberFeatures"))
             .isInstanceOf(JdocCucumberTask.class);
         assertThat(project.getTasks().getByName("jdocCucumberTest"))
