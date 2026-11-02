@@ -56,9 +56,9 @@ jdocSpock {
 | `langTag` | `String` | "spock" | `lang` tag to parse. Only `<code lang="<langTag>">` javadoc blocks will be parsed and included in spec generation |
 | `sources` | `FileCollection` | sourceSets.main.java.sourceDirectories | source directories to search java files with jdoc-spock comments |
 | `classPath` | `FileCollection` | sourceSets.jdocSpock.compileClasspath | Classpath for mockable constructor search during spec generation. |
-| `spockVersion` | `String` | "2.3-groovy-4.0" | `org.spockframework:spock-core` dependency version to register in `jdocSpockImplementation` configuration |
-| `byteBuddyVersion` | `String` | "1.18.14" | `net.bytebuddy:byte-buddy` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
-| `objenesisVersion` | `String` | "3.4" | `org.objenesis:objenesis` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
+| `spockVersion` | `String` | "2.5-groovy-4.0" | `org.spockframework:spock-core` dependency version to register in `jdocSpockImplementation` configuration |
+| `byteBuddyVersion` | `String` | "1.18.16" | `net.bytebuddy:byte-buddy` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
+| `objenesisVersion` | `String` | "3.5" | `org.objenesis:objenesis` dependency version to register in `jdocSpockRuntimeOnly` configuration, `null` value will exclude dependency. |
 
 ## Tasks
 - **generateSpockSpecs** - `JdocSpockTask`  
