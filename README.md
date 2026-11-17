@@ -84,3 +84,7 @@ See the component READMEs for detailed usage:
 - **[jdoc-cucumber](jdoc-cucumber/README.md)** — write and run Gherkin features from javadocs using JUnit engine
 - **[jdoc-spock-gradle-plugin](jdoc-spock-gradle-plugin/README.md)** — automate Spock spec generation and testing via Gradle
 - **[jdoc-cucumber-gradle-plugin](jdoc-cucumber-gradle-plugin/README.md)** — automate Cucumber feature generation and testing via Gradle
+
+## Agent skill
+
+The [agent plugin](agent-plugin/README.md) provides reusable jdoc-test guidance for Claude Code and Codex, including Gradle setup and tests embedded in production Java sources.
