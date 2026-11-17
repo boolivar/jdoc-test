@@ -16,6 +16,8 @@ The skill is available as `/jdoc-test:jdoc-test`. To install the skill across pr
 
 ## Validate and package
 
+Each CI run uploads this directory in an independent `agent-plugin` job as the `jdoc-test-agent-plugin-<version>` workflow artifact. The version comes from the plugin manifest. `actions/upload-artifact` creates the ZIP directly and includes the hidden manifest directory. Packaging runs alongside the Java build, including for `docs` and `chore` commits that skip the Java build. The workflow's branch filters still apply. Download the artifact from the workflow run to obtain the plugin ZIP for submission; there is no nested ZIP to extract.
+
 With Claude Code installed, run from the repository root:
 
 ```sh
