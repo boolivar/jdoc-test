@@ -27,29 +27,6 @@ public class JdocSpockTestSuite {}
 
 Import the three annotations from `org.junit.platform.suite.api`. `@SelectFile` is also supported. Alternatively provide comma-separated `jdoc.spock.test-dirs` or `jdoc.spock.test-files` as JUnit Platform configuration parameters. For Groovy compilation that needs external types, set `jdoc.spock.classpath` to comma-separated test compile classpath entries (not the OS path separator). `jdoc.spock.generated-classes-dir` selects the output directory. Compile production Java with `-parameters` to preserve constructor parameter names used by generated mock fields. See the [constructor rules](gradle-plugins.md#spock).
 
-## Cucumber engine
-
-```groovy
-dependencies {
-    testImplementation 'org.junit.platform:junit-platform-suite'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
-    testRuntimeOnly 'io.github.boolivar.jdoctest:jdoc-cucumber:0.12.0'
-}
-
-test { useJUnitPlatform() }
-```
-
-```java
-@Suite
-@IncludeEngines("jdoc-cucumber")
-@SelectDirectories("src/main/java")
-@ConfigurationParameter(key = "cucumber.glue", value = "com.example.steps")
-public class JdocCucumberTestSuite {}
-```
-
-Define `cucumberVersion` using the project's version management and align it with the Cucumber engine dependency of the selected jdoc-test release. Import the annotations from `org.junit.platform.suite.api`. The literal `cucumber.glue` key avoids importing Cucumber engine constants from a runtime-only dependency. Add matching step definitions under the test source set and any assertion or mocking libraries they use. `@SelectFile` and comma-separated `jdoc.cucumber.test-dirs` / `jdoc.cucumber.test-files` are also supported. The engine writes features to a temporary directory by default; `jdoc.cucumber.output-dir` overrides that location.
-
 ## Source behavior
 
-`JavaFileParser` scans Javadocs and ordinary block comments and extracts matching top-level `<code lang="...">` blocks. Spock generation uses the Java file's primary type, package, and imports, and combines its Spock blocks into one specification. Cucumber creates feature files for each Gherkin block; each block should be a complete feature. Avoid assuming a test under `src/main/java` will be discovered merely because the engine dependency exists: select source paths through a suite or platform configuration.
+`JavaFileParser` scans Javadocs and ordinary block comments and extracts matching top-level `<code lang="...">` blocks. Spock generation uses the Java file's primary type, package, and imports, and combines its Spock blocks into one specification. Avoid assuming a test under `src/main/java` will be discovered merely because the engine dependency exists: select source paths through a suite or platform configuration.

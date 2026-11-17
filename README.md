@@ -85,6 +85,6 @@ See the component READMEs for detailed usage:
 - **[jdoc-spock-gradle-plugin](jdoc-spock-gradle-plugin/README.md)** — automate Spock spec generation and testing via Gradle
 - **[jdoc-cucumber-gradle-plugin](jdoc-cucumber-gradle-plugin/README.md)** — automate Cucumber feature generation and testing via Gradle
 
-## Agent skill
+## Agent skills
 
-The [agent plugin](agent-plugin/README.md) provides reusable jdoc-test guidance for Claude Code and Codex, including Gradle setup and tests embedded in production Java sources.
+The [agent plugin](agent-plugin/README.md) provides `jdoc-spock` and `jdoc-cucumber` skills for Claude Code and Codex, including Gradle setup and tests embedded in production Java sources.
