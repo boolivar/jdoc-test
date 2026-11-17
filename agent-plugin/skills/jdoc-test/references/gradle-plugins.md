@@ -19,11 +19,17 @@ plugins {
 
 repositories { mavenCentral() }
 
+dependencies {
+    jdocSpockRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
 // Optional: include Javadoc tests in the normal verification lifecycle.
 tasks.named('check') { dependsOn tasks.named('jdocSpockTest') }
 ```
 
 Kotlin DSL equivalent for the lifecycle link: `tasks.named("check") { dependsOn("jdocSpockTest") }`.
+
+Declare the launcher on `jdocSpockRuntimeOnly`: Gradle 9 no longer supplies it automatically. Adding it only to `testRuntimeOnly` does not put it on this custom source set's runtime classpath. Keep its version aligned with the resolved Spock/JUnit Platform dependencies, using their constraints or the project's compatible JUnit BOM. Kotlin DSL: `add("jdocSpockRuntimeOnly", "org.junit.platform:junit-platform-launcher")`. See [Gradle's test framework dependency guidance](https://docs.gradle.org/current/userguide/upgrading_version_8.html#test_framework_implementation_dependencies).
 
 The plugin applies `groovy`, creates the `jdocSpock` source set and `generateSpockSpecs`, `compileJdocSpockGroovy`, and `jdocSpockTest` tasks. The generation task depends on `compileJava`; compilation of the generated Groovy depends on generation; `jdocSpockTest` uses JUnit Platform. It adds `spock-core` to `jdocSpockImplementation` and Byte Buddy and Objenesis to `jdocSpockRuntimeOnly`. It does **not** attach `jdocSpockTest` to `check` automatically.
 

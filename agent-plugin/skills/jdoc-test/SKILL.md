@@ -14,25 +14,12 @@ jdoc-test extracts `<code lang="spock">` and `<code lang="gherkin">` blocks from
 3. Put Spock specification members (feature methods, fields, or fixtures) or a complete Gherkin `Feature` in a language-tagged block. Follow nearby names, imports, indentation, fixture style, and step definitions. Spock blocks contribute to one generated specification for the Java file's primary type; do not wrap them in another specification class. Gherkin blocks become features and need matching Cucumber glue.
 4. Preserve the build's existing version catalog, repositories, source sets, and plugin conventions. Set up each Java module that owns Javadoc tests; a root-only plugin application does not configure subprojects. Wire the dedicated plugin test task into `check` only if the project wants it in the normal verification lifecycle.
 
-## Spock example
+## Author tests in their Java context
 
-```java
-/**
- * Returns the square of the input.
- *
- * <pre><code lang="spock">
- * def "squares an integer"() {
- *   expect:
- *     MathUtils.square(3) == 9
- * }
- * </code></pre>
- */
-public static int square(int value) {
-    return value * value;
-}
-```
+Keep the test beside the behavior it documents, in the class or method Javadoc. When presenting examples, include the declaring class, relevant constructors, tested implementation, and any collaborator interfaces needed to understand them. For edits to an existing class, preserve that context rather than replacing it with a detached test snippet.
 
-The generated Spock specification inherits the Java file's package and imports. When a suitable constructor exists, it also gets `$target` and mock fields named after constructor parameters. Use those fields only when their generation is supported for the target class; see [constructor rules](references/gradle-plugins.md#spock). Use fully qualified names for test-only types that are not imported by the Java file; imports inside a block would land inside the generated class.
+- **Spock:** read [Spock examples](references/spock-examples.md) for constructor mocks, `$target`, data tables, exceptions, and explicit construction. The generated specification inherits the Java file's package and imports. `$target` is an instance of the Java file's primary class, initialized through a suitable constructor; its collaborator mocks are named after constructor parameters retained by `-parameters`. Invoke instance behavior through `$target` when it is generated. `this` inside a feature refers to the specification, not the Java subject. Do not redeclare generated fields. See [constructor rules](references/gradle-plugins.md#spock) for absent targets and ambiguous constructors. Use fully qualified test-only types when needed; imports inside a block would land inside the generated class.
+- **Cucumber:** read [Cucumber examples](references/cucumber-examples.md) for a complete declaring class, matching glue, scenario outlines, and suite configuration. Gherkin does not receive `$target` or generated mocks. Step definitions instantiate or obtain the subject and implement every step. Keep glue in the test source set and align its package with the selected integration's glue configuration.
 
 ## Verification
 
