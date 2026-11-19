@@ -19,7 +19,7 @@ jdoc-test extracts `<code lang="gherkin">` blocks from Java Javadocs or block co
 
 Keep the test beside the behavior it documents, in the class or method Javadoc. When presenting examples, include the declaring class, relevant constructors, tested implementation, and any collaborator interfaces needed to understand them. For edits to an existing class, preserve that context rather than replacing it with a detached test snippet.
 
-Read [Cucumber examples](references/cucumber-examples.md) for complete declaring classes, matching glue, scenario outlines, and suite configuration. Gherkin does not receive `$target` or generated mocks. Step definitions instantiate or obtain the subject and implement every step. Keep glue in the test source set and align its package with the selected integration's glue configuration. Source selection locates the Java comments; glue configuration locates the step implementations. Both must match the project.
+Read [Cucumber examples](references/cucumber-examples.md) for complete declaring classes, matching glue, data tables, scenario outlines, and suite configuration. Gherkin does not receive `$target` or generated mocks. Step definitions instantiate or obtain the subject and implement every step. Keep glue in the test source set and align its package with the selected integration's glue configuration. Source selection locates the Java comments; glue configuration locates the step implementations. Both must match the project.
 
 ## Verification
 

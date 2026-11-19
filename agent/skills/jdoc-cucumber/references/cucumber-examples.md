@@ -75,7 +75,7 @@ public class FooSteps {
 
 This glue requires `cucumber-java` and Mockito (`org.mockito:mockito-core`) on the test compile classpath. `verify(bar).bar()` asserts exactly one invocation. Mockito is a fixture choice, not a jdoc-test requirement. The subject and mock are instance fields in the glue; do not share mutable scenario state through static fields.
 
-## Scenario outline with input and expected output
+## Checking squares with a data table and a scenario outline
 
 `src/main/java/example/cucumber/MathUtils.java`:
 
@@ -90,6 +90,13 @@ public final class MathUtils {
      *
      * <pre><code lang="gherkin">
      * Feature: Square calculation
+     *   Scenario: square integers
+     *     Then the integers have the following squares
+     *       | input | square |
+     *       | 0     | 0      |
+     *       | 2     | 4      |
+     *       | -3    | 9      |
+     *
      *   Scenario Outline: square an integer
      *     When I square <input>
      *     Then the result is <expected>
@@ -112,8 +119,11 @@ public final class MathUtils {
 package example.cucumber.steps;
 
 import example.cucumber.MathUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import java.util.Map;
 
 public class SquareSteps {
     private int result;
@@ -129,10 +139,24 @@ public class SquareSteps {
             throw new AssertionError("Expected " + expected + " but was " + result);
         }
     }
+
+    @Then("the integers have the following squares")
+    public void verifySquares(DataTable squares) {
+        for (Map<String, Integer> row : squares.asMaps(String.class, Integer.class)) {
+            int input = row.get("input");
+            int expected = row.get("square");
+            int actual = MathUtils.square(input);
+            if (actual != expected) {
+                throw new AssertionError("square(" + input + "): expected " + expected + " but was " + actual);
+            }
+        }
+    }
 }
 ```
 
-Each outline row becomes a scenario. `<input>` and `<expected>` are substituted by Gherkin; `{int}` in the annotations converts the resulting text into Java arguments. This example uses `AssertionError` to avoid another dependency; use the target project's assertion library when available. Do not use bare Java `assert` unless the runner enables assertions.
+The data table checks all rows in one scenario. The outline runs one scenario per row.
+
+Javadoc treats placeholders such as `<expected>` as HTML tags, so DocLint can reject them. Use the data table when publishing Javadocs with DocLint enabled. HTML-escaping the placeholders also changes the text passed to Gherkin.
 
 ## Connect the production Javadocs and glue
 
@@ -156,7 +180,7 @@ import org.junit.platform.suite.api.Suite;
 public class JdocCucumberTests {}
 ```
 
-Source selection locates the Java comments; glue configuration locates the step implementations. Both are necessary. The literal `cucumber.glue` key avoids a compile-time import from the engine dependency when it is runtime-only. Check that execution reports one delegation scenario and three arithmetic scenarios, with no undefined or ambiguous steps. Add an assertion library or Mockito only for examples that use it.
+Source selection locates the Java comments; glue configuration locates the step implementations. Both are necessary. The literal `cucumber.glue` key avoids a compile-time import from the engine dependency when it is runtime-only. With both features, expect five scenarios in total (one delegation, one data table, and three outline rows). Add an assertion library or Mockito only for examples that use it.
 
 ## Library source reference: configuration tables
 
