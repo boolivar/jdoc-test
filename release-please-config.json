@@ -9,12 +9,7 @@
                 "jdoc-spock/README.md",
                 "jdoc-cucumber/README.md",
                 "jdoc-spock-gradle-plugin/README.md",
-                "jdoc-cucumber-gradle-plugin/README.md",
-                {
-                    "type": "json",
-                    "path": "agent-plugin/.claude-plugin/plugin.json",
-                    "jsonpath": "$.version"
-                }
+                "jdoc-cucumber-gradle-plugin/README.md"
             ]
         }
     }

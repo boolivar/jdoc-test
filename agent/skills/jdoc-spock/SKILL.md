@@ -1,6 +1,7 @@
 ---
 name: jdoc-spock
 description: Add or maintain executable Spock tests inside Java Javadocs using jdoc-test, including constructor mocks, $target, and Gradle plugin or JUnit engine setup. Use for projects adopting jdoc-spock or editing existing Spock Javadoc tests.
+license: MIT
 ---
 
 # jdoc-spock

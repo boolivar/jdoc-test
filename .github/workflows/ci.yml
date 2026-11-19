@@ -11,25 +11,6 @@ permissions:
 env:
   IS_DEPENDABOT: ${{ startsWith(github.ref_name, 'dependabot/') && 'yes' || '' }}
 jobs:
-  agent-plugin:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-    - uses: actions/checkout@v6
-
-    - name: Read agent plugin version
-      id: agent-plugin-version
-      run: jq -r '"version=" + .version' agent-plugin/.claude-plugin/plugin.json >> "$GITHUB_OUTPUT"
-
-    - name: Upload agent plugin
-      uses: actions/upload-artifact@v6
-      with:
-        name: jdoc-test-agent-plugin-${{ steps.agent-plugin-version.outputs.version }}
-        path: agent-plugin/
-        if-no-files-found: error
-        include-hidden-files: true
-
   build:
     if: ${{ ! (startsWith(github.event.head_commit.message, 'chore:') || startsWith(github.event.head_commit.message, 'docs')) }}
     runs-on: ubuntu-latest

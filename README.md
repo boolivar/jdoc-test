@@ -87,4 +87,4 @@ See the component READMEs for detailed usage:
 
 ## Agent skills
 
-The [agent plugin](agent-plugin/README.md) provides `jdoc-spock` and `jdoc-cucumber` skills for Claude Code and Codex, including Gradle setup and tests embedded in production Java sources.
+The [jdoc-test Agent Skills](agent/README.md) help coding agents write executable Spock and Gherkin tests in Java Javadocs and configure Gradle or JUnit Platform to run them.

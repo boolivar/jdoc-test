@@ -1,6 +1,7 @@
 ---
 name: jdoc-cucumber
 description: Add or maintain executable Gherkin tests inside Java Javadocs using jdoc-test, including Cucumber step definitions and Gradle plugin or JUnit engine setup. Use for projects adopting jdoc-cucumber or editing existing Gherkin Javadoc tests.
+license: MIT
 ---
 
 # jdoc-cucumber
