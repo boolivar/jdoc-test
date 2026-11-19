@@ -10,7 +10,7 @@ Additional non-mandatory `<pre>` tag keeps code formatting for javadoc presentat
 <dependency>
     <groupId>io.github.boolivar.jdoctest</groupId>
     <artifactId>jdoc-spock</artifactId>
-    <version>0.12.0</version>
+    <version>0.13.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.12.0"
+    testRuntimeOnly "io.github.boolivar.jdoctest:jdoc-spock:0.13.0"
 }
 ```
 <!-- x-release-please-end -->

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.13.0](https://github.com/boolivar/jdoc-test/compare/0.12.0...0.13.0) (2026-11-19)
+
+
+### Features
+
+* **🤖:** agent skills ([#247](https://github.com/boolivar/jdoc-test/issues/247)) ([1919470](https://github.com/boolivar/jdoc-test/commit/191947033c477f2bf7037f141a14c3d5c64672e8))
+* generated plugin extension dependency versions ([#237](https://github.com/boolivar/jdoc-test/issues/237)) ([2f57679](https://github.com/boolivar/jdoc-test/commit/2f57679cdb957e7d5bf999cc5b84fcfbc738896b))
+* JdocSpecReader.streamFiles @MustBeClosed ([#135](https://github.com/boolivar/jdoc-test/issues/135)) ([1a6e46a](https://github.com/boolivar/jdoc-test/commit/1a6e46adbba3c6be4eef52998c58f3d13004b0e7))
+
+
+### Bug Fixes
+
+* Path.getFileName() null handling ([0b229b3](https://github.com/boolivar/jdoc-test/commit/0b229b3770c903df5e34c01c1685a31b14fdbe7b))
+
 ## [0.12.0](https://github.com/boolivar/jdoc-test/compare/0.11.0...0.12.0) (2026-04-12)
 
 
