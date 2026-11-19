@@ -22,7 +22,7 @@ test { useJUnitPlatform() }
 @Suite
 @IncludeEngines("jdoc-spock")
 @SelectDirectories("src/main/java")
-public class JdocSpockTestSuite {}
+public class JdocSpockTests {}
 ```
 
 Import the three annotations from `org.junit.platform.suite.api`. `@SelectFile` is also supported. Alternatively provide comma-separated `jdoc.spock.test-dirs` or `jdoc.spock.test-files` as JUnit Platform configuration parameters. For Groovy compilation that needs external types, set `jdoc.spock.classpath` to comma-separated test compile classpath entries (not the OS path separator). `jdoc.spock.generated-classes-dir` selects the output directory. Compile production Java with `-parameters` to preserve constructor parameter names used by generated mock fields. See the [constructor rules](gradle-plugins.md#spock).

@@ -133,7 +133,7 @@ public class Greeting {
 
 ## Connect these files to execution
 
-With the Gradle plugin, run the owning module's `jdocSpockTest`. For the engine integration, place this suite in `src/test/java/example/spock/JdocSpockTestSuite.java` alongside the dependencies and `useJUnitPlatform()` configuration in the [engine reference](junit-engines.md#spock-engine):
+With the Gradle plugin, run the owning module's `jdocSpockTest`. For the engine integration, place this suite in `src/test/java/example/spock/JdocSpockTests.java` alongside the dependencies and `useJUnitPlatform()` configuration in the [engine reference](junit-engines.md#spock-engine):
 
 ```java
 package example.spock;
@@ -145,7 +145,7 @@ import org.junit.platform.suite.api.Suite;
 @Suite
 @IncludeEngines("jdoc-spock")
 @SelectDirectories("src/main/java")
-public class JdocSpockTestSuite {}
+public class JdocSpockTests {}
 ```
 
 The suite selects the production source directory. Adding an engine dependency alone does not tell it where to read the Javadocs. Confirm the reports contain the features, including all three `Divider` table rows and the exception case.

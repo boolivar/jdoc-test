@@ -139,7 +139,7 @@ Each outline row becomes a scenario. `<input>` and `<expected>` are substituted 
 Choose one execution integration for these examples:
 
 - **Gradle plugin:** follow the [Cucumber plugin setup](gradle-plugins.md#cucumber), set `gluePackages` to `['example.cucumber.steps']`, and run `jdocCucumberTest`. It generates the features and invokes the Cucumber CLI with the test runtime classpath. No JUnit suite is needed for this path.
-- **JUnit engine:** follow the [engine dependency setup](junit-engines.md#cucumber-engine) and add `src/test/java/example/cucumber/JdocCucumberTestSuite.java` below. Run the configured JUnit Platform test task.
+- **JUnit engine:** follow the [engine dependency setup](junit-engines.md#cucumber-engine) and add `src/test/java/example/cucumber/JdocCucumberTests.java` below. Run the configured JUnit Platform test task.
 
 ```java
 package example.cucumber;
@@ -153,7 +153,7 @@ import org.junit.platform.suite.api.Suite;
 @IncludeEngines("jdoc-cucumber")
 @SelectDirectories("src/main/java")
 @ConfigurationParameter(key = "cucumber.glue", value = "example.cucumber.steps")
-public class JdocCucumberTestSuite {}
+public class JdocCucumberTests {}
 ```
 
 Source selection locates the Java comments; glue configuration locates the step implementations. Both are necessary. The literal `cucumber.glue` key avoids a compile-time import from the engine dependency when it is runtime-only. Check that execution reports one delegation scenario and three arithmetic scenarios, with no undefined or ambiguous steps. Add an assertion library or Mockito only for examples that use it.

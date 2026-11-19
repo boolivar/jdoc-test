@@ -24,7 +24,7 @@ test { useJUnitPlatform() }
 @IncludeEngines("jdoc-cucumber")
 @SelectDirectories("src/main/java")
 @ConfigurationParameter(key = "cucumber.glue", value = "com.example.steps")
-public class JdocCucumberTestSuite {}
+public class JdocCucumberTests {}
 ```
 
 Define `cucumberVersion` using the project's version management and align it with the Cucumber engine dependency of the selected jdoc-test release. Import the annotations from `org.junit.platform.suite.api`. The literal `cucumber.glue` key avoids importing Cucumber engine constants from a runtime-only dependency. Add matching step definitions under the test source set and any assertion or mocking libraries they use. `@SelectFile` and comma-separated `jdoc.cucumber.test-dirs` / `jdoc.cucumber.test-files` are also supported. The engine writes features to a temporary directory by default; `jdoc.cucumber.output-dir` overrides that location.
