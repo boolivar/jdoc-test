@@ -15,6 +15,12 @@
 
 Write BDD tests in javadocs!
 
+Try the [jdoc-test agent skills](agent/README.md):
+
+```sh
+npx skills add boolivar/jdoc-test
+```
+
 Documentation (AI generated): https://boolivar.github.io/jdoc-test/
 
 ```java
@@ -85,6 +91,3 @@ See the component READMEs for detailed usage:
 - **[jdoc-spock-gradle-plugin](jdoc-spock-gradle-plugin/README.md)** — automate Spock spec generation and testing via Gradle
 - **[jdoc-cucumber-gradle-plugin](jdoc-cucumber-gradle-plugin/README.md)** — automate Cucumber feature generation and testing via Gradle
 
-## Agent skills
-
-The [jdoc-test Agent Skills](agent/README.md) help coding agents write executable Spock and Gherkin tests in Java Javadocs and configure Gradle or JUnit Platform to run them.
