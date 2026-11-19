@@ -15,7 +15,13 @@
 
 Write BDD tests in javadocs!
 
-Documentation (AI generated): https://boolivar.github.io/jdoc-test/
+Try the [jdoc-test agent skills](agent/README.md):
+
+```sh
+npx skills add boolivar/jdoc-test
+```
+
+Example:
 
 ```java
 public class MathUtils {
@@ -61,22 +67,13 @@ So why not just write tests in documentation? [BDD](https://en.wikipedia.org/wik
 use test specifications written in (more or less) human language. Such documentation goes in sync with actual code and shows code
 usage example. Java code, tests and documentation become tightly coupled by putting BDD specification in javadoc.
 
-## WHAT?
-
-| Component | Type | Description |
-| --------- | ---- | ----------- |
-| [jdoc-spock](jdoc-spock/README.md) | junit engine library | Runs [spockframework](https://spockframework.org/) test specifications written in javadocs. |
-| [jdoc-spock-gradle-plugin](jdoc-spock-gradle-plugin/README.md) | gradle plugin | [Automates](https://plugins.gradle.org/plugin/io.github.boolivar.jdoctest.jdoc-spock) spockframework specs generation and testing. |
-| [jdoc-cucumber](jdoc-cucumber/README.md) | junit engine library | Runs [gherkin](https://cucumber.io/docs/gherkin/reference/) features written in javadocs. |
-| [jdoc-cucumber-gradle-plugin](jdoc-cucumber-gradle-plugin/README.md) | gradle plugin | [Automates](https://plugins.gradle.org/plugin/org.bool.jdoctest.jdoc-cucumber) cucumber feature generation and testing. |
-
 :warning: **Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.**
 
 ## WHAT???
 
 Yes, see `jdoc-spock` and `jdoc-cucumber` [test](https://github.com/boolivar/jdoc-test/blob/master/jdoc-spock-commons/src/main/java/org/bool/jdoc/spock/ResourceContainer.java) [examples](https://github.com/boolivar/jdoc-test/blob/master/jdoc-cucumber/src/main/java/org/bool/jdoc/cucumber/ConfigParams.java) in [source](https://github.com/boolivar/jdoc-test/blob/master/jdoc-core/src/main/java/org/bool/jdoc/core/JavaFileParser.java) [code](https://github.com/boolivar/jdoc-test/blob/master/jdoc-spock-commons/src/main/java/org/bool/jdoc/spock/ClassIntrospector.java).
 
-## HOW?
+## How?
 
 See the component READMEs for detailed usage:
 
@@ -84,3 +81,5 @@ See the component READMEs for detailed usage:
 - **[jdoc-cucumber](jdoc-cucumber/README.md)** — write and run Gherkin features from javadocs using JUnit engine
 - **[jdoc-spock-gradle-plugin](jdoc-spock-gradle-plugin/README.md)** — automate Spock spec generation and testing via Gradle
 - **[jdoc-cucumber-gradle-plugin](jdoc-cucumber-gradle-plugin/README.md)** — automate Cucumber feature generation and testing via Gradle
+
+Documentation (AI generated): https://boolivar.github.io/jdoc-test/
