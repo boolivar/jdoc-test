@@ -92,3 +92,7 @@ jobs:
       run: |
         zip -r "$RUNNER_TEMP/jdoc-test-skills-$RELEASE_VERSION.zip" .
         gh release upload "$RELEASE_VERSION" "$RUNNER_TEMP/jdoc-test-skills-$RELEASE_VERSION.zip"
+
+    - name: Verify skills
+      run: npx skills add boolivar/jdoc-test
+    
