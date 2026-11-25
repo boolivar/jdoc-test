@@ -11,6 +11,12 @@ jar {
     }
 }
 
+tasks.withType(Jar).configureEach {
+    metaInf {
+        from rootProject.file("LICENSE")
+    }
+}
+
 dependencies {
     api("org.jspecify:jspecify")
 }
