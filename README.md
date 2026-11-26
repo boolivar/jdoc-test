@@ -65,7 +65,8 @@ So why not just write tests in documentation? [BDD](https://en.wikipedia.org/wik
 use test specifications written in (more or less) human language. Such documentation goes in sync with actual code and shows code
 usage example. Java code, tests and documentation become tightly coupled by putting BDD specification in javadoc.
 
-:warning: **Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.**
+> [!WARNING]
+> Library tests itself using itself executing own `jdoc-spock` tests written in javadocs.
 
 ## WHAT???
 
